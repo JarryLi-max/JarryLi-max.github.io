@@ -4,17 +4,29 @@
   <meta charset="utf-8">
   
   
-  <title>JarryLi&#39;s Blog</title>
+  <title>Nginx 反向代理 | JarryLi&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="世间安得双全法,不负如来不负卿">
-<meta property="og:type" content="website">
-<meta property="og:title" content="JarryLi&#39;s Blog">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="Nginx 反向代理(Tomcat 为例) 1netstat -ano # 查看端口信息    配置 tomcat 相关信息： 打开 apache-tomcat-8.5.93\conf\server.xml 修改信息如下（此处的端口在上面扫描出的端口中并没有被占用的）:    启动 tonmcat   结果图：  配置 nginx 解压压缩包 点击下载文件   1nginx # 命令框启动服务 注">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx 反向代理">
+<meta property="og:url" content="http://example.com/2024/05/11/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/index.html">
 <meta property="og:site_name" content="JarryLi&#39;s Blog">
-<meta property="og:description" content="世间安得双全法,不负如来不负卿">
+<meta property="og:description" content="Nginx 反向代理(Tomcat 为例) 1netstat -ano # 查看端口信息    配置 tomcat 相关信息： 打开 apache-tomcat-8.5.93\conf\server.xml 修改信息如下（此处的端口在上面扫描出的端口中并没有被占用的）:    启动 tonmcat   结果图：  配置 nginx 解压压缩包 点击下载文件   1nginx # 命令框启动服务 注">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/1.png">
+<meta property="og:image" content="http://example.com/picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/2.png">
+<meta property="og:image" content="http://example.com/picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/fee438428101f0aaa1d96deed2be7a07.png">
+<meta property="og:image" content="http://example.com/picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/image-20240511221052426.png">
+<meta property="og:image" content="http://example.com/picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/image-20240511221224754.png">
+<meta property="og:image" content="http://example.com/picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/image-20240511221346532.png">
+<meta property="og:image" content="http://example.com/picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/fa4537519a39b94695a45c14accddde7.png">
+<meta property="og:image" content="http://example.com/picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/image-20240511222009951.png">
+<meta property="og:image" content="http://example.com/picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/image-20240511221953362.png">
+<meta property="article:published_time" content="2024-05-11T14:22:24.349Z">
+<meta property="article:modified_time" content="2024-05-11T14:40:20.867Z">
 <meta property="article:author" content="JarryLi">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/1.png">
   
     <link rel="alternate" href="/atom.xml" title="JarryLi's Blog" type="application/atom+xml">
   
@@ -73,9 +85,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-Nginx反向代理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-Nginx反向代理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/05/11/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/" class="article-date">
   <time class="dt-published" datetime="2024-05-11T14:22:24.349Z" itemprop="datePublished">2024-05-11</time>
@@ -88,8 +98,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/05/11/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">Nginx 反向代理</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      Nginx 反向代理
     </h1>
   
 
@@ -149,11 +159,9 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
   
+</article>
 
 
 </section>
