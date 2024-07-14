@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="1. 序列化 序列化 (Serialization)将对象的状态信息转换为可以存储或传输的形式的过程，与之相对应的过程称之为反序列化（Unserialization）。序列化和反序列化主要用于解决在跨平台和跨语言的情况下, 模块之间的交互和调用，但其本质是为了解决数据传输问题。  实现数据序列化:  要有原始数据 复合类型 -&gt; 最常见的情况 基础数据类型   通过某些方式 -&gt; 另外">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JarryLi&#39;s Blog">
+<meta property="og:url" content="http://example.com/2024/07/14/%E5%BA%8F%E5%88%97%E5%8C%96-protobuf/index.html">
+<meta property="og:site_name" content="JarryLi&#39;s Blog">
+<meta property="og:description" content="1. 序列化 序列化 (Serialization)将对象的状态信息转换为可以存储或传输的形式的过程，与之相对应的过程称之为反序列化（Unserialization）。序列化和反序列化主要用于解决在跨平台和跨语言的情况下, 模块之间的交互和调用，但其本质是为了解决数据传输问题。  实现数据序列化:  要有原始数据 复合类型 -&gt; 最常见的情况 基础数据类型   通过某些方式 -&gt; 另外">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="article:published_time" content="2024-07-14T10:19:58.885Z">
+<meta property="article:modified_time" content="2024-07-14T10:22:28.373Z">
+<meta property="article:author" content="JarryLi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/404.jpg">
+
+
+<title >JarryLi's Blog</title>
+
+<!-- Favicon -->
+
+    <link href='/img/favicon.svg?v=2.2.2' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/favicon.svg?v=2.2.2' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"JarryLi","root":"/","typed_text":null,"theme_version":"2.2.2","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","apple_touch_icon":null,"webmanifest":null,"visibilitychange":false,"hidden":"/failure.ico","show_text":"(/≧▽≦/)Hey! Good again!","hide_text":"(●—●)Oh, crash!"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-07-14 18:22:28"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<!-- <a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/favicon.svg">
+    
+    
+        <div class="trm-logo-text">
+            Async<span>Theme</span>
+        </div>
+    
+</a> -->
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    Home
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    Archives
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2024
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        JarryLi
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com/jarryLi-max" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                Residence:
+            </div>
+            <div class="trm-label trm-label-light">
+                China
+            </div>
+        </li>
+        <li>
+            <div class="trm-label">
+                email:
+            </div>
+            <div class="trm-label trm-label-light">
+                2976562002@qq.com
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            07/14
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            18:19
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            JarryLi
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h1 id="1-序列化"><a href="#1-序列化" class="headerlink" title="1. 序列化"></a>1. 序列化</h1><blockquote>
+<p>序列化 (Serialization)将对象的<strong>状态信息转换为</strong>可以<strong>存储或传输的形式的过程</strong>，与之相对应的过程称之为反序列化（Unserialization）。<strong>序列化和反序列化主要用于解决在跨平台和跨语言的情况下, 模块之间的交互和调用，但其本质是为了解决数据传输问题</strong>。 </p>
+<p>实现数据序列化:</p>
+<ul>
+<li>要有原始数据<ul>
+<li>复合类型 -&gt; 最常见的情况</li>
+<li>基础数据类型</li>
+</ul>
+</li>
+<li>通过某些方式 -&gt; 另外一种形式的数据</li>
+<li>得到的数据干啥? -&gt; 目的: 进行分发, 分发到不同的终端&#x2F;平台, 保证不同的平台能正确解析<ul>
+<li>网络传输</li>
+<li>磁盘拷贝</li>
+</ul>
+</li>
+</ul>
+<p><font color="red">序列化目的不是为了加密, 为的是数据的跨平台传输</font></p>
+<p>序列化的整体过程:</p>
+<ul>
+<li>发送端<ul>
+<li>原始数据 -&gt; 序列化 (编码) -&gt; 特殊格式的字符串</li>
+<li>发送这个字符串</li>
+</ul>
+</li>
+<li>接收端:<ul>
+<li>接收数据</li>
+<li>特殊格式的字符串 -&gt; 反序列化 (解码) -&gt; 原始数据</li>
+<li>对原始数据进行处理</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="1-1-网络通信中的问题分析"><a href="#1-1-网络通信中的问题分析" class="headerlink" title="1.1 网络通信中的问题分析"></a>1.1 网络通信中的问题分析</h2><p>发送过程中遇到的一些问题?</p>
+<ul>
+<li><p>平台不同</p>
+<ul>
+<li>32bit &#x2F; 64bit <ul>
+<li>long</li>
+</ul>
+</li>
+<li>平台不同, 某些数据类型占用的内存大小不同</li>
+</ul>
+</li>
+<li><p>如果不是字符串, 需要进行字节序转换</p>
+<ul>
+<li><p>字符串没有字节序问题, 字符在内存中只占一个字节</p>
+</li>
+<li><p>如果发送的是结构体</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> number;</span><br><span class="line">    <span class="type">char</span> buf[<span class="number">12</span>];</span><br><span class="line">    <span class="type">long</span> sex;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Test t;</span><br><span class="line">send()/write()</span><br><span class="line">send(fd, (<span class="type">void</span>*)t, <span class="keyword">sizeof</span>(t), <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>大小端问题</p>
+</li>
+</ul>
+</li>
+<li><p>语言不同</p>
+<ul>
+<li>语言不同数据类型占用的内存有可能不同<ul>
+<li>c -&gt; char -&gt; 1字节</li>
+<li>java -&gt; char -&gt; 2字节</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>字节对齐问题</p>
+</li>
+</ul>
+<h2 id="1-2-常用的序列化方式"><a href="#1-2-常用的序列化方式" class="headerlink" title="1.2 常用的序列化方式"></a>1.2 常用的序列化方式</h2><ol>
+<li><p>XML（ Extensible Markup Language ）类似于html</p>
+<blockquote>
+<p>XML是一种常用的序列化和反序列化协议，具有跨机器，跨语言等优点。XML历史悠久，其1.0版本早在1998年就形成标准，并被广泛使用至今。</p>
+<p>XML的最初产生目标是对互联网文档进行标记，所以它的设计理念中就包含了对于人和机器都具备可读性。 但是，当这种标记文档的设计被用来序列化对象的时候，就显得冗长而复杂。</p>
+<p>XML基本格式:</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Library</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Type</span> <span class="attr">name</span>=<span class="string">&quot;小说&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Book</span> <span class="attr">author</span>=<span class="string">&quot;J.K.ROWLING&quot;</span> <span class="attr">price</span>=<span class="string">&quot;12$&quot;</span>&gt;</span>哈利波特1<span class="tag">&lt;/<span class="name">Book</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Book</span> <span class="attr">author</span>=<span class="string">&quot;J.K.ROWLING&quot;</span> <span class="attr">price</span>=<span class="string">&quot;12$&quot;</span>&gt;</span>哈利波特2<span class="tag">&lt;/<span class="name">Book</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Book</span> <span class="attr">author</span>=<span class="string">&quot;J.K.ROWLING&quot;</span> <span class="attr">price</span>=<span class="string">&quot;12$&quot;</span>&gt;</span>哈利波特3<span class="tag">&lt;/<span class="name">Book</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Book</span> <span class="attr">author</span>=<span class="string">&quot;J.K.ROWLING&quot;</span> <span class="attr">price</span>=<span class="string">&quot;12$&quot;</span>&gt;</span>哈利波特4<span class="tag">&lt;/<span class="name">Book</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Type</span> <span class="attr">name</span>=<span class="string">&quot;历史&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Book</span> <span class="attr">author</span>=<span class="string">&quot;司马迁&quot;</span> <span class="attr">price</span>=<span class="string">&quot;20$&quot;</span>&gt;</span>史记<span class="tag">&lt;/<span class="name">Book</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Type</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Library</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Json（ JavaScript Object Notation ）</p>
+<blockquote>
+<p>JSON起源于弱类型语言Javascript，它的产生来自于一种称之为”关联数组（Associative array）”的概念，其本质是就是采用”键值对”的方式来描述对象。</p>
+<p>JSON格式保持了XML的人眼可读的优点，非常符合工程师对对象的理解。</p>
+<p>相对于XML而言，序列化后的数据更加简洁（XML所产生序列化之后文件的大小接近JSON的两倍），而且其协议比较简单，解析速度比较快。</p>
+<p>JSON格式具备Javascript的先天性支持，所以被广泛应用于Web browser的应用常景中，是Ajax的事实标准协议。</p>
+<p>更多资料可查看：<a target="_blank" rel="noopener" href="http://json.org/">http://json.org/</a></p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// json是一种数据格式, 不是语言, 和平台语言无关</span></span><br><span class="line"><span class="comment">// json数组</span></span><br><span class="line"><span class="punctuation">[</span>整形<span class="punctuation">,</span> 浮点型<span class="punctuation">,</span> 布尔类型<span class="punctuation">,</span> 字符串<span class="punctuation">,</span> json数组<span class="punctuation">,</span> json对象<span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">12</span><span class="punctuation">,</span> <span class="number">12.44</span><span class="punctuation">,</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="string">&quot;hello&quot;</span><span class="punctuation">,</span> <span class="punctuation">[</span><span class="number">1</span><span class="punctuation">,</span><span class="number">2</span><span class="punctuation">,</span><span class="number">3</span><span class="punctuation">]</span><span class="punctuation">]</span></span><br><span class="line"><span class="comment">// json对象</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span><span class="string">&quot;value&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line">json对象中是n个键值对</span><br><span class="line">key<span class="punctuation">:</span> 必须是字符串</span><br><span class="line">value<span class="punctuation">:</span> </span><br><span class="line">	整形</span><br><span class="line">	浮点型</span><br><span class="line">	布尔</span><br><span class="line">	字符串</span><br><span class="line">	json数组</span><br><span class="line">	json对象</span><br><span class="line"></span><br><span class="line">注意事项<span class="punctuation">:</span></span><br><span class="line">	在一个文件中只能存储一个大的数组或者对象<span class="punctuation">,</span> 但是可以嵌套使用</span><br><span class="line">	原素和原始之间使用逗号间隔(一个键值对视为一个元素)</span><br><span class="line">	最后一个元素后边没有逗号</span><br><span class="line"></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;lilei&quot;</span><span class="punctuation">:</span><span class="string">&quot;112334&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;tom&quot;</span><span class="punctuation">:</span><span class="string">&quot;helolll&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;lucy&quot;</span><span class="punctuation">:</span><span class="string">&quot;xxxxyyyy&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="punctuation">[</span><span class="string">&quot;张三&quot;</span><span class="punctuation">,</span> <span class="string">&quot;历史&quot;</span><span class="punctuation">]</span></span><br><span class="line"></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;张三&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;father&quot;</span><span class="punctuation">:</span><span class="string">&quot;张三丰&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;mother&quot;</span><span class="punctuation">:</span><span class="string">&quot;xxxx&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;sister&quot;</span><span class="string">&quot;xxx&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;favorite&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span><span class="string">&quot;足球&quot;</span><span class="punctuation">,</span> <span class="string">&quot;乒乓&quot;</span><span class="punctuation">,</span> <span class="string">&quot;游泳&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">	<span class="attr">&quot;李四&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Protocol Buffer</p>
+</li>
+<li><p>ASN.1 抽象语法标记(Abstract Syntax Notation One) </p>
+</li>
+<li><p>boost 序列化的类</p>
+</li>
+</ol>
+<h1 id="2-protobuf"><a href="#2-protobuf" class="headerlink" title="2. protobuf"></a>2. protobuf</h1><blockquote>
+<p>Protocol Buffer( 简称 Protobuf) 是Google公司内部的混合语言数据标准，它是一种轻便高效的结构化数据存储格式，可以用于结构化数据串行化，很适合做数据存储或RPC 数据交换格式。</p>
+<p>Protobuf是一个纯粹的展示层协议，可以和各种传输层协议一起使用，Protobuf的文档也非常完善。google 提供了多种语言的实现：java、c#、c++、go 和 python，每一种实现都包含了相应语言的编译器以及库文件。</p>
+<p>Protobuf支持的数据类型相对较少，不支持常量类型。由于其设计的理念是纯粹的展现层协议，目前并没有一个专门支持Protobuf的RPC框架。</p>
+<p>更多资料可查看：<a target="_blank" rel="noopener" href="https://developers.google.com/protocol-buffers/">https://developers.google.com/protocol-buffers/</a></p>
+</blockquote>
+<h2 id="2-1-操作流程"><a href="#2-1-操作流程" class="headerlink" title="2.1 操作流程"></a>2.1 操作流程</h2><blockquote>
+<ul>
+<li>准备数据<ul>
+<li>复合类型: 结构体&#x2F; 类</li>
+<li>基础类型</li>
+</ul>
+</li>
+<li>创建一个新文件 <code>xxx.proto</code></li>
+<li>将我们要序列化的数据 -&gt; 写入到proto文件<ul>
+<li>有语法格式</li>
+</ul>
+</li>
+<li>通过一个命令 <code>protoc</code>将<code>xxx.proto</code>文件生成一个c++的类 <ul>
+<li>对应一个头文件&#x2F; 源文件</li>
+<li>操作命令-&gt; 在window终端中: <code>protoc xxx.proto --cpp_out=./</code></li>
+</ul>
+</li>
+<li>直接使用这个类<ul>
+<li>里边有对数据操作的api<ul>
+<li>读数据 api<ul>
+<li>方法名字 <code>变量名()</code></li>
+</ul>
+</li>
+<li>写数据 api<ul>
+<li>方法名字: <code>set_变量名(arg)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 要序列化的数据</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Persion</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> id;</span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line">    <span class="built_in">string</span> sex;	<span class="comment">// man woman</span></span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> id;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>在.proto文件中定义消息格式</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// protobuf的版本</span></span><br><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;	<span class="comment">// proto2</span></span><br><span class="line"><span class="comment">// 组织Persion结构体</span></span><br><span class="line"><span class="comment">// 语法格式</span></span><br><span class="line">message 关键字(相当于被创建出的类的名字)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">// 成员变量</span></span><br><span class="line">	数据类型 变量名 = 变量的编号;	<span class="comment">// 编号从1开始, 不能重复</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// .proto文件 生成 c++ 类的命令</span></span><br><span class="line">protoc proto文件名 --cpp_out=生成目录</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">.proto类型</th>
+<th align="center">**C++**类型</th>
+<th><strong>备注</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">double</td>
+<td align="center">double</td>
+<td>64位浮点数</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">float</td>
+<td>32位浮点数</td>
+</tr>
+<tr>
+<td align="center">int32</td>
+<td align="center">int32</td>
+<td>32位整数</td>
+</tr>
+<tr>
+<td align="center">int64</td>
+<td align="center">int64</td>
+<td>64位整数</td>
+</tr>
+<tr>
+<td align="center">uint32</td>
+<td align="center">uint32</td>
+<td>32位无符号整数</td>
+</tr>
+<tr>
+<td align="center">uint64</td>
+<td align="center">uint64</td>
+<td>64位无符号整数</td>
+</tr>
+<tr>
+<td align="center">sint32</td>
+<td align="center">sint32</td>
+<td>32位整数，处理负数效率比int32更高</td>
+</tr>
+<tr>
+<td align="center">sint64</td>
+<td align="center">sint64</td>
+<td>64位整数，处理负数效率比int64更高</td>
+</tr>
+<tr>
+<td align="center">fixed32</td>
+<td align="center">uint32</td>
+<td>总是4个字节。如果数值总是比总是比228大的话，这个类型会比uint32高效。</td>
+</tr>
+<tr>
+<td align="center">fixed64</td>
+<td align="center">uint64</td>
+<td>总是8个字节。如果数值总是比总是比256大的话，这个类型会比uint64高效。</td>
+</tr>
+<tr>
+<td align="center">sfixed32</td>
+<td align="center">int32</td>
+<td>总是4个字节</td>
+</tr>
+<tr>
+<td align="center">sfixed64</td>
+<td align="center">int64</td>
+<td>总是8个字节</td>
+</tr>
+<tr>
+<td align="center">bool</td>
+<td align="center">bool</td>
+<td>布尔类型</td>
+</tr>
+<tr>
+<td align="center">string</td>
+<td align="center">string</td>
+<td>一个字符串必须是UTF-8编码或者7-bit ASCII编码的文本</td>
+</tr>
+<tr>
+<td align="center">bytes</td>
+<td align="center">string</td>
+<td>处理多字节的语言字符、如中文</td>
+</tr>
+<tr>
+<td align="center">enum</td>
+<td align="center">enum</td>
+<td>枚举</td>
+</tr>
+<tr>
+<td align="center">message</td>
+<td align="center">object of class</td>
+<td>自定义的消息类型</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>repeated限定修饰符</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;</span><br><span class="line"><span class="keyword">message </span><span class="title class_">Persion</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int32</span> id = <span class="number">1</span>;   <span class="comment">// 编号从1开始</span></span><br><span class="line">    <span class="type">bytes</span> name = <span class="number">2</span>;</span><br><span class="line">    <span class="type">string</span> sex = <span class="number">3</span>;</span><br><span class="line">    <span class="type">int32</span> age = <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 要求name有多个 -&gt; 数组</span></span><br><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;</span><br><span class="line"><span class="keyword">message </span><span class="title class_">Persion</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int32</span> id = <span class="number">1</span>;   <span class="comment">// 编号从1开始</span></span><br><span class="line">    <span class="comment">// vector&lt;string&gt; name;</span></span><br><span class="line">    <span class="keyword">repeated</span> <span class="type">bytes</span> name = <span class="number">2</span>;	<span class="comment">// name可以在程序中创建多个, 在程序中作为动态数组来使用</span></span><br><span class="line">    <span class="type">string</span> sex = <span class="number">3</span>;</span><br><span class="line">    <span class="type">int32</span> age = <span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>枚举</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;</span><br><span class="line"><span class="comment">// 定义枚举</span></span><br><span class="line"><span class="keyword">enum </span><span class="title class_">Color</span></span><br><span class="line">&#123;</span><br><span class="line">	Red = <span class="number">0</span>;	<span class="comment">// protbuf中第一个枚举值必须为0</span></span><br><span class="line">	Green = <span class="number">6</span>;</span><br><span class="line">	Blue = <span class="number">9</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">message </span><span class="title class_">Persion</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int32</span> id = <span class="number">1</span>;   <span class="comment">// 编号从1开始</span></span><br><span class="line">    <span class="type">bytes</span> name = <span class="number">2</span>;</span><br><span class="line">    <span class="type">string</span> sex = <span class="number">3</span>;</span><br><span class="line">    <span class="type">int32</span> age = <span class="number">4</span>;</span><br><span class="line">    Color color = <span class="number">5</span>;	<span class="comment">// 枚举变量</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>proto文件的导入</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Persion.proto</span></span><br><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;</span><br><span class="line"><span class="comment">// 导入另外一个proto文件</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;Info.proto&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">enum </span><span class="title class_">Color</span></span><br><span class="line">&#123;</span><br><span class="line">	Red = <span class="number">0</span>;	<span class="comment">// protbuf中第一个枚举值必须为0</span></span><br><span class="line">	Green = <span class="number">6</span>;</span><br><span class="line">	Blue = <span class="number">9</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">message </span><span class="title class_">Persion</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int32</span> id = <span class="number">1</span>;   <span class="comment">// 编号从1开始</span></span><br><span class="line">    <span class="keyword">repeated</span> <span class="type">bytes</span> name = <span class="number">2</span>;</span><br><span class="line">    <span class="type">string</span> sex = <span class="number">3</span>;</span><br><span class="line">    <span class="type">int32</span> age = <span class="number">4</span>;</span><br><span class="line">    Color color = <span class="number">5</span>;</span><br><span class="line">    Info info = <span class="number">6</span>;	<span class="comment">// Info对象, 导入的proto文件中的类</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Info.proto</span></span><br><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">message </span><span class="title class_">Info</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">bytes</span> address = <span class="number">1</span>;  <span class="comment">// 地址</span></span><br><span class="line">    <span class="type">int32</span> number = <span class="number">2</span>;   <span class="comment">// 门牌号</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>包 -&gt; 命名空间</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Persion.proto</span></span><br><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;</span><br><span class="line"><span class="comment">// 导入另外一个proto文件</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;Info.proto&quot;</span>;</span><br><span class="line"><span class="comment">// 添加命名空间</span></span><br><span class="line"><span class="keyword">package</span> itcast;	<span class="comment">// Persion类属于itcast这个命名空间</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum </span><span class="title class_">Color</span></span><br><span class="line">&#123;</span><br><span class="line">	Red = <span class="number">0</span>;	<span class="comment">// protbuf中第一个枚举值必须为0</span></span><br><span class="line">	Green = <span class="number">6</span>;</span><br><span class="line">	Blue = <span class="number">9</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">message </span><span class="title class_">Persion</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int32</span> id = <span class="number">1</span>;   <span class="comment">// 编号从1开始</span></span><br><span class="line">    <span class="keyword">repeated</span> <span class="type">bytes</span> name = <span class="number">2</span>;</span><br><span class="line">    <span class="type">string</span> sex = <span class="number">3</span>;</span><br><span class="line">    <span class="type">int32</span> age = <span class="number">4</span>;</span><br><span class="line">    Color color = <span class="number">5</span>;</span><br><span class="line">    <span class="comment">// 命名空间.类名</span></span><br><span class="line">    itheima.Info info = <span class="number">6</span>;	<span class="comment">// Info对象, 导入的proto文件中的类</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Info.proto</span></span><br><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;</span><br><span class="line"><span class="comment">// Persion类属于itheima这个命名空间</span></span><br><span class="line"><span class="keyword">package</span> itheima;</span><br><span class="line"></span><br><span class="line"><span class="keyword">message </span><span class="title class_">Persion</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">bytes</span> address = <span class="number">1</span>;  <span class="comment">// 地址</span></span><br><span class="line">    <span class="type">int32</span> number = <span class="number">2</span>;   <span class="comment">// 门牌号</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>使用protobuf编译器生成C++类</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">protobuf编译器, 编译源码得到的 protoc.exe</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">语法</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">--cpp_out 生成的c++类的位置</span></span><br><span class="line">protoc.exe xxx.proto --cpp_out=目录</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用C++ API来读写消息</p>
+<ul>
+<li>读: <code>变量名()</code></li>
+<li>写: <code>set_变量名(arg1, arg2, ...)</code></li>
+</ul>
+</li>
+<li><p>vs配置 -&gt; 添加宏</p>
+<p><img src="/../picture/%E5%BA%8F%E5%88%97%E5%8C%96-protobuf/1566718547217-1720952360661-1.png" alt="1566718547217"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+</ul>
+<h1 id="3-业务数据分析"><a href="#3-业务数据分析" class="headerlink" title="3. 业务数据分析"></a>3. 业务数据分析</h1><h2 id="3-1-客户端"><a href="#3-1-客户端" class="headerlink" title="3.1 客户端"></a>3.1 客户端</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 准备要发送的数据</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">RequestMsg</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//1 密钥协商 //2 密钥校验; // 3 密钥注销</span></span><br><span class="line">    <span class="type">int</span> cmdType; <span class="comment">// 报文类型</span></span><br><span class="line">    string clientId; <span class="comment">// 客户端编号</span></span><br><span class="line">    string serverId; <span class="comment">// 服务器端编号</span></span><br><span class="line">    string sign;</span><br><span class="line">    string data;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">message </span><span class="title class_">RequestMsg</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int32</span> cmdType;</span><br><span class="line">	<span class="type">bytes</span> clientId;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-2-服务器端"><a href="#3-2-服务器端" class="headerlink" title="3.2 服务器端"></a>3.2 服务器端</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">RespondMsg</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">bool</span> rv; <span class="comment">// 返回值</span></span><br><span class="line">    <span class="type">int</span> seckeyid; 		<span class="comment">// 对称密钥编号 keysn</span></span><br><span class="line">    <span class="built_in">string</span> clientId; 	<span class="comment">// 客户端编号</span></span><br><span class="line">    <span class="built_in">string</span> serverId; 	<span class="comment">// 服务器编号</span></span><br><span class="line">    <span class="built_in">string</span> data; 	<span class="comment">// 服务器端随机数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/%E5%BA%8F%E5%88%97%E5%8C%96-protobuf/protobuf.svg"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+
+</article>
+    
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            Other Articles
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2024/07/14/%E7%94%9F%E6%88%90%E5%99%A8%E4%BD%BF%E7%94%A8/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" #.">
+                    Unclassified
+                </a>
+            </div>
+            <h5>
+                <a href="/2024/07/14/%E7%94%9F%E6%88%90%E5%99%A8%E4%BD%BF%E7%94%A8/" class="trm-anima-link">
+                    生成器使用
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/07/14</li>
+                <li>15:04</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                Powered by <a href="https://github.com/jarryLi-max" target="_blank" rel="noopener">JarryLi</a> 
+                <!-- v7.3.0 -->
+            </span>
+            <!-- <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                Theme - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.2
+            </span> -->
+        </div>
+      
+
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+            
+<div class="trm-fixed-container">
+    
+    
+        <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="Back To Top">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.2"></script>
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>
