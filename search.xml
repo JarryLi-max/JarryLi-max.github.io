@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Nginx 反向代理</title>
+    <url>/2024/07/14/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</url>
+    <content><![CDATA[<h2 id="Nginx-反向代理-Tomcat-为例"><a href="#Nginx-反向代理-Tomcat-为例" class="headerlink" title="Nginx 反向代理(Tomcat 为例)"></a>Nginx 反向代理(Tomcat 为例)</h2><p><img src="/../picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/1.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">netstat -ano # 查看端口信息</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="配置-tomcat-相关信息："><a href="#配置-tomcat-相关信息：" class="headerlink" title="配置 tomcat 相关信息："></a>配置 tomcat 相关信息：</h3><ul>
+<li><strong>打开 apache-tomcat-8.5.93\conf\server.xml 修改信息如下（此处的端口在上面扫描出的端口中并没有被占用的）:</strong></li>
+</ul>
+<p><img src="/../picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/2.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<ul>
+<li>启动 tonmcat</li>
+</ul>
+<p><img src="/../picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/fee438428101f0aaa1d96deed2be7a07.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>结果图：</p>
+<p><img src="/../picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/image-20240511221052426.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="配置-nginx"><a href="#配置-nginx" class="headerlink" title="配置 nginx"></a>配置 nginx</h3><ul>
+<li>解压压缩包 <a href="https://nginx.org/download/nginx-1.25.5.zip">点击下载文件</a></li>
+</ul>
+<p><img src="/../picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/image-20240511221224754.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nginx # 命令框启动服务 注意不要开启多个服务</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/image-20240511221346532.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<ul>
+<li><p>修改 <strong>nginx-1.25.5\conf\nginx.conf</strong> 配置文件</p>
+<p><img src="/../picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/fa4537519a39b94695a45c14accddde7.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">location /demo &#123;</span><br><span class="line">	proxy_pass http://localhost:8081;</span><br><span class="line">	rewrite ^/demo(.*)$ $1 break;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># ^/demo(.*)$ 是一个正则表达式，它匹配以 /demo 开头的 URL，并捕获后续的任意字符（(.*)）。</span><br><span class="line"># $1 表示捕获的内容，它将被替换成重写后的 URL 的一部分。</span><br><span class="line"># break 指令告诉 Nginx 在执行完当前规则后停止匹配其他规则。</span><br><span class="line"></span><br><span class="line"># 如果不加这一行，访问的就是http://localhost/demo/index.html (这里需要注意)</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><p>重新加载nginx</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><img src="/../picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/image-20240511222009951.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<ul>
+<li><p>访问</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://localhost/demo/</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><img src="/../picture/Nginx%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/image-20240511221953362.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="Linux-配置（续）"><a href="#Linux-配置（续）" class="headerlink" title="Linux 配置（续）"></a>Linux 配置（续）</h2>]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>生成器使用</title>
+    <url>/2024/07/14/%E7%94%9F%E6%88%90%E5%99%A8%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h3 id="正确配置启动项目-显示验证码即为正常"><a href="#正确配置启动项目-显示验证码即为正常" class="headerlink" title="正确配置启动项目(显示验证码即为正常)"></a>正确配置启动项目(显示验证码即为正常)</h3><p><img src="/../picture/%E7%94%9F%E6%88%90%E5%99%A8%E4%BD%BF%E7%94%A8/image-20240613105922984.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="创建数据表并插入数据"><a href="#创建数据表并插入数据" class="headerlink" title="创建数据表并插入数据"></a>创建数据表并插入数据</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">USE renren_security;</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> tb_goods (</span><br><span class="line">  id <span class="type">bigint</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;商品ID&#x27;</span>,</span><br><span class="line">  name <span class="type">varchar</span>(<span class="number">50</span>) COMMENT <span class="string">&#x27;商品名&#x27;</span>,</span><br><span class="line">  intro <span class="type">varchar</span>(<span class="number">500</span>) COMMENT <span class="string">&#x27;介绍&#x27;</span>,</span><br><span class="line">  price <span class="type">int</span> COMMENT <span class="string">&#x27;价格&#x27;</span>,</span><br><span class="line">  num <span class="type">int</span> COMMENT <span class="string">&#x27;数量&#x27;</span>,</span><br><span class="line">  creator <span class="type">bigint</span> COMMENT <span class="string">&#x27;创建者&#x27;</span>,</span><br><span class="line">  create_date datetime COMMENT <span class="string">&#x27;创建时间&#x27;</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (id)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8 COMMENT<span class="operator">=</span><span class="string">&#x27;商品管理&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="运行-renren-generator-下的-GeneratorApplication，浏览器访问"><a href="#运行-renren-generator-下的-GeneratorApplication，浏览器访问" class="headerlink" title="运行  renren-generator 下的 GeneratorApplication，浏览器访问"></a>运行  renren-generator 下的 GeneratorApplication，浏览器访问</h3><p><a href="http://localhost:8082/renren-generator/#generator.html">http://localhost:8082/renren-generator/#generator.html</a></p>
+<p><img src="/../picture/%E7%94%9F%E6%88%90%E5%99%A8%E4%BD%BF%E7%94%A8/image-20240613110145816.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="下载完代码后："><a href="#下载完代码后：" class="headerlink" title="下载完代码后："></a>下载完代码后：</h3><p><img src="/../picture/%E7%94%9F%E6%88%90%E5%99%A8%E4%BD%BF%E7%94%A8/image-20240613110324170.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="复制下载代码中的-main-文件夹："><a href="#复制下载代码中的-main-文件夹：" class="headerlink" title="复制下载代码中的 main 文件夹："></a>复制下载代码中的 main 文件夹：</h3><p><img src="/../picture/%E7%94%9F%E6%88%90%E5%99%A8%E4%BD%BF%E7%94%A8/image-20240613110500553.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="运行-AdminApplication"><a href="#运行-AdminApplication" class="headerlink" title="运行 AdminApplication"></a>运行 AdminApplication</h3><h3 id="复制-vue-文件夹中的-demo-文件夹到-RENREN-UI文件夹下的-views"><a href="#复制-vue-文件夹中的-demo-文件夹到-RENREN-UI文件夹下的-views" class="headerlink" title="复制  vue 文件夹中的 demo 文件夹到 RENREN-UI文件夹下的 views"></a>复制  vue 文件夹中的 demo 文件夹到 RENREN-UI文件夹下的 views</h3><p><img src="/../picture/%E7%94%9F%E6%88%90%E5%99%A8%E4%BD%BF%E7%94%A8/image-20240613110643392.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="修改路由文件"><a href="#修改路由文件" class="headerlink" title="修改路由文件"></a>修改路由文件</h3><p><img src="/../picture/%E7%94%9F%E6%88%90%E5%99%A8%E4%BD%BF%E7%94%A8/image-20240613110711758.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Layout</span> <span class="keyword">from</span> <span class="string">&quot;@/layout/layout.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Error</span> <span class="keyword">from</span> <span class="string">&quot;@/views/error.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">RouteRecordRaw</span> &#125; <span class="keyword">from</span> <span class="string">&quot;vue-router&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Login</span> <span class="keyword">from</span> <span class="string">&quot;@/views/login.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Iframe</span> <span class="keyword">from</span> <span class="string">&quot;@/views/iframe.vue&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Goods</span> <span class="keyword">from</span> <span class="string">&quot;@/views/demo/goods.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">GoodsAdd</span> <span class="keyword">from</span> <span class="string">&quot;@/views/demo/goods-add-or-update.vue&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 框架基础路由</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> <span class="attr">routes</span>: <span class="title class_">Array</span>&lt;<span class="title class_">RouteRecordRaw</span>&gt; = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;/&quot;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">Layout</span>,</span><br><span class="line">    <span class="attr">redirect</span>: <span class="string">&quot;/home&quot;</span>,</span><br><span class="line">    <span class="attr">meta</span>: &#123; <span class="attr">title</span>: <span class="string">&quot;工作台&quot;</span>, <span class="attr">icon</span>: <span class="string">&quot;icon-desktop&quot;</span> &#125;,</span><br><span class="line">    <span class="attr">children</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">path</span>: <span class="string">&quot;/home&quot;</span>,</span><br><span class="line">        <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&quot;@/views/home.vue&quot;</span>),</span><br><span class="line">        <span class="attr">meta</span>: &#123; <span class="attr">title</span>: <span class="string">&quot;主页&quot;</span>, <span class="attr">icon</span>: <span class="string">&quot;icon-home&quot;</span> &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">path</span>: <span class="string">&quot;/goods&quot;</span>,</span><br><span class="line">        <span class="attr">component</span>: <span class="title class_">Goods</span>,</span><br><span class="line">        <span class="attr">meta</span>: &#123; <span class="attr">title</span>: <span class="string">&quot;商品管理&quot;</span>, <span class="attr">icon</span>: <span class="string">&quot;icon-goods&quot;</span> &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">path</span>: <span class="string">&quot;/goods/add&quot;</span>,</span><br><span class="line">        <span class="attr">component</span>: <span class="title class_">GoodsAdd</span>,</span><br><span class="line">        <span class="attr">meta</span>: &#123; <span class="attr">title</span>: <span class="string">&quot;添加或更新商品&quot;</span>, <span class="attr">icon</span>: <span class="string">&quot;icon-goods-add&quot;</span> &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;/login&quot;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">Login</span>,</span><br><span class="line">    <span class="attr">meta</span>: &#123; <span class="attr">title</span>: <span class="string">&quot;登录&quot;</span>, <span class="attr">isNavigationMenu</span>: <span class="literal">false</span> &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;/user/password&quot;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&quot;@/views/sys/user-update-password.vue&quot;</span>),</span><br><span class="line">    <span class="attr">meta</span>: &#123; <span class="attr">title</span>: <span class="string">&quot;修改密码&quot;</span>, <span class="attr">requiresAuth</span>: <span class="literal">true</span>, <span class="attr">isNavigationMenu</span>: <span class="literal">false</span> &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;/iframe/:id?&quot;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">Iframe</span>,</span><br><span class="line">    <span class="attr">meta</span>: &#123; <span class="attr">title</span>: <span class="string">&quot;iframe&quot;</span>, <span class="attr">isNavigationMenu</span>: <span class="literal">false</span> &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;/error&quot;</span>,</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&quot;error&quot;</span>,</span><br><span class="line">    <span class="attr">component</span>: <span class="title class_">Error</span>,</span><br><span class="line">    <span class="attr">meta</span>: &#123; <span class="attr">title</span>: <span class="string">&quot;错误页面&quot;</span>, <span class="attr">isNavigationMenu</span>: <span class="literal">false</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="attr">errorRoute</span>: <span class="title class_">Array</span>&lt;<span class="title class_">RouteRecordRaw</span>&gt; = [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">path</span>: <span class="string">&quot;/:path(.*)*&quot;</span>,</span><br><span class="line">    <span class="attr">redirect</span>: &#123; <span class="attr">path</span>: <span class="string">&quot;/error&quot;</span>, <span class="attr">query</span>: &#123; <span class="attr">to</span>: <span class="number">404</span> &#125;, <span class="attr">replace</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">    <span class="attr">meta</span>: &#123; <span class="attr">isNavigationMenu</span>: <span class="literal">false</span> &#125;</span><br><span class="line">  &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> routes;</span><br></pre></td></tr></table></figure>
+
+<h3 id="浏览器登录-点击商品管理"><a href="#浏览器登录-点击商品管理" class="headerlink" title="浏览器登录  点击商品管理"></a>浏览器登录  点击商品管理</h3><p><img src="/../picture/%E7%94%9F%E6%88%90%E5%99%A8%E4%BD%BF%E7%94%A8/image-20240613110831529.png"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>序列化-protobuf</title>
+    <url>/2024/07/14/%E5%BA%8F%E5%88%97%E5%8C%96-protobuf/</url>
+    <content><![CDATA[<h1 id="1-序列化"><a href="#1-序列化" class="headerlink" title="1. 序列化"></a>1. 序列化</h1><blockquote>
+<p>序列化 (Serialization)将对象的<strong>状态信息转换为</strong>可以<strong>存储或传输的形式的过程</strong>，与之相对应的过程称之为反序列化（Unserialization）。<strong>序列化和反序列化主要用于解决在跨平台和跨语言的情况下, 模块之间的交互和调用，但其本质是为了解决数据传输问题</strong>。 </p>
+<p>实现数据序列化:</p>
+<ul>
+<li>要有原始数据<ul>
+<li>复合类型 -&gt; 最常见的情况</li>
+<li>基础数据类型</li>
+</ul>
+</li>
+<li>通过某些方式 -&gt; 另外一种形式的数据</li>
+<li>得到的数据干啥? -&gt; 目的: 进行分发, 分发到不同的终端&#x2F;平台, 保证不同的平台能正确解析<ul>
+<li>网络传输</li>
+<li>磁盘拷贝</li>
+</ul>
+</li>
+</ul>
+<p><font color="red">序列化目的不是为了加密, 为的是数据的跨平台传输</font></p>
+<p>序列化的整体过程:</p>
+<ul>
+<li>发送端<ul>
+<li>原始数据 -&gt; 序列化 (编码) -&gt; 特殊格式的字符串</li>
+<li>发送这个字符串</li>
+</ul>
+</li>
+<li>接收端:<ul>
+<li>接收数据</li>
+<li>特殊格式的字符串 -&gt; 反序列化 (解码) -&gt; 原始数据</li>
+<li>对原始数据进行处理</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="1-1-网络通信中的问题分析"><a href="#1-1-网络通信中的问题分析" class="headerlink" title="1.1 网络通信中的问题分析"></a>1.1 网络通信中的问题分析</h2><p>发送过程中遇到的一些问题?</p>
+<ul>
+<li><p>平台不同</p>
+<ul>
+<li>32bit &#x2F; 64bit <ul>
+<li>long</li>
+</ul>
+</li>
+<li>平台不同, 某些数据类型占用的内存大小不同</li>
+</ul>
+</li>
+<li><p>如果不是字符串, 需要进行字节序转换</p>
+<ul>
+<li><p>字符串没有字节序问题, 字符在内存中只占一个字节</p>
+</li>
+<li><p>如果发送的是结构体</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Test</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> number;</span><br><span class="line">    <span class="type">char</span> buf[<span class="number">12</span>];</span><br><span class="line">    <span class="type">long</span> sex;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Test t;</span><br><span class="line">send()/write()</span><br><span class="line">send(fd, (<span class="type">void</span>*)t, <span class="keyword">sizeof</span>(t), <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>大小端问题</p>
+</li>
+</ul>
+</li>
+<li><p>语言不同</p>
+<ul>
+<li>语言不同数据类型占用的内存有可能不同<ul>
+<li>c -&gt; char -&gt; 1字节</li>
+<li>java -&gt; char -&gt; 2字节</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>字节对齐问题</p>
+</li>
+</ul>
+<h2 id="1-2-常用的序列化方式"><a href="#1-2-常用的序列化方式" class="headerlink" title="1.2 常用的序列化方式"></a>1.2 常用的序列化方式</h2><ol>
+<li><p>XML（ Extensible Markup Language ）类似于html</p>
+<blockquote>
+<p>XML是一种常用的序列化和反序列化协议，具有跨机器，跨语言等优点。XML历史悠久，其1.0版本早在1998年就形成标准，并被广泛使用至今。</p>
+<p>XML的最初产生目标是对互联网文档进行标记，所以它的设计理念中就包含了对于人和机器都具备可读性。 但是，当这种标记文档的设计被用来序列化对象的时候，就显得冗长而复杂。</p>
+<p>XML基本格式:</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Library</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Type</span> <span class="attr">name</span>=<span class="string">&quot;小说&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Book</span> <span class="attr">author</span>=<span class="string">&quot;J.K.ROWLING&quot;</span> <span class="attr">price</span>=<span class="string">&quot;12$&quot;</span>&gt;</span>哈利波特1<span class="tag">&lt;/<span class="name">Book</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Book</span> <span class="attr">author</span>=<span class="string">&quot;J.K.ROWLING&quot;</span> <span class="attr">price</span>=<span class="string">&quot;12$&quot;</span>&gt;</span>哈利波特2<span class="tag">&lt;/<span class="name">Book</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Book</span> <span class="attr">author</span>=<span class="string">&quot;J.K.ROWLING&quot;</span> <span class="attr">price</span>=<span class="string">&quot;12$&quot;</span>&gt;</span>哈利波特3<span class="tag">&lt;/<span class="name">Book</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Book</span> <span class="attr">author</span>=<span class="string">&quot;J.K.ROWLING&quot;</span> <span class="attr">price</span>=<span class="string">&quot;12$&quot;</span>&gt;</span>哈利波特4<span class="tag">&lt;/<span class="name">Book</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Type</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Type</span> <span class="attr">name</span>=<span class="string">&quot;历史&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Book</span> <span class="attr">author</span>=<span class="string">&quot;司马迁&quot;</span> <span class="attr">price</span>=<span class="string">&quot;20$&quot;</span>&gt;</span>史记<span class="tag">&lt;/<span class="name">Book</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Type</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Library</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Json（ JavaScript Object Notation ）</p>
+<blockquote>
+<p>JSON起源于弱类型语言Javascript，它的产生来自于一种称之为”关联数组（Associative array）”的概念，其本质是就是采用”键值对”的方式来描述对象。</p>
+<p>JSON格式保持了XML的人眼可读的优点，非常符合工程师对对象的理解。</p>
+<p>相对于XML而言，序列化后的数据更加简洁（XML所产生序列化之后文件的大小接近JSON的两倍），而且其协议比较简单，解析速度比较快。</p>
+<p>JSON格式具备Javascript的先天性支持，所以被广泛应用于Web browser的应用常景中，是Ajax的事实标准协议。</p>
+<p>更多资料可查看：<a href="http://json.org/">http://json.org/</a></p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="comment">// json是一种数据格式, 不是语言, 和平台语言无关</span></span><br><span class="line"><span class="comment">// json数组</span></span><br><span class="line"><span class="punctuation">[</span>整形<span class="punctuation">,</span> 浮点型<span class="punctuation">,</span> 布尔类型<span class="punctuation">,</span> 字符串<span class="punctuation">,</span> json数组<span class="punctuation">,</span> json对象<span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">[</span><span class="number">12</span><span class="punctuation">,</span> <span class="number">12.44</span><span class="punctuation">,</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> <span class="string">&quot;hello&quot;</span><span class="punctuation">,</span> <span class="punctuation">[</span><span class="number">1</span><span class="punctuation">,</span><span class="number">2</span><span class="punctuation">,</span><span class="number">3</span><span class="punctuation">]</span><span class="punctuation">]</span></span><br><span class="line"><span class="comment">// json对象</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;key&quot;</span><span class="punctuation">:</span><span class="string">&quot;value&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line">json对象中是n个键值对</span><br><span class="line">key<span class="punctuation">:</span> 必须是字符串</span><br><span class="line">value<span class="punctuation">:</span> </span><br><span class="line">	整形</span><br><span class="line">	浮点型</span><br><span class="line">	布尔</span><br><span class="line">	字符串</span><br><span class="line">	json数组</span><br><span class="line">	json对象</span><br><span class="line"></span><br><span class="line">注意事项<span class="punctuation">:</span></span><br><span class="line">	在一个文件中只能存储一个大的数组或者对象<span class="punctuation">,</span> 但是可以嵌套使用</span><br><span class="line">	原素和原始之间使用逗号间隔(一个键值对视为一个元素)</span><br><span class="line">	最后一个元素后边没有逗号</span><br><span class="line"></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;lilei&quot;</span><span class="punctuation">:</span><span class="string">&quot;112334&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;tom&quot;</span><span class="punctuation">:</span><span class="string">&quot;helolll&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;lucy&quot;</span><span class="punctuation">:</span><span class="string">&quot;xxxxyyyy&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="punctuation">[</span><span class="string">&quot;张三&quot;</span><span class="punctuation">,</span> <span class="string">&quot;历史&quot;</span><span class="punctuation">]</span></span><br><span class="line"></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;张三&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;father&quot;</span><span class="punctuation">:</span><span class="string">&quot;张三丰&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;mother&quot;</span><span class="punctuation">:</span><span class="string">&quot;xxxx&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;sister&quot;</span><span class="string">&quot;xxx&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;favorite&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span><span class="string">&quot;足球&quot;</span><span class="punctuation">,</span> <span class="string">&quot;乒乓&quot;</span><span class="punctuation">,</span> <span class="string">&quot;游泳&quot;</span><span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">	<span class="attr">&quot;李四&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Protocol Buffer</p>
+</li>
+<li><p>ASN.1 抽象语法标记(Abstract Syntax Notation One) </p>
+</li>
+<li><p>boost 序列化的类</p>
+</li>
+</ol>
+<h1 id="2-protobuf"><a href="#2-protobuf" class="headerlink" title="2. protobuf"></a>2. protobuf</h1><blockquote>
+<p>Protocol Buffer( 简称 Protobuf) 是Google公司内部的混合语言数据标准，它是一种轻便高效的结构化数据存储格式，可以用于结构化数据串行化，很适合做数据存储或RPC 数据交换格式。</p>
+<p>Protobuf是一个纯粹的展示层协议，可以和各种传输层协议一起使用，Protobuf的文档也非常完善。google 提供了多种语言的实现：java、c#、c++、go 和 python，每一种实现都包含了相应语言的编译器以及库文件。</p>
+<p>Protobuf支持的数据类型相对较少，不支持常量类型。由于其设计的理念是纯粹的展现层协议，目前并没有一个专门支持Protobuf的RPC框架。</p>
+<p>更多资料可查看：<a href="https://developers.google.com/protocol-buffers/">https://developers.google.com/protocol-buffers/</a></p>
+</blockquote>
+<h2 id="2-1-操作流程"><a href="#2-1-操作流程" class="headerlink" title="2.1 操作流程"></a>2.1 操作流程</h2><blockquote>
+<ul>
+<li>准备数据<ul>
+<li>复合类型: 结构体&#x2F; 类</li>
+<li>基础类型</li>
+</ul>
+</li>
+<li>创建一个新文件 <code>xxx.proto</code></li>
+<li>将我们要序列化的数据 -&gt; 写入到proto文件<ul>
+<li>有语法格式</li>
+</ul>
+</li>
+<li>通过一个命令 <code>protoc</code>将<code>xxx.proto</code>文件生成一个c++的类 <ul>
+<li>对应一个头文件&#x2F; 源文件</li>
+<li>操作命令-&gt; 在window终端中: <code>protoc xxx.proto --cpp_out=./</code></li>
+</ul>
+</li>
+<li>直接使用这个类<ul>
+<li>里边有对数据操作的api<ul>
+<li>读数据 api<ul>
+<li>方法名字 <code>变量名()</code></li>
+</ul>
+</li>
+<li>写数据 api<ul>
+<li>方法名字: <code>set_变量名(arg)</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 要序列化的数据</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Persion</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> id;</span><br><span class="line">    <span class="built_in">string</span> name;</span><br><span class="line">    <span class="built_in">string</span> sex;	<span class="comment">// man woman</span></span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> id;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>在.proto文件中定义消息格式</p>
+<figure class="highlight protobuf"><table><tr><td class="code"><pre><span class="line"><span class="comment">// protobuf的版本</span></span><br><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;	<span class="comment">// proto2</span></span><br><span class="line"><span class="comment">// 组织Persion结构体</span></span><br><span class="line"><span class="comment">// 语法格式</span></span><br><span class="line">message 关键字(相当于被创建出的类的名字)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="comment">// 成员变量</span></span><br><span class="line">	数据类型 变量名 = 变量的编号;	<span class="comment">// 编号从1开始, 不能重复</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// .proto文件 生成 c++ 类的命令</span></span><br><span class="line">protoc proto文件名 --cpp_out=生成目录</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">.proto类型</th>
+<th align="center">**C++**类型</th>
+<th><strong>备注</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">double</td>
+<td align="center">double</td>
+<td>64位浮点数</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">float</td>
+<td>32位浮点数</td>
+</tr>
+<tr>
+<td align="center">int32</td>
+<td align="center">int32</td>
+<td>32位整数</td>
+</tr>
+<tr>
+<td align="center">int64</td>
+<td align="center">int64</td>
+<td>64位整数</td>
+</tr>
+<tr>
+<td align="center">uint32</td>
+<td align="center">uint32</td>
+<td>32位无符号整数</td>
+</tr>
+<tr>
+<td align="center">uint64</td>
+<td align="center">uint64</td>
+<td>64位无符号整数</td>
+</tr>
+<tr>
+<td align="center">sint32</td>
+<td align="center">sint32</td>
+<td>32位整数，处理负数效率比int32更高</td>
+</tr>
+<tr>
+<td align="center">sint64</td>
+<td align="center">sint64</td>
+<td>64位整数，处理负数效率比int64更高</td>
+</tr>
+<tr>
+<td align="center">fixed32</td>
+<td align="center">uint32</td>
+<td>总是4个字节。如果数值总是比总是比228大的话，这个类型会比uint32高效。</td>
+</tr>
+<tr>
+<td align="center">fixed64</td>
+<td align="center">uint64</td>
+<td>总是8个字节。如果数值总是比总是比256大的话，这个类型会比uint64高效。</td>
+</tr>
+<tr>
+<td align="center">sfixed32</td>
+<td align="center">int32</td>
+<td>总是4个字节</td>
+</tr>
+<tr>
+<td align="center">sfixed64</td>
+<td align="center">int64</td>
+<td>总是8个字节</td>
+</tr>
+<tr>
+<td align="center">bool</td>
+<td align="center">bool</td>
+<td>布尔类型</td>
+</tr>
+<tr>
+<td align="center">string</td>
+<td align="center">string</td>
+<td>一个字符串必须是UTF-8编码或者7-bit ASCII编码的文本</td>
+</tr>
+<tr>
+<td align="center">bytes</td>
+<td align="center">string</td>
+<td>处理多字节的语言字符、如中文</td>
+</tr>
+<tr>
+<td align="center">enum</td>
+<td align="center">enum</td>
+<td>枚举</td>
+</tr>
+<tr>
+<td align="center">message</td>
+<td align="center">object of class</td>
+<td>自定义的消息类型</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>repeated限定修饰符</p>
+<figure class="highlight protobuf"><table><tr><td class="code"><pre><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;</span><br><span class="line"><span class="keyword">message </span><span class="title class_">Persion</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int32</span> id = <span class="number">1</span>;   <span class="comment">// 编号从1开始</span></span><br><span class="line">    <span class="type">bytes</span> name = <span class="number">2</span>;</span><br><span class="line">    <span class="type">string</span> sex = <span class="number">3</span>;</span><br><span class="line">    <span class="type">int32</span> age = <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 要求name有多个 -&gt; 数组</span></span><br><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;</span><br><span class="line"><span class="keyword">message </span><span class="title class_">Persion</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int32</span> id = <span class="number">1</span>;   <span class="comment">// 编号从1开始</span></span><br><span class="line">    <span class="comment">// vector&lt;string&gt; name;</span></span><br><span class="line">    <span class="keyword">repeated</span> <span class="type">bytes</span> name = <span class="number">2</span>;	<span class="comment">// name可以在程序中创建多个, 在程序中作为动态数组来使用</span></span><br><span class="line">    <span class="type">string</span> sex = <span class="number">3</span>;</span><br><span class="line">    <span class="type">int32</span> age = <span class="number">4</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>枚举</p>
+<figure class="highlight protobuf"><table><tr><td class="code"><pre><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;</span><br><span class="line"><span class="comment">// 定义枚举</span></span><br><span class="line"><span class="keyword">enum </span><span class="title class_">Color</span></span><br><span class="line">&#123;</span><br><span class="line">	Red = <span class="number">0</span>;	<span class="comment">// protbuf中第一个枚举值必须为0</span></span><br><span class="line">	Green = <span class="number">6</span>;</span><br><span class="line">	Blue = <span class="number">9</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">message </span><span class="title class_">Persion</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int32</span> id = <span class="number">1</span>;   <span class="comment">// 编号从1开始</span></span><br><span class="line">    <span class="type">bytes</span> name = <span class="number">2</span>;</span><br><span class="line">    <span class="type">string</span> sex = <span class="number">3</span>;</span><br><span class="line">    <span class="type">int32</span> age = <span class="number">4</span>;</span><br><span class="line">    Color color = <span class="number">5</span>;	<span class="comment">// 枚举变量</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>proto文件的导入</p>
+<figure class="highlight protobuf"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Persion.proto</span></span><br><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;</span><br><span class="line"><span class="comment">// 导入另外一个proto文件</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;Info.proto&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">enum </span><span class="title class_">Color</span></span><br><span class="line">&#123;</span><br><span class="line">	Red = <span class="number">0</span>;	<span class="comment">// protbuf中第一个枚举值必须为0</span></span><br><span class="line">	Green = <span class="number">6</span>;</span><br><span class="line">	Blue = <span class="number">9</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">message </span><span class="title class_">Persion</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int32</span> id = <span class="number">1</span>;   <span class="comment">// 编号从1开始</span></span><br><span class="line">    <span class="keyword">repeated</span> <span class="type">bytes</span> name = <span class="number">2</span>;</span><br><span class="line">    <span class="type">string</span> sex = <span class="number">3</span>;</span><br><span class="line">    <span class="type">int32</span> age = <span class="number">4</span>;</span><br><span class="line">    Color color = <span class="number">5</span>;</span><br><span class="line">    Info info = <span class="number">6</span>;	<span class="comment">// Info对象, 导入的proto文件中的类</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight protobuf"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Info.proto</span></span><br><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">message </span><span class="title class_">Info</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">bytes</span> address = <span class="number">1</span>;  <span class="comment">// 地址</span></span><br><span class="line">    <span class="type">int32</span> number = <span class="number">2</span>;   <span class="comment">// 门牌号</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>包 -&gt; 命名空间</p>
+<figure class="highlight protobuf"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Persion.proto</span></span><br><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;</span><br><span class="line"><span class="comment">// 导入另外一个proto文件</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;Info.proto&quot;</span>;</span><br><span class="line"><span class="comment">// 添加命名空间</span></span><br><span class="line"><span class="keyword">package</span> itcast;	<span class="comment">// Persion类属于itcast这个命名空间</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">enum </span><span class="title class_">Color</span></span><br><span class="line">&#123;</span><br><span class="line">	Red = <span class="number">0</span>;	<span class="comment">// protbuf中第一个枚举值必须为0</span></span><br><span class="line">	Green = <span class="number">6</span>;</span><br><span class="line">	Blue = <span class="number">9</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">message </span><span class="title class_">Persion</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int32</span> id = <span class="number">1</span>;   <span class="comment">// 编号从1开始</span></span><br><span class="line">    <span class="keyword">repeated</span> <span class="type">bytes</span> name = <span class="number">2</span>;</span><br><span class="line">    <span class="type">string</span> sex = <span class="number">3</span>;</span><br><span class="line">    <span class="type">int32</span> age = <span class="number">4</span>;</span><br><span class="line">    Color color = <span class="number">5</span>;</span><br><span class="line">    <span class="comment">// 命名空间.类名</span></span><br><span class="line">    itheima.Info info = <span class="number">6</span>;	<span class="comment">// Info对象, 导入的proto文件中的类</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight protobuf"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Info.proto</span></span><br><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;</span><br><span class="line"><span class="comment">// Persion类属于itheima这个命名空间</span></span><br><span class="line"><span class="keyword">package</span> itheima;</span><br><span class="line"></span><br><span class="line"><span class="keyword">message </span><span class="title class_">Persion</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">bytes</span> address = <span class="number">1</span>;  <span class="comment">// 地址</span></span><br><span class="line">    <span class="type">int32</span> number = <span class="number">2</span>;   <span class="comment">// 门牌号</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>使用protobuf编译器生成C++类</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">protobuf编译器, 编译源码得到的 protoc.exe</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">语法</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">--cpp_out 生成的c++类的位置</span></span><br><span class="line">protoc.exe xxx.proto --cpp_out=目录</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用C++ API来读写消息</p>
+<ul>
+<li>读: <code>变量名()</code></li>
+<li>写: <code>set_变量名(arg1, arg2, ...)</code></li>
+</ul>
+</li>
+<li><p>vs配置 -&gt; 添加宏</p>
+<p><img src="/../picture/%E5%BA%8F%E5%88%97%E5%8C%96-protobuf/1566718547217.png" alt="1566718547217"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+</ul>
+<h1 id="3-业务数据分析"><a href="#3-业务数据分析" class="headerlink" title="3. 业务数据分析"></a>3. 业务数据分析</h1><h2 id="3-1-客户端"><a href="#3-1-客户端" class="headerlink" title="3.1 客户端"></a>3.1 客户端</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 准备要发送的数据</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">RequestMsg</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//1 密钥协商 //2 密钥校验; // 3 密钥注销</span></span><br><span class="line">    <span class="type">int</span> cmdType; <span class="comment">// 报文类型</span></span><br><span class="line">    string clientId; <span class="comment">// 客户端编号</span></span><br><span class="line">    string serverId; <span class="comment">// 服务器端编号</span></span><br><span class="line">    string sign;</span><br><span class="line">    string data;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight protobuf"><table><tr><td class="code"><pre><span class="line"><span class="keyword">message </span><span class="title class_">RequestMsg</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int32</span> cmdType;</span><br><span class="line">	<span class="type">bytes</span> clientId;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-2-服务器端"><a href="#3-2-服务器端" class="headerlink" title="3.2 服务器端"></a>3.2 服务器端</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">RespondMsg</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">bool</span> rv; <span class="comment">// 返回值</span></span><br><span class="line">    <span class="type">int</span> seckeyid; 		<span class="comment">// 对称密钥编号 keysn</span></span><br><span class="line">    <span class="built_in">string</span> clientId; 	<span class="comment">// 客户端编号</span></span><br><span class="line">    <span class="built_in">string</span> serverId; 	<span class="comment">// 服务器编号</span></span><br><span class="line">    <span class="built_in">string</span> data; 	<span class="comment">// 服务器端随机数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/%E5%BA%8F%E5%88%97%E5%8C%96-protobuf/protobuf.svg"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>git的基本操作</title>
+    <url>/2024/07/15/git/</url>
+    <content><![CDATA[<p><img src="/../picture/git/timg.jpg" alt="img"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h1 id="1-git介绍"><a href="#1-git介绍" class="headerlink" title="1. git介绍"></a>1. git介绍</h1><h2 id="1-1-版本控制系统"><a href="#1-1-版本控制系统" class="headerlink" title="1.1. 版本控制系统"></a>1.1. 版本控制系统</h2><ul>
+<li><p>集中式版本控制系统</p>
+<blockquote>
+<p>集中式版本控制系统，版本库是集中存放在中央服务器的，而干活的时候，用的都是自己的电脑，所以要先从中央服务器取得最新的版本，然后开始干活，干完活了，再把自己的活推送给中央服务器。</p>
+<p>集中式版本控制系统最大的毛病就是必须联网才能工作，如果在局域网内还好，带宽够大，速度够快，可如果在互联网上，遇到网速慢的话，那就GG了.  </p>
+</blockquote>
+<p><img src="/../picture/git/0.jpg"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+<li><p>分布式版本控制系统</p>
+<blockquote>
+<p>分布式版本控制系统根本没有“中央服务器”，每个人的电脑上都是一个完整的版本库，这样，你工作的时候，就不需要联网了，因为版本库就在你自己的电脑上。</p>
+<p>既然每个人电脑上都有一个完整的版本库，那多个人如何协作呢？</p>
+<p>分布式版本控制系统通常也有一台充当“中央服务器”的电脑，但这个服务器的作用仅仅是用来方便“交换”大家的修改，没有它大家也一样干活，只是交换修改不方便而已。</p>
+</blockquote>
+<p><img src="/../picture/git/0-1559747872796.jpg" alt="distributed-repo"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+</ul>
+<h1 id="2-创建本地版本库"><a href="#2-创建本地版本库" class="headerlink" title="2. 创建本地版本库"></a>2. 创建本地版本库</h1><blockquote>
+<p>版本库又名仓库，英文名<strong>repository</strong>，你可以简单理解成一个目录，这个目录里面的所有文件都可以被Git管理起来，每个文件的修改、删除，Git都能跟踪，以便任何时刻都可以追踪历史，或者在将来某个时刻可以“还原”。</p>
+</blockquote>
+<h2 id="2-1-概念"><a href="#2-1-概念" class="headerlink" title="2.1 概念"></a>2.1 概念</h2><ul>
+<li><p>工作区</p>
+<ul>
+<li>用户自己创建的目录 -&gt; 存放源代码</li>
+<li>本地的版本库也需要放到工作区中</li>
+<li>每个工作区中都可以创建一个版本库</li>
+<li>只有工作区的<code>新文件</code>才需要添加到暂存区</li>
+</ul>
+</li>
+<li><p>版本库</p>
+<ul>
+<li>就是一个目录: 名字-&gt; .git</li>
+<li>管理用于提交的代码</li>
+</ul>
+</li>
+<li><p>暂存区</p>
+<ul>
+<li>首先创建新文件 -&gt; 在工作区 (和版本库没有关系)</li>
+<li>将新文件添加到本地仓库中 -&gt; 新文件被保存在了暂存区 (还是没有进行版本管理)</li>
+<li>将暂存区数据提交到版本库 -&gt; 这时候就可以进行版本管理了</li>
+<li>暂存区也是一个目录: stage&#x2F;index</li>
+</ul>
+<p><img src="/../picture/git/0-1559749463798.jpg"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<ul>
+<li>提交代码的流程<ul>
+<li>要在工作区中创建新文件</li>
+<li>将工作区中的新文件添加到暂存区<ul>
+<li>文件只需要往暂存区添加一次</li>
+</ul>
+</li>
+<li>将暂存区数据提交到版本仓库<ul>
+<li>版本仓库中有很多节点, 依次记录着我们提交的各个版本</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-2-操作步骤"><a href="#2-2-操作步骤" class="headerlink" title="2.2 操作步骤"></a>2.2 操作步骤</h2><ul>
+<li><p>创建版本库</p>
+<ul>
+<li><p>在工作区中鼠标右键</p>
+<p><img src="/../picture/git/1566526442145.png" alt="1566526442145"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/git/1566526474770.png" alt="1566526474770"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/git/1566526548563.png" alt="1566526548563"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+</ul>
+</li>
+<li><p>添加新文件</p>
+<ul>
+<li><p>在工作区右键菜单</p>
+<p><img src="/../picture/git/1566528567183.png" alt="1566528567183"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/git/1566528599191.png" alt="1566528599191"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+</ul>
+<p><img src="/../picture/git/0-1559749617853.jpg" alt="git-stage"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+<li><p>提交文件</p>
+<ul>
+<li><p>鼠标右键</p>
+<p><img src="/../picture/git/1566528777385.png" alt="1566528777385"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/git/1566528858759.png" alt="1566528858759"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+</ul>
+<p><img src="/../picture/git/0-1559749634079.jpg" alt="git-stage-after-commit"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+</ul>
+<h1 id="3-修改文件"><a href="#3-修改文件" class="headerlink" title="3. 修改文件"></a>3. 修改文件</h1><ul>
+<li><p>修改工作区文件</p>
+<ul>
+<li>修改完文件之后直接提交, 不需要再次添加到暂存区</li>
+</ul>
+</li>
+<li><p>修改完之后 的数据需要提交到本地的版本仓库中</p>
+</li>
+<li><p>还原修改</p>
+<ul>
+<li>还原之后数据就不能再恢复了</li>
+</ul>
+<p><img src="/../picture/git/1566529272163.png" alt="1566529272163"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+<li><p>查看修改历史</p>
+<ul>
+<li>比较当前查看的版本和上一个版本的区别</li>
+<li>可以导出某一个需要的版本, 在当前版本上鼠标右键:<ul>
+<li><img src="/../picture/git/1566530146255.png" alt="1566530146255"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></li>
+</ul>
+</li>
+<li><img src="/../picture/git/1566529629315.png" alt="1566529629315"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></li>
+</ul>
+</li>
+<li><p>差异比较</p>
+<p><img src="/../picture/git/1566530323067.png" alt="1566530323067"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+<li><p>删除文件</p>
+<ul>
+<li>可以手动删除 -&gt; delete 键</li>
+</ul>
+</li>
+<li><p>通过菜单项删除</p>
+</li>
+</ul>
+<p><img src="/../picture/git/1566530793162.png" alt="1566530793162"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<ul>
+<li>注意事项:<code>删除操作之后必须要提交</code></li>
+</ul>
+<h1 id="4-练习-添加一个本地项目到仓库"><a href="#4-练习-添加一个本地项目到仓库" class="headerlink" title="4. 练习: 添加一个本地项目到仓库"></a>4. 练习: 添加一个本地项目到仓库</h1><ul>
+<li><p>设置文件忽略</p>
+<p>先选中要忽略的文件, 在这些文件上鼠标右键</p>
+<p><img src="/../picture/git/1566532396837.png" alt="1566532396837"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>将设置忽略的动作提交到版本库</p>
+</li>
+</ul>
+<h1 id="5-添加远程仓库"><a href="#5-添加远程仓库" class="headerlink" title="5. 添加远程仓库"></a>5. 添加远程仓库</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line">远程仓库作用:</span><br><span class="line">	- 备份本地仓库的代码</span><br><span class="line">	- 多人协同开发, 使用远程仓库合并代码</span><br><span class="line">远程仓库来源:</span><br><span class="line">	- 公司自己搭建</span><br><span class="line">	- 使用现有的远程仓库</span><br><span class="line">		- github</span><br><span class="line">		- 码云</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-1-添加远程仓库"><a href="#5-1-添加远程仓库" class="headerlink" title="5.1 添加远程仓库"></a>5.1 添加远程仓库</h2><p>在线代码托管平台 </p>
+<ul>
+<li>Github: <a href="https://github.com/">https://github.com/</a></li>
+<li>码云: <a href="https://gitee.com/">https://gitee.com/</a></li>
+</ul>
+<p>创建仓库</p>
+<ul>
+<li><img src="/../picture/git/1566533262064.png" alt="1566533262064"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></li>
+<li><img src="/../picture/git/1566533665064.png" alt="1566533665064"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></li>
+<li><img src="/../picture/git/1566533830369.png" alt="1566533830369"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></li>
+</ul>
+<h2 id="5-2-本地仓库同步到远程仓库"><a href="#5-2-本地仓库同步到远程仓库" class="headerlink" title="5.2 本地仓库同步到远程仓库"></a>5.2 本地仓库同步到远程仓库</h2><ul>
+<li><p>在工作区鼠标右键</p>
+<p><img src="/../picture/git/1566533947636.png" alt="1566533947636"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/git/1566534031304.png" alt="1566534031304"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+</ul>
+<h2 id="5-3-克隆远程仓库到本地"><a href="#5-3-克隆远程仓库到本地" class="headerlink" title="5.3 克隆远程仓库到本地"></a>5.3 克隆远程仓库到本地</h2><ul>
+<li><p>进入到远程仓库中, 找到仓库的地址</p>
+<p><img src="/../picture/git/1566544062217.png" alt="1566544062217"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+<li><p>将远程地址复制一份</p>
+</li>
+<li><p>在本地找一个目录, 进行如下操作</p>
+<p><img src="/../picture/git/1566544121584.png" alt="1566544121584"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/git/1566544205499.png" alt="1566544205499"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+<li><p>第一次需要将远程仓库内容下载到本地的时候, 才需要克隆</p>
+</li>
+</ul>
+<h2 id="5-4-ssh设置"><a href="#5-4-ssh设置" class="headerlink" title="5.4 ssh设置"></a>5.4 ssh设置</h2><ul>
+<li><p>在本地生成一个密钥对</p>
+<ul>
+<li><p>在本地任意目录下, 鼠标右键</p>
+<p><img src="/../picture/git/1566544673757.png" alt="1566544673757"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">ssh-keygen -t rsa</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/git/1566545000704.png" alt="1566545000704"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<ul>
+<li><p>本地设置ssh秘钥 -&gt; 私钥</p>
+<p><img src="/../picture/git/1566545268559.png" alt="1566545268559"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/git/1566545557150.png" alt="1566545557150"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+</ul>
+</li>
+<li><p>远程仓库设置公钥</p>
+<ul>
+<li><p>进入当前用户的设置界面</p>
+<p><img src="/../picture/git/1566545689936.png" alt="1566545689936"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/git/1566545737164.png" alt="1566545737164"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/git/1566545824011.png" alt="1566545824011"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+<li><p>使用ssh地址遇到的问题</p>
+<p><img src="/../picture/git/1566546069055.png" alt="1566546069055"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># 解决方案: 需要修改tortoisegit 使用的 ssh工具</span><br><span class="line"># 需要在 tortoisegit 设置窗口中进行修改</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>默认的路径</p>
+<p><img src="/../picture/git/1566546228805.png" alt="1566546228805"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+<li><p>修改后的路径</p>
+<p><img src="/../picture/git/1566546372033.png" alt="1566546372033"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="6-分支管理"><a href="#6-分支管理" class="headerlink" title="6. 分支管理"></a>6. 分支管理</h1><blockquote>
+<p>分支就是科幻电影里面的平行宇宙，当你正在电脑前努力学习Git的时候，另一个你正在另一个平行宇宙里努力学习SVN。</p>
+<p>如果两个平行宇宙互不干扰，那对现在的你也没啥影响。不过，在某个时间点，两个平行宇宙合并了，结果，你既学会了Git又学会了SVN！</p>
+<p>在版本仓库中有一个默认的分支:<code> master</code>, 当前仓库中有文件之后, 默认分支就被创建了</p>
+<p>​	- 如果不创建分支, 分支默认只有一个 : master</p>
+</blockquote>
+<p><img src="/../picture/git/0.png" alt="learn-branches"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="6-1-创建分支"><a href="#6-1-创建分支" class="headerlink" title="6.1 创建分支"></a>6.1 创建分支</h2><p><img src="/../picture/git/1566547011380.png" alt="1566547011380"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/git/1566547074035.png" alt="1566547074035"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="6-2-切换分支"><a href="#6-2-切换分支" class="headerlink" title="6.2 切换分支"></a>6.2 切换分支</h2><p><img src="/../picture/git/1566547131012.png" alt="1566547131012"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/git/1566547316804.png" alt="1566547316804"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="6-3-合并分支"><a href="#6-3-合并分支" class="headerlink" title="6.3 合并分支"></a>6.3 合并分支</h2><blockquote>
+<p>两个分支进行合并(master, new分支), 最终要合并到那个分支(master), 就先切换到那个分支(master), 切换完成之后, 在选择把哪个分支(new分支)合并到当前分支(master)</p>
+</blockquote>
+<p><img src="/../picture/git/1566548777614.png" alt="1566548777614"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/git/1566548823482.png" alt="1566548823482"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="6-4-解决冲突"><a href="#6-4-解决冲突" class="headerlink" title="6.4 解决冲突"></a>6.4 解决冲突</h2><p><img src="/../picture/git/1566549020854.png" alt="1566549020854"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/git/1566549064722.png" alt="1566549064722"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<ul>
+<li><p>冲突文件的格式</p>
+<p><img src="/../picture/git/1566549230042.png" alt="1566549230042"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>手动修改文件内容, 修改完成之后, 解决冲突</p>
+<p><img src="/../picture/git/1566549336456.png" alt="1566549336456"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/git/1566549405908.png" alt="1566549405908"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/git/1566549482138.png" alt="1566549482138"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+</li>
+</ul>
+<h1 id="7-推送文件"><a href="#7-推送文件" class="headerlink" title="7. 推送文件"></a>7. 推送文件</h1><blockquote>
+<p>有一个远程的仓库-&gt; github, 这不是一个空的仓库, 需要将本地的版本库提交到远程仓库</p>
+</blockquote>
+<p>直接推送 -&gt; 失败</p>
+<p><img src="/../picture/git/1566549817839.png" alt="1566549817839"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<blockquote>
+<p>失败的原因:</p>
+<ul>
+<li>远程仓库不是空的<ul>
+<li>有一个默认分支, <code>master</code></li>
+</ul>
+</li>
+<li>本地仓库, 不是空的<ul>
+<li>有一个默认分支, <code>master</code></li>
+</ul>
+</li>
+<li>远程仓库和本地仓库默认分支名字相同, 但是这两个分支没有任何关系<ul>
+<li>没有关系的分支进行合并 -&gt; 失败</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>解决方案</p>
+<blockquote>
+<ol>
+<li>将远程仓库拉取到本地(pull)<ul>
+<li>拉取: 直接将远程仓库分支中的信息和本地分支进行合并</li>
+<li>获取: 将远程仓库分支复制到本地的另外一个分支中, 不会合并<ul>
+<li>分支名字: fetch_head</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>将两个分支进行强行合并</li>
+<li>将本地分支数据推送动到远程仓库</li>
+</ol>
+</blockquote>
+</li>
+<li><p>通过进行获取操作, 得到新分支<code>FETCH_HEAD</code></p>
+</li>
+</ul>
+<p><img src="/../picture/git/1566550553280.png" alt="1566550553280"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<ul>
+<li>合并分支: 得到的新分支<code>FETCH_HEAD</code>分支合并到本地<code>master</code>分支</li>
+</ul>
+<p><img src="/../picture/git/1566550645559.png" alt="1566550645559"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/git/1566550709001.png" alt="1566550709001"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<ul>
+<li>将本地仓库推动到远程仓库</li>
+</ul>
+<p><img src="/../picture/git/1566550772679.png" alt="1566550772679"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h1 id="8-使用最多的场景"><a href="#8-使用最多的场景" class="headerlink" title="8. 使用最多的场景"></a>8. 使用最多的场景</h1><blockquote>
+<p>远程仓库分支和本地仓库分支有关系的情况, 该如何操作?</p>
+<ul>
+<li>本地:<ul>
+<li>修改代码提交到本地仓库</li>
+<li>提交到远程仓库<ul>
+<li>不能直接提交</li>
+<li>在推送之前应该将远程仓库代码<code>拉取</code>到本地<ul>
+<li>进程代码合并<ul>
+<li>有可能冲突 -&gt; 手动解决冲突</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>将新的代码推动到远程仓库</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+  </entry>
+</search>
