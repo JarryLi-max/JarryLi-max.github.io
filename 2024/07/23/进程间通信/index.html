@@ -19,7 +19,7 @@
 <meta property="og:image" content="http://example.com/img/404.jpg">
 <meta property="og:image" content="http://example.com/img/404.jpg">
 <meta property="article:published_time" content="2024-07-23T15:18:28.625Z">
-<meta property="article:modified_time" content="2024-07-23T15:20:17.106Z">
+<meta property="article:modified_time" content="2024-07-23T15:29:20.287Z">
 <meta property="article:author" content="JarryLi">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/img/404.jpg">
@@ -64,7 +64,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"JarryLi","root":"/","typed_text":null,"theme_version":"2.2.2","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","apple_touch_icon":null,"webmanifest":null,"visibilitychange":false,"hidden":"/failure.ico","show_text":"(/≧▽≦/)Hey! Good again!","hide_text":"(●—●)Oh, crash!"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","trigger":"auto","path":"search.xml"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-07-23 23:20:17"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-07-23 23:29:20"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
@@ -336,7 +336,7 @@
 <div class="trm-card ">
     <article id="article-container" class="trm-publication">
     <h3 id="1-进程间通信的基本概念"><a href="#1-进程间通信的基本概念" class="headerlink" title="1. 进程间通信的基本概念"></a>1. 进程间通信的基本概念</h3><p>​		进程间通信(Inter Process Communication)意味着两个不同的进程间可以交换数据，为了这一点，操作系统中应该提供两个进程可以同时访问的内存空间。</p>
-<h3 id="2-通过管道实现进程间通信"><a href="#2-通过管道实现进程间通信" class="headerlink" title="2. 通过管道实现进程间通信"></a>2. 通过管道实现进程间通信</h3><img src="../picture/进程间通信/image-20240722231219710.png" alt="image-20240722231219710" style="zoom:50%;"   data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'/>
+<h3 id="2-通过管道实现进程间通信"><a href="#2-通过管道实现进程间通信" class="headerlink" title="2. 通过管道实现进程间通信"></a>2. 通过管道实现进程间通信</h3><img src="../picture/进程间通信/image-20240722231219710.png" alt="image-20240722231219710"    data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'/>
 
 <p>​		</p>
 <p>​		为了完成进程间的通信，需要创建管道。管道并非属于进程间的资源，而是和套接字一样，属于操作系统（也就不是fork函数复制的对象）。所以，两个进程通过操作系统提供的内存空间进行通信。</p>
@@ -349,11 +349,11 @@
 <p><em><strong>Result:</strong></em></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@jarryli:/home/jarryli/code/tcp_ip/chapter11# g++ pipe1.cpp -o pipe1</span><br><span class="line">root@jarryli:/home/jarryli/code/tcp_ip/chapter11# ./pipe1 </span><br><span class="line">Who are you?</span><br></pre></td></tr></table></figure>
 
-<img src="../picture/进程间通信/image-20240722232150577.png" alt="image-20240722232150577" style="zoom:50%;"   data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'/>
+<img src="../picture/进程间通信/image-20240722232150577.png" alt="image-20240722232150577"    data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'/>
 
 
 
-<h3 id="3-通过管道进行进程间双向通信"><a href="#3-通过管道进行进程间双向通信" class="headerlink" title="3. 通过管道进行进程间双向通信"></a>3. 通过管道进行进程间双向通信</h3><img src="../picture/进程间通信/image-20240722232514373.png" alt="image-20240722232514373" style="zoom:50%;"   data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'/>
+<h3 id="3-通过管道进行进程间双向通信"><a href="#3-通过管道进行进程间双向通信" class="headerlink" title="3. 通过管道进行进程间双向通信"></a>3. 通过管道进行进程间双向通信</h3><img src="../picture/进程间通信/image-20240722232514373.png" alt="image-20240722232514373"    data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'/>
 
 
 
@@ -366,7 +366,7 @@
 
 <p><font color=red>WARNING: 当注释掉第20行sleep(2)后程序会卡死。</font></p>
 <p><font color=SkyBlue>		分析: 产生的原因是”向管道传递数据时，先读的进程会把数据读走“。即数据进入管道后成为无助无主数据，也就是通过 read 函数先读取数据的进程先得到数据，即使该进程将数据传到了管道。</font></p>
-<img src="../picture/进程间通信/image-20240722234804043.png" alt="image-20240722234804043" style="zoom:50%;"   data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'/>
+<img src="../picture/进程间通信/image-20240722234804043.png" alt="image-20240722234804043"    data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'/>
 
 <p>因此可以通过创建 <strong>两个管道</strong> 进行进程间的通信。</p>
 <p><em><strong>Example:</strong></em></p>

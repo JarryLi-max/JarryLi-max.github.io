@@ -989,7 +989,7 @@
     <title>进程间通信</title>
     <url>/2024/07/23/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/</url>
     <content><![CDATA[<h3 id="1-进程间通信的基本概念"><a href="#1-进程间通信的基本概念" class="headerlink" title="1. 进程间通信的基本概念"></a>1. 进程间通信的基本概念</h3><p>​		进程间通信(Inter Process Communication)意味着两个不同的进程间可以交换数据，为了这一点，操作系统中应该提供两个进程可以同时访问的内存空间。</p>
-<h3 id="2-通过管道实现进程间通信"><a href="#2-通过管道实现进程间通信" class="headerlink" title="2. 通过管道实现进程间通信"></a>2. 通过管道实现进程间通信</h3><img src="../picture/进程间通信/image-20240722231219710.png" alt="image-20240722231219710" style="zoom:50%;"   data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'/>
+<h3 id="2-通过管道实现进程间通信"><a href="#2-通过管道实现进程间通信" class="headerlink" title="2. 通过管道实现进程间通信"></a>2. 通过管道实现进程间通信</h3><img src="../picture/进程间通信/image-20240722231219710.png" alt="image-20240722231219710"    data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'/>
 
 <p>​		</p>
 <p>​		为了完成进程间的通信，需要创建管道。管道并非属于进程间的资源，而是和套接字一样，属于操作系统（也就不是fork函数复制的对象）。所以，两个进程通过操作系统提供的内存空间进行通信。</p>
@@ -1002,11 +1002,11 @@
 <p><em><strong>Result:</strong></em></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@jarryli:/home/jarryli/code/tcp_ip/chapter11# g++ pipe1.cpp -o pipe1</span><br><span class="line">root@jarryli:/home/jarryli/code/tcp_ip/chapter11# ./pipe1 </span><br><span class="line">Who are you?</span><br></pre></td></tr></table></figure>
 
-<img src="../picture/进程间通信/image-20240722232150577.png" alt="image-20240722232150577" style="zoom:50%;"   data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'/>
+<img src="../picture/进程间通信/image-20240722232150577.png" alt="image-20240722232150577"    data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'/>
 
 
 
-<h3 id="3-通过管道进行进程间双向通信"><a href="#3-通过管道进行进程间双向通信" class="headerlink" title="3. 通过管道进行进程间双向通信"></a>3. 通过管道进行进程间双向通信</h3><img src="../picture/进程间通信/image-20240722232514373.png" alt="image-20240722232514373" style="zoom:50%;"   data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'/>
+<h3 id="3-通过管道进行进程间双向通信"><a href="#3-通过管道进行进程间双向通信" class="headerlink" title="3. 通过管道进行进程间双向通信"></a>3. 通过管道进行进程间双向通信</h3><img src="../picture/进程间通信/image-20240722232514373.png" alt="image-20240722232514373"    data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'/>
 
 
 
@@ -1019,7 +1019,7 @@
 
 <p><font color=red>WARNING: 当注释掉第20行sleep(2)后程序会卡死。</font></p>
 <p><font color=SkyBlue>		分析: 产生的原因是”向管道传递数据时，先读的进程会把数据读走“。即数据进入管道后成为无助无主数据，也就是通过 read 函数先读取数据的进程先得到数据，即使该进程将数据传到了管道。</font></p>
-<img src="../picture/进程间通信/image-20240722234804043.png" alt="image-20240722234804043" style="zoom:50%;"   data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'/>
+<img src="../picture/进程间通信/image-20240722234804043.png" alt="image-20240722234804043"    data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'/>
 
 <p>因此可以通过创建 <strong>两个管道</strong> 进行进程间的通信。</p>
 <p><em><strong>Example:</strong></em></p>
