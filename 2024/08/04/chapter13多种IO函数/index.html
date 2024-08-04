@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="多种 I&#x2F;O 函数1.1 send &amp; recv 函数1234567#include &lt;sys&#x2F;socket.h&gt;ssize_t send(int sockfd, const void* buf, size_t nbytes, int flags);	-&gt; 成功时返回返回的字节数，失败时返回-1        • sockfd	表示与数据传输对象的连接的套接字文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多种 I&#x2F;O 函数">
+<meta property="og:url" content="http://example.com/2024/08/04/chapter13%E5%A4%9A%E7%A7%8DIO%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="JarryLi&#39;s Blog">
+<meta property="og:description" content="多种 I&#x2F;O 函数1.1 send &amp; recv 函数1234567#include &lt;sys&#x2F;socket.h&gt;ssize_t send(int sockfd, const void* buf, size_t nbytes, int flags);	-&gt; 成功时返回返回的字节数，失败时返回-1        • sockfd	表示与数据传输对象的连接的套接字文">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="article:published_time" content="2024-08-04T14:51:05.240Z">
+<meta property="article:modified_time" content="2024-08-04T14:52:53.348Z">
+<meta property="article:author" content="JarryLi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/404.jpg">
+
+
+<title >多种 I/O 函数</title>
+
+<!-- Favicon -->
+
+    <link href='/img/favicon.svg?v=2.2.2' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/favicon.svg?v=2.2.2' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"JarryLi","root":"/","typed_text":null,"theme_version":"2.2.2","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","apple_touch_icon":null,"webmanifest":null,"visibilitychange":false,"hidden":"/failure.ico","show_text":"(/≧▽≦/)Hey! Good again!","hide_text":"(●—●)Oh, crash!"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","trigger":"auto","path":"search.xml"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-08-04 22:52:53"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<!-- <a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/favicon.svg">
+    
+    
+        <div class="trm-logo-text">
+            Async<span>Theme</span>
+        </div>
+    
+</a> -->
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    Home
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    Archives
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            多种 I/O 函数
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2024
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        JarryLi
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com/jarryLi-max" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                Residence:
+            </div>
+            <div class="trm-label trm-label-light">
+                China
+            </div>
+        </li>
+        <li>
+            <div class="trm-label">
+                email:
+            </div>
+            <div class="trm-label trm-label-light">
+                2976562002@qq.com
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            08/04
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            22:51
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            JarryLi
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h1 id="多种-I-O-函数"><a href="#多种-I-O-函数" class="headerlink" title="多种 I&#x2F;O 函数"></a>多种 I&#x2F;O 函数</h1><h2 id="1-1-send-recv-函数"><a href="#1-1-send-recv-函数" class="headerlink" title="1.1 send &amp; recv 函数"></a>1.1 send &amp; recv 函数</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">ssize_t</span> <span class="title">send</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="type">void</span>* buf, <span class="type">size_t</span> nbytes, <span class="type">int</span> flags)</span></span>;</span><br><span class="line">	-&gt; 成功时返回返回的字节数，失败时返回<span class="number">-1</span></span><br><span class="line">        • sockfd	表示与数据传输对象的连接的套接字文件描述符</span><br><span class="line">        • buf		保存待传输数据的缓冲地址值</span><br><span class="line">        • nbytes	待传输的字节数</span><br><span class="line">        • flags	    传输数据时指定的可选项信息</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">ssize_t</span> <span class="title">recv</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">void</span>* buf, <span class="type">size_t</span> nbytes, <span class="type">int</span> flags)</span></span>;</span><br><span class="line">	-&gt; 成功时返回接受的字节数(收到 EOF 时返回<span class="number">0</span>)，失败时返回<span class="number">-1</span></span><br><span class="line">        • sockfd	表示与数据接受对象的连接的套接字文件描述符</span><br><span class="line">        • buf		保存待接受数据的缓冲地址值</span><br><span class="line">        • nbytes     可接收的最大字节数</span><br><span class="line">        • flags		 接收数据时指定的可选项信息</span><br></pre></td></tr></table></figure>
+
+<p>send 函数和 recv 函数的最后一个参数可以使用位或运算(|运算符)同时传递多个参数信息：</p>
+<table>
+<thead>
+<tr>
+<th>可选项(Option)</th>
+<th>含义</th>
+<th>send</th>
+<th>recv</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>MSG_OOB</td>
+<td>用于传输带外数据(out-of-band data)</td>
+<td>•</td>
+<td>•</td>
+</tr>
+<tr>
+<td>MSG_PEEK</td>
+<td>验证输入缓冲区是否存在接收的数据</td>
+<td></td>
+<td>•</td>
+</tr>
+<tr>
+<td>MSG_DONTROUTE</td>
+<td>数据传输过程中不参照路由(Routing)表,在本地(Local)网络中寻找目的地</td>
+<td>•</td>
+<td></td>
+</tr>
+<tr>
+<td>MSG_DONTWAIT</td>
+<td>调用 I&#x2F;O 函数时不阻塞,用于使用非阻塞(Non-blocking) I&#x2F;O</td>
+<td>•</td>
+<td>•</td>
+</tr>
+<tr>
+<td>MSG_WAITALL</td>
+<td>防止函数返回，直到接收全部请求的字节数</td>
+<td></td>
+<td>•</td>
+</tr>
+</tbody></table>
+<h3 id="1-1-1-MSG-OOB-发送紧急消息"><a href="#1-1-1-MSG-OOB-发送紧急消息" class="headerlink" title="1.1.1 MSG_OOB 发送紧急消息"></a>1.1.1 MSG_OOB 发送紧急消息</h3><p><strong>MSG_OOB可选项就用于创建特殊发送方法和通道以发送紧急消息</strong></p>
+<p><em><strong>Example:</strong></em></p>
+<blockquote>
+<p>oob_recv.cpp</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BUFF_SIZE 30</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> acpt_sock;</span><br><span class="line"><span class="type">int</span> recv_sock;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">error_handling</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* message)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">fputs</span>(message, stderr);</span><br><span class="line">    <span class="built_in">fputc</span>(<span class="string">&#x27;\n&#x27;</span>, stderr);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">urg_handler</span><span class="params">(<span class="type">int</span> signo)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> str_len;</span><br><span class="line">    <span class="type">char</span> buf[BUFF_SIZE];</span><br><span class="line">    str_len = <span class="built_in">recv</span>(recv_sock, buf, <span class="built_in">sizeof</span>(buf) - <span class="number">1</span>, MSG_OOB);</span><br><span class="line">    buf[str_len] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Urgent message: %s\n&quot;</span>, buf);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> recv_addr, serv_addr;</span><br><span class="line">    <span class="type">int</span> str_len, state;</span><br><span class="line">    <span class="type">socklen_t</span> serv_addr_sz;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">sigaction</span> act;</span><br><span class="line">    <span class="type">char</span> buff[BUFF_SIZE];</span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Usage: %s &lt;port&gt;\n&quot;</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-2</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    act.sa_handler = urg_handler;</span><br><span class="line">    <span class="built_in">sigemptyset</span>(&amp;act.sa_mask);</span><br><span class="line">    act.sa_flags = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    acpt_sock = <span class="built_in">socket</span>(PF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">memset</span>(&amp;recv_addr, <span class="number">0</span>, <span class="built_in">sizeof</span>(recv_addr));</span><br><span class="line">    recv_addr.sin_family = AF_INET;</span><br><span class="line">    recv_addr.sin_addr.s_addr = <span class="built_in">htonl</span>(INADDR_ANY);</span><br><span class="line">    recv_addr.sin_port = <span class="built_in">htons</span>(<span class="built_in">atoi</span>(argv[<span class="number">1</span>]));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">bind</span>(acpt_sock, (<span class="keyword">struct</span> sockaddr*)&amp;recv_addr, <span class="built_in">sizeof</span>(recv_addr)) == <span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">error_handling</span>(<span class="string">&quot;bind() error!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">listen</span>(acpt_sock, <span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">    serv_addr_sz = <span class="built_in">sizeof</span>(serv_addr);</span><br><span class="line">    recv_sock = <span class="built_in">accept</span>(acpt_sock, (<span class="keyword">struct</span> sockaddr*)&amp;serv_addr, &amp;serv_addr_sz);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">fcntl</span>(recv_sock, F_SETOWN, <span class="built_in">getpid</span>());</span><br><span class="line">    <span class="comment">// 处理MSG_OOB紧急消息</span></span><br><span class="line">    state = <span class="built_in">sigaction</span>(SIGURG, &amp;act, <span class="number">0</span>); </span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> ((str_len = <span class="built_in">recv</span>(recv_sock, buff, <span class="built_in">sizeof</span>(buff) - <span class="number">1</span>, <span class="number">0</span>)) != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (str_len == <span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        buff[str_len] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">        <span class="built_in">puts</span>(buff);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">close</span>(recv_sock);</span><br><span class="line">    <span class="built_in">close</span>(acpt_sock);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>Result:</strong></em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@jarryli:/home/jarryli/tcp_ip/chapter13# g++ oob_recv.cpp -o recv</span><br><span class="line">root@jarryli:/home/jarryli/tcp_ip/chapter13# ./recv 9190</span><br><span class="line">123</span><br><span class="line">Urgent message: 4</span><br><span class="line">567</span><br><span class="line">Urgent message: 0</span><br><span class="line">89</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>oob_send.cpp</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BUFF_SIZE 30</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">error_handling</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* message)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">fputs</span>(message, stderr);</span><br><span class="line">    <span class="built_in">fputc</span>(<span class="string">&#x27;\n&#x27;</span>, stderr);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> sock;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> recv_addr;</span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">3</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Usage: %s &lt;IP&gt; &lt;port&gt;\n&quot;</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">memset</span>(&amp;recv_addr, <span class="number">0</span>, <span class="built_in">sizeof</span>(recv_addr));</span><br><span class="line">    sock = <span class="built_in">socket</span>(PF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    recv_addr.sin_family = AF_INET;</span><br><span class="line">    recv_addr.sin_addr.s_addr = <span class="built_in">inet_addr</span>(argv[<span class="number">1</span>]);</span><br><span class="line">    recv_addr.sin_port = <span class="built_in">htons</span>(<span class="built_in">atoi</span>(argv[<span class="number">2</span>]));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">connect</span>(sock, (<span class="keyword">struct</span> sockaddr*)&amp;recv_addr, <span class="built_in">sizeof</span>(recv_addr)) == <span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">error_handling</span>(<span class="string">&quot;connect() error!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">write</span>(sock, <span class="string">&quot;123&quot;</span>, <span class="built_in">strlen</span>(<span class="string">&quot;123&quot;</span>));</span><br><span class="line">    <span class="comment">// 紧急消息的传输 只需要指定 MSG_OOB</span></span><br><span class="line">    <span class="built_in">send</span>(sock, <span class="string">&quot;4&quot;</span>, <span class="built_in">strlen</span>(<span class="string">&quot;4&quot;</span>), MSG_OOB);</span><br><span class="line">    <span class="built_in">write</span>(sock, <span class="string">&quot;567&quot;</span>, <span class="built_in">strlen</span>(<span class="string">&quot;567&quot;</span>));</span><br><span class="line">    <span class="comment">// 紧急消息的传输 只需要指定 MSG_OOB</span></span><br><span class="line">    <span class="built_in">send</span>(sock, <span class="string">&quot;890&quot;</span>, <span class="built_in">strlen</span>(<span class="string">&quot;890&quot;</span>), MSG_OOB);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">close</span>(sock);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@jarryli:/home/jarryli/tcp_ip/chapter13# g++ oob_send.cpp -o oob</span><br><span class="line">root@jarryli:/home/jarryli/tcp_ip/chapter13# ./oob 127.0.0.1 9190</span><br></pre></td></tr></table></figure>
+
+<p><font color=SpringGreen>通过MSG_OOB可选项传递数据时不会加快速度传输数据，而且通过信号处理函数urg_handler读取数据时只能读取一个字节。剩余数据只能通过MSG_OOB可选项的普通输入函数读取。这是因为TCP不存在真正意义上的“带外数据”。实际上，MSG_OOB中的OOB指的是Out-of-band，而带外数据的含义是：“通过完全不同的通信路径传输的数据。”即真正意义上的Out-of-rand需要通过单独的通信路径告诉传输数据，但TCP不另外提供，只利用TCP的紧急模式(Urgent mode)进行传输。</font></p>
+<h3 id="1-1-2-紧急模式工作原理"><a href="#1-1-2-紧急模式工作原理" class="headerlink" title="1.1.2 紧急模式工作原理"></a>1.1.2 紧急模式工作原理</h3><p><font color=Chocolate>MSG_OOB真正的意义在于督促数据接收对象尽快处理数据。这是紧急模式的全部内容，而且TCP“保持传输顺序”的特性仍然成立。</font></p>
+<p><img src="/../picture/assets/image-20240804142528425.png" alt="image-20240804142528425"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">send</span>(sock, <span class="string">&quot;890&quot;</span>, <span class="built_in">strlen</span>(<span class="string">&quot;890&quot;</span>), MSG_OOB);</span><br></pre></td></tr></table></figure>
+
+<p>​		如果将缓冲区最左侧端的位置视为偏移量0，字符0保存于偏移量为2的位置。另外，字符0右侧偏移量为3的位置存有紧急指针(Urgent Pointer)。紧急指针指向紧急消息的下一个位置（偏移量+1），同时向对方主机传递如下消息：</p>
+<center>“紧急指针指向的偏移量为3之前的部分就是紧急消息”</center>
+
+<p>​		也就是说，实际上只用了一个字节表示紧急消息。</p>
+<p><img src="/../picture/assets/image-20240804142938172.png" alt="image-20240804142938172"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>TCP包实际包含更多消息(这里只是列举主题相关的)</p>
+<ul>
+<li><input disabled="" type="checkbox"> URG&#x3D;1： 载有紧急消息的数据包</li>
+<li><input disabled="" type="checkbox"> URG指针： 紧急指针位于便宜量为3的位置</li>
+</ul>
+<p>​		指定MSG_OOB选项的数据包本身就是紧急数据包，并通过紧急指针表示紧急消息所在位置。但是通过图13-2无法得到：</p>
+<center>“紧急消息是字符串890？还是90？还是单个字符0？”</center>
+
+<p><font color=red>除紧急指针的前面1个字节外，数据接收方将通过调用常用输入函数读取剩余部分。换言之，紧急消息的意义在于督促消息处理，而非紧急传输受限的消息。</font></p>
+<p>补充：</p>
+<p><em><strong>计算机领域中的偏移量(offset):</strong></em></p>
+<p><img src="/../picture/assets/image-20240804200023450.png" alt="image-20240804200023450"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<center>偏移量表示距离基准点向哪个方向偏移多长距离，偏移地址每次从0开始。</center>
+
+
+
+<h3 id="1-1-3-检查输入缓冲"><a href="#1-1-3-检查输入缓冲" class="headerlink" title="1.1.3 检查输入缓冲"></a>1.1.3 检查输入缓冲</h3><p>​		同时设置MSG_PEEK选项和MSG_DONTWAIT选项，以验证输入缓冲区中是否存在接收的数据。设置MSG_PEEK选并调用recv函数时，即使读取了缓冲区的数据也不会删除。因此该选项通常与MSG_DONTWAIT合作，用于调用以非阻塞方式验证待读取数据存在与否的函数。</p>
+<p><em><strong>Example:</strong></em></p>
+<blockquote>
+<p>peek_recv.cpp</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BUFF_SIZE 30</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">error_handling</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* message)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">fputs</span>(message, stderr);</span><br><span class="line">    <span class="built_in">fputc</span>(<span class="string">&#x27;\n&#x27;</span>, stderr);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> acpt_sock, recv_sock;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> acpt_addr, recv_addr;</span><br><span class="line">    <span class="type">int</span> str_len, state;</span><br><span class="line">    <span class="type">socklen_t</span> recv_addr_sz;</span><br><span class="line">    <span class="type">char</span> buff[BUFF_SIZE];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">2</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Usage: %s &lt;port&gt;\n&quot;</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-2</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    acpt_sock = <span class="built_in">socket</span>(PF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">memset</span>(&amp;acpt_addr, <span class="number">0</span>, <span class="built_in">sizeof</span>(acpt_addr));</span><br><span class="line">    acpt_addr.sin_family = AF_INET;</span><br><span class="line">    acpt_addr.sin_addr.s_addr = <span class="built_in">htonl</span>(INADDR_ANY);</span><br><span class="line">    acpt_addr.sin_port = <span class="built_in">htons</span>(<span class="built_in">atoi</span>(argv[<span class="number">1</span>]));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">bind</span>(acpt_sock, (<span class="keyword">struct</span> sockaddr*)&amp;acpt_addr, <span class="built_in">sizeof</span>(acpt_addr)) == <span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">error_handling</span>(<span class="string">&quot;bind() error!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">listen</span>(acpt_sock, <span class="number">5</span>);</span><br><span class="line">    recv_addr_sz = <span class="built_in">sizeof</span>(recv_addr);</span><br><span class="line">    recv_sock = <span class="built_in">accept</span>(acpt_sock, (<span class="keyword">struct</span> sockaddr*)&amp;recv_addr, &amp;recv_addr_sz);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        str_len = <span class="built_in">recv</span>(recv_sock, buff, <span class="built_in">sizeof</span>(buff) - <span class="number">1</span>, MSG_PEEK | MSG_DONTWAIT);</span><br><span class="line">        <span class="keyword">if</span> (str_len &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    buff[str_len] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Buffering %d bytes: %s\n&quot;</span>, str_len, buff);</span><br><span class="line"></span><br><span class="line">    str_len = <span class="built_in">recv</span>(recv_sock, buff, <span class="built_in">sizeof</span>(buff) - <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    buff[str_len] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Read again: %s\n&quot;</span>, buff);</span><br><span class="line">    <span class="built_in">close</span>(acpt_sock);</span><br><span class="line">    <span class="built_in">close</span>(recv_sock);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@jarryli:/home/jarryli/tcp_ip/chapter13# g++ peek_recv.cpp -o recv</span><br><span class="line">root@jarryli:/home/jarryli/tcp_ip/chapter13# ./recv 9190</span><br><span class="line">Buffering 3 bytes: 123</span><br><span class="line">Read again: 123</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>peek_send.cpp</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">error_handling</span><span class="params">(<span class="type">const</span> <span class="type">char</span>* message)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">fputs</span>(message, stderr);</span><br><span class="line">    <span class="built_in">fputc</span>(<span class="string">&#x27;\n&#x27;</span>, stderr);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> sock;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> send_addr;</span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">3</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Usage: %s &lt;IP&gt; &lt;port&gt;\n&quot;</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-2</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    sock = <span class="built_in">socket</span>(PF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">memset</span>(&amp;send_addr, <span class="number">0</span>, <span class="built_in">sizeof</span>(send_addr));</span><br><span class="line">    send_addr.sin_family = AF_INET;</span><br><span class="line">    send_addr.sin_addr.s_addr = <span class="built_in">inet_addr</span>(argv[<span class="number">1</span>]);</span><br><span class="line">    send_addr.sin_port = <span class="built_in">htons</span>(<span class="built_in">atoi</span>(argv[<span class="number">2</span>]));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">connect</span>(sock, (<span class="keyword">struct</span> sockaddr*)&amp;send_addr, <span class="built_in">sizeof</span>(send_addr)))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">error_handling</span>(<span class="string">&quot;connect() error&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">write</span>(sock, <span class="string">&quot;123&quot;</span>, <span class="built_in">strlen</span>(<span class="string">&quot;123&quot;</span>));</span><br><span class="line">    <span class="built_in">close</span>(sock);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@glk:/home/jarryli/tcp_ip/chapter13# g++ peek_send.cpp -o send</span><br><span class="line">root@glk:/home/jarryli/tcp_ip/chapter13# ./send 127.0.0.1 9190</span><br></pre></td></tr></table></figure>
+
+<p><font color=Turquoise2>仅发送1次数据却被读取了2次，因为第1次调用recv函数时设置了MSG_PEEK可选项。</font></p>
+<h2 id="1-2-readv-writev-函数"><a href="#1-2-readv-writev-函数" class="headerlink" title="1.2 readv &amp; writev 函数"></a>1.2 readv &amp; writev 函数</h2><p>​		readv &amp; writev 函数的功能：对数据进行整合传输及发送的函数。</p>
+<p>也就是说，通过 writev 函数可以将分散保存在多个缓冲区中的数据一并发送，通过 readv 函数可以有多个缓冲区分别接收；适当使用这2个函数可以减少 I&#x2F;O 函数的调用次数。</p>
+<h3 id="1-2-1-writev-函数"><a href="#1-2-1-writev-函数" class="headerlink" title="1.2.1 writev 函数"></a>1.2.1 writev 函数</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/uio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">ssize_t</span> <span class="title">writev</span><span class="params">(<span class="type">int</span> filedes, <span class="type">const</span> <span class="keyword">struct</span> iovec* iov, <span class="type">int</span> iovcnt)</span></span>;</span><br><span class="line">	-&gt; 成功时返回发送的字节数，失败时返回<span class="number">-1</span></span><br><span class="line">        • filedes: 表示数据传输对象的套接字文件描述符。但该函数并不只限于套接字，因此可以像read函数一样向其传递文件或标准输出描述符</span><br><span class="line">        • iov: iovec结构体数组的地址值，结构体iovec中包含待发送数据的位置和信息大小</span><br><span class="line">        • iovcnt: 向第二个参数传递的数组长度</span><br><span class="line"></span><br><span class="line"><span class="comment">// 结构体 iovec</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">iovec</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">void</span>* iov_base;	<span class="comment">// 缓冲地址</span></span><br><span class="line">    <span class="type">size_t</span> iov_len; <span class="comment">// 缓冲大小</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/../picture/assets/image-20240804221831486.png" alt="image-20240804221831486"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><em><strong>Example:</strong></em></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/uio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">iovec</span> vec[<span class="number">2</span>];</span><br><span class="line">    <span class="type">char</span> buf1[] = <span class="string">&quot;ABCDEFG&quot;</span>;</span><br><span class="line">    <span class="type">char</span> buf2[] = <span class="string">&quot;1234567&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> str_len;</span><br><span class="line">    <span class="comment">// 缓冲区的基地址</span></span><br><span class="line">    vec[<span class="number">0</span>].iov_base = buf1;</span><br><span class="line">    <span class="comment">// 缓冲区的长度</span></span><br><span class="line">    vec[<span class="number">0</span>].iov_len = <span class="number">3</span>;</span><br><span class="line">    </span><br><span class="line">    vec[<span class="number">1</span>].iov_base = buf2;</span><br><span class="line">    vec[<span class="number">1</span>].iov_len = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    str_len = <span class="built_in">writev</span>(<span class="number">1</span>, vec, <span class="number">2</span>);</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Write bytes: %d\n&quot;</span>, str_len);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>Result:</strong></em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@jarryli:/home/jarryli/tcp_ip/chapter13# g++ writev.cpp -o writev</span><br><span class="line">root@jarryli:/home/jarryli/tcp_ip/chapter13# ./writev </span><br><span class="line">ABC123</span><br><span class="line">Write bytes: 6</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-2-readv-函数"><a href="#1-2-2-readv-函数" class="headerlink" title="1.2.2 readv 函数"></a>1.2.2 readv 函数</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/uio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">ssize_t</span> <span class="title">readv</span><span class="params">(<span class="type">int</span> filedes, <span class="type">const</span> <span class="keyword">struct</span> iovec* iov, <span class="type">int</span> iovcnt)</span></span>;</span><br><span class="line">	-&gt; 成功时返回发送的字节数，失败时返回<span class="number">-1</span></span><br><span class="line">        • filedes: 传递接收数据的文件(或套接字)描述符</span><br><span class="line">        • iov: 包含数据保存位置和大小信息的iovec结构体数据的地址值</span><br><span class="line">        • iovcnt: 向第二个参数传递的数组长度</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>Example:</strong></em></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/uio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BUFF_SIZE 100</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">iovec</span> vec[<span class="number">2</span>];</span><br><span class="line">    <span class="type">char</span> buf1[BUFF_SIZE] = &#123;<span class="number">0</span>, &#125;;</span><br><span class="line">    <span class="type">char</span> buf2[BUFF_SIZE] = &#123;<span class="number">0</span>, &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> str_len;</span><br><span class="line">    vec[<span class="number">0</span>].iov_base = buf1;</span><br><span class="line">    vec[<span class="number">0</span>].iov_len = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line">    vec[<span class="number">1</span>].iov_base = buf2;</span><br><span class="line">    vec[<span class="number">1</span>].iov_len = BUFF_SIZE;</span><br><span class="line">    </span><br><span class="line">    str_len = <span class="built_in">readv</span>(<span class="number">0</span>, vec, <span class="number">2</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Read bytes: %d\n&quot;</span>, str_len);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;First message: %s\n&quot;</span>, buf1);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Second message: %s\n&quot;</span>, buf2);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>Result:</strong></em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@jarryli:/home/jarryli/tcp_ip/chapter13# g++ readv.cpp -o readv</span><br><span class="line">root@jarryli:/home/jarryli/tcp_ip/chapter13# ./readv </span><br><span class="line">I like TCP/IP socket programming~</span><br><span class="line">Read bytes: 34</span><br><span class="line">First message: I lik</span><br><span class="line">Second message: e TCP/IP socket programming~</span><br></pre></td></tr></table></figure>
+
+
+</article>
+    
+    <div class="trm-reward">
+        
+            <span class="trm-reward-btn trm-glow" onclick='var qr = document.getElementById("qr"); qr.style.display = (qr.style.display === "none") ? "block" : "none";'>
+                <i class="iconfont fas fa-hand-holding-usd"></i>
+            </span>
+        
+        <p class="trm-reward-comment">sponsor</p>
+        <div id="qr" style="display:none;">
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='/img/wechat.jpg' target='_blank' >
+                       <img src="/img/wechat.jpg" alt="微信" loading="lazy">
+                    </a>
+                    <p>微信</p>
+                </div>
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='/img/zhifubao.jpg' target='_blank' >
+                       <img src="/img/zhifubao.jpg" alt="支付宝" loading="lazy">
+                    </a>
+                    <p>支付宝</p>
+                </div>
+            
+        </div>
+    </div>
+
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            Other Articles
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2024/08/03/C++%2011%20%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/C/">
+                    C++
+                </a>
+            </div>
+            <h5>
+                <a href="/2024/08/03/C++%2011%20%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" class="trm-anima-link">
+                    C++ 11 类型转换
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/08/03</li>
+                <li>18:01</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                Powered by <a href="https://github.com/jarryLi-max" target="_blank" rel="noopener">JarryLi</a> 
+                <!-- v7.3.0 -->
+            </span>
+            <!-- <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                Theme - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.2
+            </span> -->
+        </div>
+      
+
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+            
+<div class="trm-fixed-container">
+    
+    
+        <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="Back To Top">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="Searching...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    Please enter keywords to search
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.2"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.2"></script>
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>
