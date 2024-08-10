@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="Modbus 协议开发1. Modbus 协议简介• Modbus协议，是单主&#x2F;多从协议 • 同一时刻，只能有一个主设备，一个或多个从设备（最多247个） • 只能由主设备发起通信请求 • 从设备没有收到主设备的请求时，不能主动发送数据 • 只能在主设备和从设备之间通信，从设备之间不能通信 • 主设备只能同时启动一个modbus访问事务（即一个事务处理完之后，才能发起另一个事务） • 主">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Modbus 协议开发">
+<meta property="og:url" content="http://example.com/2024/08/10/Modbus/index.html">
+<meta property="og:site_name" content="JarryLi&#39;s Blog">
+<meta property="og:description" content="Modbus 协议开发1. Modbus 协议简介• Modbus协议，是单主&#x2F;多从协议 • 同一时刻，只能有一个主设备，一个或多个从设备（最多247个） • 只能由主设备发起通信请求 • 从设备没有收到主设备的请求时，不能主动发送数据 • 只能在主设备和从设备之间通信，从设备之间不能通信 • 主设备只能同时启动一个modbus访问事务（即一个事务处理完之后，才能发起另一个事务） • 主">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="article:published_time" content="2024-08-10T10:34:03.870Z">
+<meta property="article:modified_time" content="2024-08-10T10:36:04.310Z">
+<meta property="article:author" content="JarryLi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/404.jpg">
+
+
+<title >Modbus 协议开发</title>
+
+<!-- Favicon -->
+
+    <link href='/img/favicon.svg?v=2.2.2' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/favicon.svg?v=2.2.2' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"JarryLi","root":"/","typed_text":null,"theme_version":"2.2.2","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","apple_touch_icon":null,"webmanifest":null,"visibilitychange":false,"hidden":"/failure.ico","show_text":"(/≧▽≦/)Hey! Good again!","hide_text":"(●—●)Oh, crash!"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","trigger":"auto","path":"search.xml"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-08-10 18:36:04"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<!-- <a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/favicon.svg">
+    
+    
+        <div class="trm-logo-text">
+            Async<span>Theme</span>
+        </div>
+    
+</a> -->
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    Home
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    Archives
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            Modbus 协议开发
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2024
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        JarryLi
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com/jarryLi-max" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                Residence:
+            </div>
+            <div class="trm-label trm-label-light">
+                China
+            </div>
+        </li>
+        <li>
+            <div class="trm-label">
+                email:
+            </div>
+            <div class="trm-label trm-label-light">
+                2976562002@qq.com
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            08/10
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            18:34
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            JarryLi
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h1 id="Modbus-协议开发"><a href="#Modbus-协议开发" class="headerlink" title="Modbus 协议开发"></a>Modbus 协议开发</h1><h2 id="1-Modbus-协议简介"><a href="#1-Modbus-协议简介" class="headerlink" title="1. Modbus 协议简介"></a>1. Modbus 协议简介</h2><p>• Modbus协议，是单主&#x2F;多从协议</p>
+<p>• 同一时刻，只能有一个主设备，一个或多个从设备（最多247个）</p>
+<p>• 只能由主设备发起通信请求</p>
+<p>• 从设备没有收到主设备的请求时，不能主动发送数据</p>
+<p>• 只能在主设备和从设备之间通信，从设备之间不能通信</p>
+<p>• 主设备只能同时启动一个modbus访问事务（即一个事务处理完之后，才能发起另一个事务）</p>
+<p>• 主设备和从设备之间，有两种通信方式：单播模式、广播模式</p>
+<h2 id="2-单播模式和广播模式"><a href="#2-单播模式和广播模式" class="headerlink" title="2. 单播模式和广播模式"></a>2. 单播模式和广播模式</h2><h3 id="2-1-单播模式"><a href="#2-1-单播模式" class="headerlink" title="2.1 单播模式"></a>2.1 单播模式</h3><table>
+<thead>
+<tr>
+<th>从设备地址(1-247)</th>
+<th>功能码</th>
+<th>数据段(从设备内的寄存器地址，寄存器数量)</th>
+<th>差错校验</th>
+</tr>
+</thead>
+</table>
+<p><strong>数据段：</strong>可以用来表示从“哪个寄存器”（2个字节）开始读取语句，以及要读取的”寄存器数量“（2个字节）</p>
+<p><strong>数据段的长度：</strong>是可变的，某些功能码，数据段是空的</p>
+<h4 id="2-1-1-请求报文实例"><a href="#2-1-1-请求报文实例" class="headerlink" title="2.1.1 请求报文实例"></a>2.1.1 请求报文实例</h4><p>​	从设备地址为1，需要获取从设备的指定”输入寄存器“（寄存器的PLC地址为：30001），在modbus RTU模式下，查询帧为：</p>
+<table>
+<thead>
+<tr>
+<th>0x01</th>
+<th>0x04</th>
+<th>0x00 0x00    0x00 0x01</th>
+<th>0x31</th>
+</tr>
+</thead>
+</table>
+<p>单播模式中，主设备发送请求报文后，指定的从设备发送一个响应报文。从设备的地址范围是1~247，主设备本身不使用设备地址。</p>
+<h3 id="2-2-广播模式"><a href="#2-2-广播模式" class="headerlink" title="2.2 广播模式"></a>2.2 广播模式</h3><p>广播模式中，主设备向所有设备发送请求指令（注意，只有一个请求报文，设备地址是0），所有的从设备收到广播请求后，执行相应的处理，但是不返回任何报文。</p>
+<h2 id="3-Modbus寄存器"><a href="#3-Modbus寄存器" class="headerlink" title="3. Modbus寄存器"></a>3. Modbus寄存器</h2><p>modbus寄存器：是指从设备具体的”物理寄存器“，也可能只是从设备的一块内存区域。</p>
+<h3 id="3-1-modbus寄存器的种类"><a href="#3-1-modbus寄存器的种类" class="headerlink" title="3.1 modbus寄存器的种类"></a>3.1 modbus寄存器的种类</h3><h4 id="3-1-1-线圈状态寄存器（读-写）"><a href="#3-1-1-线圈状态寄存器（读-写）" class="headerlink" title="3.1.1 线圈状态寄存器（读&#x2F;写）"></a>3.1.1 线圈状态寄存器（读&#x2F;写）</h4><p>实际上就可以类比为开关量（继电器状态），每一个bit对应一个信号的开关状态，所以一个byte就可以同时控制8路的信号。</p>
+<p>比如控制外部8路io的高低</p>
+<p><img src="/../picture/%E5%B5%8C%E5%85%A5%E5%BC%8F/assets/image-20240810101852374.png" alt="image-20240810101852374"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h4 id="3-1-2-离散输入状态寄存器（只读）"><a href="#3-1-2-离散输入状态寄存器（只读）" class="headerlink" title="3.1.2 离散输入状态寄存器（只读）"></a>3.1.2 离散输入状态寄存器（只读）</h4><p>离散输入寄存器就相当于线圈寄存器的只读模式，也是每个bit表示一个开关量，而他的开关量只能读取输入的开关信号，是不能够写的。</p>
+<p>比如：使用离散输入状态寄存器，读取拨码开关的”开关状态“。</p>
+<p><img src="/../picture/%E5%B5%8C%E5%85%A5%E5%BC%8F/assets/image-20240810102201886.png" alt="image-20240810102201886"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h4 id="3-1-3-保持寄存器（读-写）"><a href="#3-1-3-保持寄存器（读-写）" class="headerlink" title="3.1.3 保持寄存器（读&#x2F;写）"></a>3.1.3 保持寄存器（读&#x2F;写）</h4><p>可以通过命令读取写的寄存器，通常是一些功能控制寄存器或者输出寄存器。</p>
+<p>无符号双字节整形（unsigned short）</p>
+<p>比如：步进电机控制器中，用来控制电机旋转多少角度的寄存器。</p>
+<p><img src="/../picture/%E5%B5%8C%E5%85%A5%E5%BC%8F/assets/image-20240810102511668.png" alt="image-20240810102511668"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h4 id="3-1-4-输入寄存器（只读）"><a href="#3-1-4-输入寄存器（只读）" class="headerlink" title="3.1.4 输入寄存器（只读）"></a>3.1.4 输入寄存器（只读）</h4><p>只能读不能写，无符号双字节整形（unsigned short）</p>
+<p>通常是状态寄存器或者是输入结果寄存器等。</p>
+<p>输入是模拟量的输入。</p>
+<p>比如：模拟量输入</p>
+<p><img src="/../picture/%E5%B5%8C%E5%85%A5%E5%BC%8F/assets/image-20240810102714167.png" alt="image-20240810102714167"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="3-2-Modbus寄存器的地址"><a href="#3-2-Modbus寄存器的地址" class="headerlink" title="3.2 Modbus寄存器的地址"></a>3.2 Modbus寄存器的地址</h3><table>
+<thead>
+<tr>
+<th>寄存器种类</th>
+<th>寄存器PLC地址</th>
+<th>寄存器Modbus协议地址</th>
+<th>简称</th>
+<th>读写状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>线圈状态</td>
+<td>00001 ~ 09999</td>
+<td>0000H ~ FFFFH</td>
+<td>0x</td>
+<td>可读可写</td>
+</tr>
+<tr>
+<td>离散输入状态</td>
+<td>10001 ~ 19999</td>
+<td>0000H ~ FFFFH</td>
+<td>1x</td>
+<td>只读</td>
+</tr>
+<tr>
+<td>输入寄存器</td>
+<td>30001 ~ 39999</td>
+<td>0000H ~ FFFFH</td>
+<td>3x</td>
+<td>只写</td>
+</tr>
+<tr>
+<td>保持寄存器</td>
+<td>40001 ~ 49999</td>
+<td>0000H ~ FFFFH</td>
+<td>4x</td>
+<td>可读可写</td>
+</tr>
+</tbody></table>
+<h2 id="4-Modbus串行消息帧格式"><a href="#4-Modbus串行消息帧格式" class="headerlink" title="4. Modbus串行消息帧格式"></a>4. Modbus串行消息帧格式</h2><p>在串口通道上，modbus协议有两种帧格式：</p>
+<p>• modbus ASCII 模式</p>
+<p>• modbus RTU 模式</p>
+<h3 id="4-1-Modbus-ASCII-消息帧格式"><a href="#4-1-Modbus-ASCII-消息帧格式" class="headerlink" title="4.1 Modbus ASCII 消息帧格式"></a>4.1 Modbus ASCII 消息帧格式</h3><p>消息中的没个8bit的字节数据，用对应的两个ASCII字符发送。</p>
+<p><strong>例如：</strong></p>
+<p>一个字节的数据：0x5B，就使用’5’和’B’传输，</p>
+<p>‘5’对应的ASCII码值是 0x35</p>
+<p>‘B’对应的ASCII码值是 0x42</p>
+<p>所以使用0x35 0x42这两个字节传输</p>
+<p><strong>帧格式：</strong></p>
+<table>
+<thead>
+<tr>
+<th>起始（帧头）</th>
+<th>地址（从设备地址）</th>
+<th>功能代码</th>
+<th>数据</th>
+<th>LRC校验</th>
+<th>结束（帧尾）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1字节</td>
+<td>2字节</td>
+<td>2字节</td>
+<td>0 - 2*252 字节</td>
+<td>2字节</td>
+<td>2字节</td>
+</tr>
+<tr>
+<td>0x3A（字符’:’）</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>0x0D 0x0A（回车 换行）</td>
+</tr>
+</tbody></table>
+<p>（1）当网络上的modbus设备检测到0x3A(字符’:’)时，每个设备进入解码状态，并检测下一字段，是否是发给自己的。</p>
+<p>（2）字符的发送间隔时间不超过1秒</p>
+<p><strong>优缺点：</strong></p>
+<p>更容易调试。</p>
+<p>数据传输速度比较慢，不适合高速通信，适合与ASCII码有关的设备之间进行通信。</p>
+<h3 id="4-2-Modbus-RTU-消息帧格式"><a href="#4-2-Modbus-RTU-消息帧格式" class="headerlink" title="4.2 Modbus RTU 消息帧格式"></a>4.2 Modbus RTU 消息帧格式</h3><p>RTU模式中，每一帧的时间间隔（比如请求消息和响应消息），至少为3.5个字符时间（可以大于3.5）；</p>
+<p>在同一帧报文内部，两个字符之间的时间间隔不能大于1.5个字符时间，否则直接将整个报文丢弃。</p>
+<p><img src="/../picture/%E5%B5%8C%E5%85%A5%E5%BC%8F/assets/image-20240810163020348.png" alt="image-20240810163020348"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>1个字符包含：</p>
+<p>1个起始位，8位数据位，1位校验位（或者没有），1位停止位（一般有），共11位</p>
+<p>3.8个字符：就是3.5 * 11 &#x3D; 38.5位</p>
+<p>如果波特率是 9600b&#x2F;s，那么：(1000 &#x2F; 9600) * 38.5 &#x3D; 4.0104167ms</p>
+<p><img src="/../picture/%E5%B5%8C%E5%85%A5%E5%BC%8F/assets/image-20240810163257877.png" alt="image-20240810163257877"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="4-3-Modbus-地址域"><a href="#4-3-Modbus-地址域" class="headerlink" title="4.3 Modbus 地址域"></a>4.3 Modbus 地址域</h3><p>表示modbus从设备的地址：1 - 247</p>
+<p>广播地址：0</p>
+<p>从设备发送响应包时，地址不变（依旧是这个从设备的地址，和请求包的地址相同）</p>
+<p>ASCII 模式中，地址是2个字节</p>
+<p>RTU模式中，地址是1个字节</p>
+<h3 id="4-4-Modbus-功能码"><a href="#4-4-Modbus-功能码" class="headerlink" title="4.4 Modbus 功能码"></a>4.4 Modbus 功能码</h3><p>1个字节，1-255</p>
+<p>需要根据从设备寄存器类型，来选择合适的功能码。</p>
+<p><strong>常用的功能码：</strong></p>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>名称</th>
+<th>位&#x2F;字操作</th>
+<th>操作数量</th>
+<th>寄存器PLC地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>01</td>
+<td>读线圈状态</td>
+<td>位操作</td>
+<td>单个或多个</td>
+<td>00001 ~ 09999</td>
+</tr>
+<tr>
+<td>02</td>
+<td>读离散输入状态</td>
+<td>字操作</td>
+<td>单个或多个</td>
+<td>10001 ~ 19999</td>
+</tr>
+<tr>
+<td>03</td>
+<td>读保存寄存器</td>
+<td>字操作</td>
+<td>单个或多个</td>
+<td>40001 ~ 49999</td>
+</tr>
+<tr>
+<td>04</td>
+<td>读输入寄存器</td>
+<td>字操作</td>
+<td>单个或多个</td>
+<td>30001 ~ 39999</td>
+</tr>
+<tr>
+<td>05</td>
+<td>写单个线圈</td>
+<td>位操作</td>
+<td>单个</td>
+<td>00001 ~ 09999</td>
+</tr>
+<tr>
+<td>06</td>
+<td>写单个保持寄存器</td>
+<td>字操作</td>
+<td>单个</td>
+<td>40001 ~ 49999</td>
+</tr>
+<tr>
+<td>15</td>
+<td>写多个线圈</td>
+<td>位操作</td>
+<td>多个</td>
+<td>00001 ~ 09999</td>
+</tr>
+<tr>
+<td>16</td>
+<td>写多个保持寄存器</td>
+<td>字操作</td>
+<td>多个</td>
+<td>40001 ~ 49999</td>
+</tr>
+</tbody></table>
+<p>字操作的最小单位是两字节，位操作的最小单位是1位(bit)</p>
+<h3 id="4-5-数据域"><a href="#4-5-数据域" class="headerlink" title="4.5 数据域"></a>4.5 数据域</h3><p>具体内容取决于功能码，以字节为单位，长度可变，对于某些功能码，数据域可以为空。</p>
+<h3 id="4-6-校验域"><a href="#4-6-校验域" class="headerlink" title="4.6 校验域"></a>4.6 校验域</h3><p><strong>ASCII模式：</strong></p>
+<p>2个字节，对整个报文执行“纵向冗余校验”（LRC）</p>
+<p>校验内容不含帧头（冒号），帧尾（回车换行）</p>
+<p>实际校验内容只有一个字节，因为使用ASCII模式，占用两个字节</p>
+<p><strong>RTU模式：</strong></p>
+<p>2个字节，对整个报文执行“循环冗余校验”（CRC-16）</p>
+<p>纠错能力强</p>
+<h2 id="5-大小端"><a href="#5-大小端" class="headerlink" title="5. 大小端"></a>5. 大小端</h2><p>大端序（BigEndian）：字数据的高字节存储在低地址中，低字节存储在高地址中。 </p>
+<p>小端序（LittleEndian）：字数据的高字节存储在高地址中，低字节存储在低地址中。</p>
+<p>例如：将<code>12345678h</code>写入<code>1000h</code>开始的内存中：</p>
+<table>
+<thead>
+<tr>
+<th>存放顺序</th>
+<th>1000h</th>
+<th>1001h</th>
+<th>1002h</th>
+<th>1003h</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>大端</td>
+<td>12h</td>
+<td>34h</td>
+<td>56h</td>
+<td>78h</td>
+</tr>
+<tr>
+<td>小端</td>
+<td>78h</td>
+<td>56h</td>
+<td>34h</td>
+<td>12h</td>
+</tr>
+</tbody></table>
+<p>Modbus 协议本身不指定是使用大端序还是小端序。 在ModbusRTU模式下，常使用小端序来表示寄存器地址和数据。</p>
+
+</article>
+    
+    <div class="trm-reward">
+        
+            <span class="trm-reward-btn trm-glow" onclick='var qr = document.getElementById("qr"); qr.style.display = (qr.style.display === "none") ? "block" : "none";'>
+                <i class="iconfont fas fa-hand-holding-usd"></i>
+            </span>
+        
+        <p class="trm-reward-comment">sponsor</p>
+        <div id="qr" style="display:none;">
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='/img/wechat.jpg' target='_blank' >
+                       <img src="/img/wechat.jpg" alt="微信" loading="lazy">
+                    </a>
+                    <p>微信</p>
+                </div>
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='/img/zhifubao.jpg' target='_blank' >
+                       <img src="/img/zhifubao.jpg" alt="支付宝" loading="lazy">
+                    </a>
+                    <p>支付宝</p>
+                </div>
+            
+        </div>
+    </div>
+
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            Other Articles
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2024/08/04/chapter13%E5%A4%9A%E7%A7%8DIO%E5%87%BD%E6%95%B0/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
+                    网络编程
+                </a>
+            </div>
+            <h5>
+                <a href="/2024/08/04/chapter13%E5%A4%9A%E7%A7%8DIO%E5%87%BD%E6%95%B0/" class="trm-anima-link">
+                    多种 I/O 函数
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/08/04</li>
+                <li>22:51</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                Powered by <a href="https://github.com/jarryLi-max" target="_blank" rel="noopener">JarryLi</a> 
+                <!-- v7.3.0 -->
+            </span>
+            <!-- <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                Theme - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.2
+            </span> -->
+        </div>
+      
+
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+            
+<div class="trm-fixed-container">
+    
+    
+        <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="Back To Top">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="Searching...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    Please enter keywords to search
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.2"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.2"></script>
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>
