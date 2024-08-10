@@ -7,18 +7,29 @@
 <meta name="full-screen" content="yes">
 <meta name="theme-color" content="#317EFB" />
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
-<meta name="description" content="世间安得双全法,不负如来不负卿">
+<meta name="description" content="Modbus 功能码详解1.功能码概述功能码占用一个字节（ASCII模式使用两个字节表示，RTU模式使用一个字节表示），范围：1 ~ 127（如果出现异常，Modbus从设备返回的异常数据中，功能码最高位置1，相当于增加128，所以异常范围是：129 ~ 255） 1.1 公共功能码Modbus协会确认的，功能被明确定义的。    代码 名称 位&#x2F;字操作 操作数量 寄存器PLC地址">
 <meta property="og:type" content="website">
-<meta property="og:title" content="JarryLi&#39;s Blog">
-<meta property="og:url" content="http://example.com/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/index.html">
+<meta property="og:title" content="Modbus 功能码详解">
+<meta property="og:url" content="http://example.com/picture/%E5%B5%8C%E5%85%A5%E5%BC%8F/Modbus%E5%8A%9F%E8%83%BD%E7%A0%81%E8%AF%A6%E8%A7%A3.html">
 <meta property="og:site_name" content="JarryLi&#39;s Blog">
-<meta property="og:description" content="世间安得双全法,不负如来不负卿">
+<meta property="og:description" content="Modbus 功能码详解1.功能码概述功能码占用一个字节（ASCII模式使用两个字节表示，RTU模式使用一个字节表示），范围：1 ~ 127（如果出现异常，Modbus从设备返回的异常数据中，功能码最高位置1，相当于增加128，所以异常范围是：129 ~ 255） 1.1 公共功能码Modbus协会确认的，功能被明确定义的。    代码 名称 位&#x2F;字操作 操作数量 寄存器PLC地址">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="article:published_time" content="2024-08-10T14:22:31.229Z">
+<meta property="article:modified_time" content="2024-08-10T14:22:31.229Z">
 <meta property="article:author" content="JarryLi">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/404.jpg">
 
 
-<title >JarryLi's Blog</title>
+<title >Modbus 功能码详解</title>
 
 <!-- Favicon -->
 
@@ -57,7 +68,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"JarryLi","root":"/","typed_text":null,"theme_version":"2.2.2","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","apple_touch_icon":null,"webmanifest":null,"visibilitychange":false,"hidden":"/failure.ico","show_text":"(/≧▽≦/)Hey! Good again!","hide_text":"(●—●)Oh, crash!"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","trigger":"auto","path":"search.xml"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":false,"isHome":false,"postUpdate":"2024-08-10 22:24:57"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":false,"isHome":false,"postUpdate":"2024-08-10 22:22:31"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
@@ -188,6 +199,8 @@
 
             <!-- body -->
             
+
+    
 <div class="trm-content-start">
     <!-- banner -->
     <div class="trm-banner">
@@ -209,10 +222,10 @@
                     <!-- banner title -->
                     <div class="trm-banner-text ">
                         <div class="trm-label trm-mb-20">
-                            The article archive
+                            Hi my new friend!
                         </div>
                         <h1 class="trm-mb-30 trm-hsmb-font">
-                            他日若遂凌云志，<br>敢笑黄巢不丈夫
+                            Modbus 功能码详解
                         </h1>
 
                         
@@ -222,7 +235,7 @@
                                 </li>
                                 <li>
                                     <span>
-                                        categories
+                                        picture
                                     </span>
                                 </li>
                             </ul>
@@ -306,99 +319,253 @@
             
             <div class="trm-page-content col-lg-8">
                 <div id="trm-content" class="trm-content">
-                    <div class="row">
-    <div class="col-lg-12">
-        <div class="trm-card">
-            <div style="padding: 0 20px;">
-                
-                    <ul class="trm-tag-list"><li class="trm-tag-list-item "><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">（3）</span></li><li class="trm-tag-list-item "><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">（2）</span></li><li class="trm-tag-list-item "><a class="category-list-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a><span class="category-list-count">（2）</span></li><li class="trm-tag-list-item "><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">网络编程</a><span class="category-list-count">（6）</span></li></ul>
-                
-            </div>
-        </div>
-    </div>
-</div>
+                    <h1 id="Modbus-功能码详解"><a href="#Modbus-功能码详解" class="headerlink" title="Modbus 功能码详解"></a>Modbus 功能码详解</h1><h2 id="1-功能码概述"><a href="#1-功能码概述" class="headerlink" title="1.功能码概述"></a>1.功能码概述</h2><p>功能码占用一个字节（ASCII模式使用两个字节表示，RTU模式使用一个字节表示），范围：1 ~ 127（如果出现异常，Modbus从设备返回的异常数据中，功能码最高位置1，相当于增加128，所以异常范围是：129 ~ 255）</p>
+<h3 id="1-1-公共功能码"><a href="#1-1-公共功能码" class="headerlink" title="1.1 公共功能码"></a>1.1 公共功能码</h3><p>Modbus协会确认的，功能被明确定义的。</p>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>名称</th>
+<th>位&#x2F;字操作</th>
+<th>操作数量</th>
+<th>寄存器PLC地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>01</td>
+<td>读线圈状态</td>
+<td>位操作</td>
+<td>单个或多个</td>
+<td>00001 ~ 09999</td>
+</tr>
+<tr>
+<td>02</td>
+<td>读离散输入状态</td>
+<td>位操作</td>
+<td>单个或多个</td>
+<td>10001 ~ 19999</td>
+</tr>
+<tr>
+<td>03</td>
+<td>读保持寄存器</td>
+<td>字操作</td>
+<td>单个或多个</td>
+<td>40001 ~ 49999</td>
+</tr>
+<tr>
+<td>04</td>
+<td>读输入寄存器</td>
+<td>字操作</td>
+<td>单个或多个</td>
+<td>30001 ~ 39999</td>
+</tr>
+<tr>
+<td>05</td>
+<td>写单个线圈</td>
+<td>位操作</td>
+<td>单个</td>
+<td>00001 ~ 09999</td>
+</tr>
+<tr>
+<td>06</td>
+<td>写单个保持寄存器</td>
+<td>字操作</td>
+<td>单个</td>
+<td>40001 ~ 49999</td>
+</tr>
+<tr>
+<td>15</td>
+<td>写多个线圈</td>
+<td>位操作</td>
+<td>多个</td>
+<td>00001 ~ 09999</td>
+</tr>
+<tr>
+<td>16</td>
+<td>写多个保持寄存器</td>
+<td>字操作</td>
+<td>多个</td>
+<td>40001 ~ 49999</td>
+</tr>
+</tbody></table>
+<h3 id="1-2-用户自定义功能码"><a href="#1-2-用户自定义功能码" class="headerlink" title="1.2 用户自定义功能码"></a>1.2 用户自定义功能码</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">65 ~ 72, 100 ~ 110</span><br></pre></td></tr></table></figure>
 
-<!-- history -->
+<h3 id="1-3-保留功能码"><a href="#1-3-保留功能码" class="headerlink" title="1.3 保留功能码"></a>1.3 保留功能码</h3><p>不做公共使用</p>
+<h2 id="2-功能码的操作类型"><a href="#2-功能码的操作类型" class="headerlink" title="2. 功能码的操作类型"></a>2. 功能码的操作类型</h2><p><img src="G:\Note\嵌入式\嵌入式(奇牛)\assets\image-20240810215231040.png" alt="image-20240810215231040"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>位操作：最小操作单位是1位</p>
+<p>字操作：最小操作单位是2个字节</p>
+<h2 id="3-案例"><a href="#3-案例" class="headerlink" title="3. 案例"></a>3. 案例</h2><h3 id="3-1-读线状态"><a href="#3-1-读线状态" class="headerlink" title="3.1 读线状态"></a>3.1 读线状态</h3><p><strong>需求实例</strong></p>
+<p>读取设备地址为3的从设备的线圈状态寄存器，线圈地址为19 ~ 55（从0开始计算）共37个状态</p>
+<p><strong>查询报文</strong></p>
+<p>RTU模式：</p>
+<table>
+<thead>
+<tr>
+<th>从设备地址</th>
+<th>功能码</th>
+<th>寄存器起始地址（高位）</th>
+<th>寄存器起始地址（低位）</th>
+<th>寄存器数量（高位）</th>
+<th>寄存器数量（低位）</th>
+<th>CRC校验</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x03</td>
+<td>0x01</td>
+<td>0x00</td>
+<td>0x13</td>
+<td>0x00</td>
+<td>0x25</td>
+<td>2字节的CRC校验码</td>
+</tr>
+</tbody></table>
+<p><strong>响应报文</strong></p>
+<table>
+<thead>
+<tr>
+<th>19</th>
+<th>20</th>
+<th>21</th>
+<th>22</th>
+<th>23</th>
+<th>24</th>
+<th>25</th>
+<th>26</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ON</td>
+<td>ON</td>
+<td>OFF</td>
+<td>OFF</td>
+<td>ON</td>
+<td>OFF</td>
+<td>ON</td>
+<td>OFF</td>
+</tr>
+<tr>
+<td><strong>27</strong></td>
+<td><strong>28</strong></td>
+<td><strong>29</strong></td>
+<td><strong>30</strong></td>
+<td><strong>31</strong></td>
+<td><strong>32</strong></td>
+<td><strong>33</strong></td>
+<td><strong>34</strong></td>
+</tr>
+<tr>
+<td>ON</td>
+<td>ON</td>
+<td>OFF</td>
+<td>ON</td>
+<td>OFF</td>
+<td>ON</td>
+<td>ON</td>
+<td>OFF</td>
+</tr>
+<tr>
+<td><strong>35</strong></td>
+<td><strong>36</strong></td>
+<td><strong>37</strong></td>
+<td><strong>38</strong></td>
+<td><strong>39</strong></td>
+<td><strong>40</strong></td>
+<td><strong>41</strong></td>
+<td><strong>42</strong></td>
+</tr>
+<tr>
+<td>ON</td>
+<td>OFF</td>
+<td>OFF</td>
+<td>OFF</td>
+<td>OFF</td>
+<td>OFF</td>
+<td>OFF</td>
+<td>OFF</td>
+</tr>
+<tr>
+<td><strong>43</strong></td>
+<td><strong>44</strong></td>
+<td><strong>45</strong></td>
+<td><strong>46</strong></td>
+<td><strong>47</strong></td>
+<td><strong>48</strong></td>
+<td><strong>49</strong></td>
+<td><strong>50</strong></td>
+</tr>
+<tr>
+<td>OFF</td>
+<td>OFF</td>
+<td>ON</td>
+<td>OFF</td>
+<td>ON</td>
+<td>ON</td>
+<td>ON</td>
+<td>ON</td>
+</tr>
+<tr>
+<td><strong>51</strong></td>
+<td><strong>52</strong></td>
+<td><strong>53</strong></td>
+<td><strong>54</strong></td>
+<td><strong>55</strong></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ON</td>
+<td>ON</td>
+<td>OFF</td>
+<td>ON</td>
+<td>ON</td>
+<td>0(补充)</td>
+<td>0(补充)</td>
+<td>0(补充)</td>
+</tr>
+</tbody></table>
+<p>在响应报文中，ON用1表示，OFF用0表示</p>
+<p>1个字节，可以表示8位，最后不能填满的用0补充</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">19-26位: 1100 1010 -&gt; 对应数据: 0101 0011(逆序,低位在右边),即: 0x53</span><br><span class="line">27-34位: 0110 1011 -&gt; 即: 0x6B</span><br><span class="line">35-42位: 0000 0001 -&gt; 即: 0x01</span><br><span class="line">43-50位: 1111 0100 -&gt; 即: 0xF4</span><br><span class="line">51-55位: 0001 1011 -&gt; 即: 0x1B</span><br></pre></td></tr></table></figure>
 
-<div class="row">
-    <div class="col-lg-12">
-        <!-- title -->
-        <h5 class="trm-title-with-divider">
-            
-                嵌入式
-            
-            <span data-number="01"></span>
-        </h5>
-    </div>
-    <div class="col-lg-12">
-        <!-- timeline -->
-        <div class="trm-timeline">
-            
-            <div class="trm-timeline-item trm-scroll-animation">
-                <div class="trm-timeline-mark-light"></div>
-                <div class="trm-timeline-mark"></div>
-                <div class="trm-timeline-content more">
-                    
-                        <div class="trm-card-header">
-                            <div class="trm-left-side">
-                                <h6>
-                                    <a href="/2024/08/10/Modbus%E5%8A%9F%E8%83%BD%E7%A0%81%E8%AF%A6%E8%A7%A3/" class="trm-anima-link">
-                                        Modbus 功能码详解
-                                    </a>
-                                </h6>
-                                <div class="trm-text-sm trm-accent-color trm-mt-15">
-                                    <ul class="trm-card-data trm-label ">
-                                        <li class="trm-accent-color">08/10</li>
-                                        <li class="trm-accent-color">22:23</li>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    
-                </div>
-            </div>
-            
-            <div class="trm-timeline-item trm-scroll-animation">
-                <div class="trm-timeline-mark-light"></div>
-                <div class="trm-timeline-mark"></div>
-                <div class="trm-timeline-content more">
-                    
-                        <div class="trm-card-header">
-                            <div class="trm-left-side">
-                                <h6>
-                                    <a href="/2024/08/10/Modbus/" class="trm-anima-link">
-                                        Modbus 协议开发
-                                    </a>
-                                </h6>
-                                <div class="trm-text-sm trm-accent-color trm-mt-15">
-                                    <ul class="trm-card-data trm-label ">
-                                        <li class="trm-accent-color">08/10</li>
-                                        <li class="trm-accent-color">18:34</li>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    
-                </div>
-            </div>
-            
-        </div>
-        <!-- timeline end -->
-    </div>
-</div>
-
-<!-- history end -->
-
-
-    <div class="trm-pagination">
-        <span class="page-number current">1</span>
-    </div>
-
-
+<p><strong>响应包:(RTU模式)</strong></p>
+<table>
+<thead>
+<tr>
+<th>从设备地址</th>
+<th>功能码</th>
+<th>数据域长度(字节数)</th>
+<th>数据1</th>
+<th>数据2</th>
+<th>数据3</th>
+<th>数据4</th>
+<th>数据5</th>
+<th>CRC校验</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x03</td>
+<td>0x01</td>
+<td>0x05</td>
+<td>0x53</td>
+<td>0x6B</td>
+<td>0x01</td>
+<td>0xF4</td>
+<td>0x1B</td>
+<td>2字节的CRC校验码</td>
+</tr>
+</tbody></table>
+<p><strong>使用工具仿真：</strong></p>
+<p><em><strong>Modbus Slave</strong></em></p>
+<p><img src="G:\Note\嵌入式\嵌入式(奇牛)\assets\image-20240810221727067.png" alt="image-20240810221727067"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="G:\Note\嵌入式\嵌入式(奇牛)\assets\image-20240810221802154.png" alt="image-20240810221802154"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="G:\Note\嵌入式\嵌入式(奇牛)\assets\image-20240810221823685.png" alt="image-20240810221823685"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="G:\Note\嵌入式\嵌入式(奇牛)\assets\image-20240810221937914.png" alt="image-20240810221937914"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><em><strong>Modbus Poll</strong></em></p>
+<p><img src="G:\Note\嵌入式\嵌入式(奇牛)\assets\image-20240810222112121.png" alt="image-20240810222112121"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="G:\Note\嵌入式\嵌入式(奇牛)\assets\image-20240810222147622.png" alt="image-20240810222147622"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="G:\Note\嵌入式\嵌入式(奇牛)\assets\image-20240810222156980.png" alt="image-20240810222156980"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 
 
 
@@ -437,6 +604,7 @@
         </div>
     </div>
 </div>
+
             <!-- body end -->
 
             
@@ -518,6 +686,10 @@
     
 
     <!-- 评论插件 -->
+    
+        
+
+        
     
 
 		
