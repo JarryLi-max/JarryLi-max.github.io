@@ -7,18 +7,20 @@
 <meta name="full-screen" content="yes">
 <meta name="theme-color" content="#317EFB" />
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
-<meta name="description" content="世间安得双全法,不负如来不负卿">
-<meta property="og:type" content="website">
-<meta property="og:title" content="JarryLi&#39;s Blog">
-<meta property="og:url" content="http://example.com/categories/C/index.html">
+<meta name="description" content="常用的 Git 命令1. 将本地项目推送到远程仓库1234567git init # 初始化git remote -v # 查看已经关联的地址git add . # 添加本地仓库git commit -m &quot;第一次提交&quot; # 提交说明git remote add origin xxx # 关联远程仓库git pull --rebase origin master # 同步本地与">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用的 Git 命令">
+<meta property="og:url" content="http://example.com/2024/09/02/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="JarryLi&#39;s Blog">
-<meta property="og:description" content="世间安得双全法,不负如来不负卿">
+<meta property="og:description" content="常用的 Git 命令1. 将本地项目推送到远程仓库1234567git init # 初始化git remote -v # 查看已经关联的地址git add . # 添加本地仓库git commit -m &quot;第一次提交&quot; # 提交说明git remote add origin xxx # 关联远程仓库git pull --rebase origin master # 同步本地与">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-09-02T02:30:44.651Z">
+<meta property="article:modified_time" content="2024-09-02T02:31:10.467Z">
 <meta property="article:author" content="JarryLi">
 <meta name="twitter:card" content="summary">
 
 
-<title >JarryLi's Blog</title>
+<title >常用的 Git 命令</title>
 
 <!-- Favicon -->
 
@@ -57,7 +59,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"JarryLi","root":"/","typed_text":null,"theme_version":"2.2.2","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","apple_touch_icon":null,"webmanifest":null,"visibilitychange":false,"hidden":"/failure.ico","show_text":"(/≧▽≦/)Hey! Good again!","hide_text":"(●—●)Oh, crash!"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","trigger":"auto","path":"search.xml"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":false,"isHome":false,"postUpdate":"2024-09-02 10:31:21"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-09-02 10:31:10"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
@@ -209,10 +211,10 @@
                     <!-- banner title -->
                     <div class="trm-banner-text ">
                         <div class="trm-label trm-mb-20">
-                            The article archive
+                            NEWS LETTER
                         </div>
                         <h1 class="trm-mb-30 trm-hsmb-font">
-                            他日若遂凌云志，<br>敢笑黄巢不丈夫
+                            常用的 Git 命令
                         </h1>
 
                         
@@ -222,7 +224,7 @@
                                 </li>
                                 <li>
                                     <span>
-                                        categories
+                                        2024
                                     </span>
                                 </li>
                             </ul>
@@ -306,125 +308,118 @@
             
             <div class="trm-page-content col-lg-8">
                 <div id="trm-content" class="trm-content">
-                    <div class="row">
-    <div class="col-lg-12">
-        <div class="trm-card">
-            <div style="padding: 0 20px;">
-                
-                    <ul class="trm-tag-list"><li class="trm-tag-list-item "><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">（3）</span></li><li class="trm-tag-list-item "><a class="category-list-link" href="/categories/Git/">Git</a><span class="category-list-count">（1）</span></li><li class="trm-tag-list-item "><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">（2）</span></li><li class="trm-tag-list-item "><a class="category-list-link" href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a><span class="category-list-count">（3）</span></li><li class="trm-tag-list-item "><a class="category-list-link" href="/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">网络编程</a><span class="category-list-count">（6）</span></li></ul>
-                
-            </div>
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            09/02
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            10:30
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            JarryLi
         </div>
     </div>
 </div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h1 id="常用的-Git-命令"><a href="#常用的-Git-命令" class="headerlink" title="常用的 Git 命令"></a>常用的 Git 命令</h1><h2 id="1-将本地项目推送到远程仓库"><a href="#1-将本地项目推送到远程仓库" class="headerlink" title="1. 将本地项目推送到远程仓库"></a>1. 将本地项目推送到远程仓库</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git init # 初始化</span><br><span class="line">git remote -v # 查看已经关联的地址</span><br><span class="line">git add . # 添加本地仓库</span><br><span class="line">git commit -m &quot;第一次提交&quot; # 提交说明</span><br><span class="line">git remote add origin xxx # 关联远程仓库</span><br><span class="line">git pull --rebase origin master # 同步本地与远程仓库(如果是远程仓库是空,则可以不执行)</span><br><span class="line">git pull -u origin master # 提交远程仓库 -f: 强制推送至远程</span><br></pre></td></tr></table></figure>
 
-<!-- history -->
+<h2 id="2-Git-回退到某个历史版本"><a href="#2-Git-回退到某个历史版本" class="headerlink" title="2. Git 回退到某个历史版本"></a>2. Git 回退到某个历史版本</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git log # 查看历史</span><br><span class="line">git reset --hard xxxxxx # xxx为版本号</span><br><span class="line">git push -f -u origin master / git push -f # 推送修改</span><br></pre></td></tr></table></figure>
 
-<div class="row">
+<h2 id="3-修改项目关联远程地址方法"><a href="#3-修改项目关联远程地址方法" class="headerlink" title="3. 修改项目关联远程地址方法"></a>3. 修改项目关联远程地址方法</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin &lt;url&gt; # 修改</span><br><span class="line">手动去修改项目中.git文件夹下,编辑config配置文件中的url</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Git-修改分支的名称"><a href="#4-Git-修改分支的名称" class="headerlink" title="4. Git 修改分支的名称"></a>4. Git 修改分支的名称</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">需要将分支 br_old 修改为 br_new</span></span><br><span class="line"></span><br><span class="line">git checkout br_old # 切换分支</span><br><span class="line">git pull origin br_old # 将代码更新到和远程仓库一直</span><br><span class="line">git branch -m br_old br_new # 将分支 br_old 重命名为 br_new</span><br><span class="line">git push --set-upstream origin br_new # 将本地分支push到远程仓库</span><br><span class="line">git push origin --delete br_old # 删除远程分支 br_old</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-Git-删除分支"><a href="#5-Git-删除分支" class="headerlink" title="5. Git 删除分支"></a>5. Git 删除分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">现在在 demo 分支上,想删除 demo 分支:</span></span><br><span class="line"></span><br><span class="line">git checkout master # 切换到别的分支</span><br><span class="line">git branch -d demo # 删除本地分支</span><br><span class="line">git branch -D demo # 如果删除不了,可以强制删除</span><br><span class="line">git push origin --delete demo # 删除远程分支(慎用)</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-master-分支代码复制到新的分支"><a href="#6-master-分支代码复制到新的分支" class="headerlink" title="6. master 分支代码复制到新的分支"></a>6. master 分支代码复制到新的分支</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git branch demo # 创建新的分支 demo</span><br><span class="line">git checkout demo # 切换到需要合并的分支</span><br><span class="line">git merge master # 将 master 分支合并到当前分支</span><br><span class="line">git push origin demo # 推送至远程仓库</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-Git-迁移项目到其他代码仓库-且保留分支与提交记录"><a href="#7-Git-迁移项目到其他代码仓库-且保留分支与提交记录" class="headerlink" title="7. Git 迁移项目到其他代码仓库,且保留分支与提交记录"></a>7. Git 迁移项目到其他代码仓库,且保留分支与提交记录</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone --bare ssh://需要迁移的项目地址/项目.git</span><br><span class="line">cd 项目.git</span><br><span class="line">git push --mirror ssh://其它代码仓库地址/新的项目名.git</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-Git-相关命令操作"><a href="#8-Git-相关命令操作" class="headerlink" title="8. Git 相关命令操作"></a>8. Git 相关命令操作</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">git branch -a # 查看所有分支</span><br><span class="line">git branch # 查看本地分支</span><br><span class="line">git branch -r # 查看远程分支</span><br><span class="line">git branch &lt;分支名&gt; # 创建本地新分支</span><br><span class="line">git checkout &lt;分支名&gt; # 切换分支</span><br><span class="line">git push origin -u &lt;分支名&gt; # 将本地分支推送到线上</span><br><span class="line">git merge[name] # 将名称为 [name] 的分支与当前分支合并</span><br><span class="line">git clone -b demo 项目地址 # 克隆 demo 分支的代码</span><br></pre></td></tr></table></figure>
+</article>
+    
+    <div class="trm-reward">
+        
+            <span class="trm-reward-btn trm-glow" onclick='var qr = document.getElementById("qr"); qr.style.display = (qr.style.display === "none") ? "block" : "none";'>
+                <i class="iconfont fas fa-hand-holding-usd"></i>
+            </span>
+        
+        <p class="trm-reward-comment">sponsor</p>
+        <div id="qr" style="display:none;">
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='/img/wechat.jpg' target='_blank' >
+                       <img src="/img/wechat.jpg" alt="微信" loading="lazy">
+                    </a>
+                    <p>微信</p>
+                </div>
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='/img/zhifubao.jpg' target='_blank' >
+                       <img src="/img/zhifubao.jpg" alt="支付宝" loading="lazy">
+                    </a>
+                    <p>支付宝</p>
+                </div>
+            
+        </div>
+    </div>
+
+    
+
+</div>
+<div class="trm-post-next-prev row">
     <div class="col-lg-12">
         <!-- title -->
         <h5 class="trm-title-with-divider">
-            
-                C++
-            
-            <span data-number="01"></span>
+            Other Articles
+            <span data-number="02"></span>
         </h5>
     </div>
-    <div class="col-lg-12">
-        <!-- timeline -->
-        <div class="trm-timeline">
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2024/08/14/libmodbus%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/" class="trm-cover-frame trm-anima-link">
             
-            <div class="trm-timeline-item trm-scroll-animation">
-                <div class="trm-timeline-mark-light"></div>
-                <div class="trm-timeline-mark"></div>
-                <div class="trm-timeline-content more">
-                    
-                        <div class="trm-card-header">
-                            <div class="trm-left-side">
-                                <h6>
-                                    <a href="/2024/08/03/C++%2011%20%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" class="trm-anima-link">
-                                        C++ 11 类型转换
-                                    </a>
-                                </h6>
-                                <div class="trm-text-sm trm-accent-color trm-mt-15">
-                                    <ul class="trm-card-data trm-label ">
-                                        <li class="trm-accent-color">08/03</li>
-                                        <li class="trm-accent-color">18:01</li>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    
-                </div>
+            
+                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/">
+                    嵌入式
+                </a>
             </div>
-            
-            <div class="trm-timeline-item trm-scroll-animation">
-                <div class="trm-timeline-mark-light"></div>
-                <div class="trm-timeline-mark"></div>
-                <div class="trm-timeline-content more">
-                    
-                        <div class="trm-card-header">
-                            <div class="trm-left-side">
-                                <h6>
-                                    <a href="/2024/07/15/git/" class="trm-anima-link">
-                                        git的基本操作
-                                    </a>
-                                </h6>
-                                <div class="trm-text-sm trm-accent-color trm-mt-15">
-                                    <ul class="trm-card-data trm-label ">
-                                        <li class="trm-accent-color">07/15</li>
-                                        <li class="trm-accent-color">16:25</li>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    
-                </div>
-            </div>
-            
-            <div class="trm-timeline-item trm-scroll-animation">
-                <div class="trm-timeline-mark-light"></div>
-                <div class="trm-timeline-mark"></div>
-                <div class="trm-timeline-content more">
-                    
-                        <div class="trm-card-header">
-                            <div class="trm-left-side">
-                                <h6>
-                                    <a href="/2024/07/14/%E5%BA%8F%E5%88%97%E5%8C%96-protobuf/" class="trm-anima-link">
-                                        序列化-protobuf
-                                    </a>
-                                </h6>
-                                <div class="trm-text-sm trm-accent-color trm-mt-15">
-                                    <ul class="trm-card-data trm-label ">
-                                        <li class="trm-accent-color">07/14</li>
-                                        <li class="trm-accent-color">18:19</li>
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    
-                </div>
-            </div>
-            
+            <h5>
+                <a href="/2024/08/14/libmodbus%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/" class="trm-anima-link">
+                    libmodbus库的使用
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/08/14</li>
+                <li>10:11</li>
+                
+                
+            </ul>
         </div>
-        <!-- timeline end -->
     </div>
 </div>
+    
+</div>
 
-<!-- history end -->
-
-
-    <div class="trm-pagination">
-        <span class="page-number current">1</span>
-    </div>
-
-
+    
 
 
 
@@ -470,6 +465,10 @@
             
 <div class="trm-fixed-container">
     
+    
+        <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
     
     
     <div id="trm-back-top" class="trm-fixed-btn" data-title="Back To Top">
@@ -544,6 +543,10 @@
     
 
     <!-- 评论插件 -->
+    
+        
+
+        
     
 
 		

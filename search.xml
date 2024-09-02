@@ -1857,4 +1857,26 @@
         <category>网络编程</category>
       </categories>
   </entry>
+  <entry>
+    <title>常用的 Git 命令</title>
+    <url>/2024/09/02/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h1 id="常用的-Git-命令"><a href="#常用的-Git-命令" class="headerlink" title="常用的 Git 命令"></a>常用的 Git 命令</h1><h2 id="1-将本地项目推送到远程仓库"><a href="#1-将本地项目推送到远程仓库" class="headerlink" title="1. 将本地项目推送到远程仓库"></a>1. 将本地项目推送到远程仓库</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git init # 初始化</span><br><span class="line">git remote -v # 查看已经关联的地址</span><br><span class="line">git add . # 添加本地仓库</span><br><span class="line">git commit -m &quot;第一次提交&quot; # 提交说明</span><br><span class="line">git remote add origin xxx # 关联远程仓库</span><br><span class="line">git pull --rebase origin master # 同步本地与远程仓库(如果是远程仓库是空,则可以不执行)</span><br><span class="line">git pull -u origin master # 提交远程仓库 -f: 强制推送至远程</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-Git-回退到某个历史版本"><a href="#2-Git-回退到某个历史版本" class="headerlink" title="2. Git 回退到某个历史版本"></a>2. Git 回退到某个历史版本</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log # 查看历史</span><br><span class="line">git reset --hard xxxxxx # xxx为版本号</span><br><span class="line">git push -f -u origin master / git push -f # 推送修改</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-修改项目关联远程地址方法"><a href="#3-修改项目关联远程地址方法" class="headerlink" title="3. 修改项目关联远程地址方法"></a>3. 修改项目关联远程地址方法</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote set-url origin &lt;url&gt; # 修改</span><br><span class="line">手动去修改项目中.git文件夹下,编辑config配置文件中的url</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-Git-修改分支的名称"><a href="#4-Git-修改分支的名称" class="headerlink" title="4. Git 修改分支的名称"></a>4. Git 修改分支的名称</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">需要将分支 br_old 修改为 br_new</span></span><br><span class="line"></span><br><span class="line">git checkout br_old # 切换分支</span><br><span class="line">git pull origin br_old # 将代码更新到和远程仓库一直</span><br><span class="line">git branch -m br_old br_new # 将分支 br_old 重命名为 br_new</span><br><span class="line">git push --set-upstream origin br_new # 将本地分支push到远程仓库</span><br><span class="line">git push origin --delete br_old # 删除远程分支 br_old</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-Git-删除分支"><a href="#5-Git-删除分支" class="headerlink" title="5. Git 删除分支"></a>5. Git 删除分支</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">现在在 demo 分支上,想删除 demo 分支:</span></span><br><span class="line"></span><br><span class="line">git checkout master # 切换到别的分支</span><br><span class="line">git branch -d demo # 删除本地分支</span><br><span class="line">git branch -D demo # 如果删除不了,可以强制删除</span><br><span class="line">git push origin --delete demo # 删除远程分支(慎用)</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-master-分支代码复制到新的分支"><a href="#6-master-分支代码复制到新的分支" class="headerlink" title="6. master 分支代码复制到新的分支"></a>6. master 分支代码复制到新的分支</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch demo # 创建新的分支 demo</span><br><span class="line">git checkout demo # 切换到需要合并的分支</span><br><span class="line">git merge master # 将 master 分支合并到当前分支</span><br><span class="line">git push origin demo # 推送至远程仓库</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-Git-迁移项目到其他代码仓库-且保留分支与提交记录"><a href="#7-Git-迁移项目到其他代码仓库-且保留分支与提交记录" class="headerlink" title="7. Git 迁移项目到其他代码仓库,且保留分支与提交记录"></a>7. Git 迁移项目到其他代码仓库,且保留分支与提交记录</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone --bare ssh://需要迁移的项目地址/项目.git</span><br><span class="line">cd 项目.git</span><br><span class="line">git push --mirror ssh://其它代码仓库地址/新的项目名.git</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-Git-相关命令操作"><a href="#8-Git-相关命令操作" class="headerlink" title="8. Git 相关命令操作"></a>8. Git 相关命令操作</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -a # 查看所有分支</span><br><span class="line">git branch # 查看本地分支</span><br><span class="line">git branch -r # 查看远程分支</span><br><span class="line">git branch &lt;分支名&gt; # 创建本地新分支</span><br><span class="line">git checkout &lt;分支名&gt; # 切换分支</span><br><span class="line">git push origin -u &lt;分支名&gt; # 将本地分支推送到线上</span><br><span class="line">git merge[name] # 将名称为 [name] 的分支与当前分支合并</span><br><span class="line">git clone -b demo 项目地址 # 克隆 demo 分支的代码</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Git</category>
+      </categories>
+  </entry>
 </search>
