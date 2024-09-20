@@ -1988,7 +1988,7 @@
       </categories>
   </entry>
   <entry>
-    <title></title>
+    <title>Android Studio配置阿里源及修改gradle包的位置</title>
     <url>/2024/09/20/Android%20Studio%E9%85%8D%E7%BD%AE%E9%98%BF%E9%87%8C%E6%BA%90%E5%8F%8A%E4%BF%AE%E6%94%B9gradle%E5%8C%85%E7%9A%84%E4%BD%8D%E7%BD%AE/</url>
     <content><![CDATA[<h1 id="Android-Studio配置阿里源及修改gradle包的位置"><a href="#Android-Studio配置阿里源及修改gradle包的位置" class="headerlink" title="Android Studio配置阿里源及修改gradle包的位置"></a>Android Studio配置阿里源及修改gradle包的位置</h1><h2 id="1-下载所需的包"><a href="#1-下载所需的包" class="headerlink" title="1. 下载所需的包"></a>1. 下载所需的包</h2><h3 id="1-1-找到-gradle-gradle-wrapper-properties-，替换-distributionUrl-中的内容"><a href="#1-1-找到-gradle-gradle-wrapper-properties-，替换-distributionUrl-中的内容" class="headerlink" title="1.1 找到 **gradle\gradle-wrapper.properties **，替换 distributionUrl 中的内容"></a>1.1 找到 **gradle\gradle-wrapper.properties **，替换 <strong>distributionUrl</strong> 中的内容</h3><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 我这里使用的是腾讯的，也可以使用阿里的</span></span><br><span class="line"><span class="attr">distributionUrl</span>=<span class="string">https\://mirrors.cloud.tencent.com/gradle/gradle-8.7-bin.zip</span></span><br></pre></td></tr></table></figure>
 
