@@ -7,15 +7,26 @@
 <meta name="full-screen" content="yes">
 <meta name="theme-color" content="#317EFB" />
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
-<meta name="description" content="世间安得双全法,不负如来不负卿">
-<meta property="og:type" content="website">
+<meta name="description" content="Android Studio配置阿里源及修改gradle包的位置1. 下载所需的包1.1 找到 **gradle\gradle-wrapper.properties **，替换 distributionUrl 中的内容12# 我这里使用的是腾讯的，也可以使用阿里的distributionUrl&#x3D;https\:&#x2F;&#x2F;mirrors.cloud.tencent.com&#x2F;gradle&#x2F;gradle-8.7">
+<meta property="og:type" content="article">
 <meta property="og:title" content="JarryLi&#39;s Blog">
-<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:url" content="http://example.com/2024/09/20/Android%20Studio%E9%85%8D%E7%BD%AE%E9%98%BF%E9%87%8C%E6%BA%90%E5%8F%8A%E4%BF%AE%E6%94%B9gradle%E5%8C%85%E7%9A%84%E4%BD%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="JarryLi&#39;s Blog">
-<meta property="og:description" content="世间安得双全法,不负如来不负卿">
+<meta property="og:description" content="Android Studio配置阿里源及修改gradle包的位置1. 下载所需的包1.1 找到 **gradle\gradle-wrapper.properties **，替换 distributionUrl 中的内容12# 我这里使用的是腾讯的，也可以使用阿里的distributionUrl&#x3D;https\:&#x2F;&#x2F;mirrors.cloud.tencent.com&#x2F;gradle&#x2F;gradle-8.7">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="article:published_time" content="2024-09-20T14:20:14.082Z">
+<meta property="article:modified_time" content="2024-09-20T14:21:40.002Z">
 <meta property="article:author" content="JarryLi">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/404.jpg">
 
 
 <title >JarryLi's Blog</title>
@@ -57,7 +68,7 @@
 
 <!-- Variable -->
 <script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"JarryLi","root":"/","typed_text":null,"theme_version":"2.2.2","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","apple_touch_icon":null,"webmanifest":null,"visibilitychange":false,"hidden":"/failure.ico","show_text":"(/≧▽≦/)Hey! Good again!","hide_text":"(●—●)Oh, crash!"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","trigger":"auto","path":"search.xml"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":false,"isHome":true,"postUpdate":"2024-09-20 22:22:03"};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-09-20 22:21:40"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
@@ -141,7 +152,7 @@
     <nav>
         <ul>
             
-            <li class="menu-item-has-children current-menu-item">
+            <li class="menu-item-has-children ">
                 <a  href="/" target="">
                     Home
                 </a>
@@ -187,7 +198,8 @@
             <!-- top bar end -->
 
             <!-- body -->
-            <div class="trm-content-start">
+            
+<div class="trm-content-start">
     <!-- banner -->
     <div class="trm-banner">
     
@@ -208,10 +220,10 @@
                     <!-- banner title -->
                     <div class="trm-banner-text ">
                         <div class="trm-label trm-mb-20">
-                            Hi my new friend!
+                            NEWS LETTER
                         </div>
                         <h1 class="trm-mb-30 trm-hsmb-font">
-                            世间安得双全法，<br>不负如来不负卿
+                            
                         </h1>
 
                         
@@ -221,7 +233,7 @@
                                 </li>
                                 <li>
                                     <span>
-                                        index.html
+                                        2024
                                     </span>
                                 </li>
                             </ul>
@@ -305,93 +317,87 @@
             
             <div class="trm-page-content col-lg-8">
                 <div id="trm-content" class="trm-content">
-                    <!-- categories -->
-
-    <div class="row hidden-sm">
-        
-        
-        <div class="col-lg-6">
-            <!-- categories card -->
-<div class="trm-blog-categories trm-scroll-animation">
-    <h6>
-        网络编程
-        <span class="trm-number">
-            6
-        </span>
-    </h6>
-    <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-    <a href="/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/." class="trm-label">
-        Read More 
-        <i class="iconfont fas fa-arrow-right arrow-right"></i>
-    </a>
-</div>
-<!-- categories card end -->
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            09/20
         </div>
-        
-        <div class="col-lg-6">
-            <!-- categories card -->
-<div class="trm-blog-categories trm-scroll-animation">
-    <h6>
-        C++
-        <span class="trm-number">
-            3
-        </span>
-    </h6>
-    <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-    <a href="/categories/C/." class="trm-label">
-        Read More 
-        <i class="iconfont fas fa-arrow-right arrow-right"></i>
-    </a>
-</div>
-<!-- categories card end -->
-        </div>
-        
     </div>
-
-<!-- categories end -->
-
-<!-- newest publications -->
-<div class="row">
-    
-        <div class="col-lg-12">
-            <!-- title -->
-            <h5 class="trm-title-with-divider">
-                Newest Publications 
-                <span data-number="01"></span>
-            </h5>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            22:20
         </div>
-    
-    
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/09/20/Android%20Studio%E9%85%8D%E7%BD%AE%E9%98%BF%E9%87%8C%E6%BA%90%E5%8F%8A%E4%BF%AE%E6%94%B9gradle%E5%8C%85%E7%9A%84%E4%BD%8D%E7%BD%AE/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/Android/">
-                    Android
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/09/20/Android%20Studio%E9%85%8D%E7%BD%AE%E9%98%BF%E9%87%8C%E6%BA%90%E5%8F%8A%E4%BF%AE%E6%94%B9gradle%E5%8C%85%E7%9A%84%E4%BD%8D%E7%BD%AE/" class="trm-anima-link">
-                    
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>24/09/20</li>
-                <li>22:20</li>
-                
-                
-            </ul>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            JarryLi
         </div>
     </div>
 </div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h1 id="Android-Studio配置阿里源及修改gradle包的位置"><a href="#Android-Studio配置阿里源及修改gradle包的位置" class="headerlink" title="Android Studio配置阿里源及修改gradle包的位置"></a>Android Studio配置阿里源及修改gradle包的位置</h1><h2 id="1-下载所需的包"><a href="#1-下载所需的包" class="headerlink" title="1. 下载所需的包"></a>1. 下载所需的包</h2><h3 id="1-1-找到-gradle-gradle-wrapper-properties-，替换-distributionUrl-中的内容"><a href="#1-1-找到-gradle-gradle-wrapper-properties-，替换-distributionUrl-中的内容" class="headerlink" title="1.1 找到 **gradle\gradle-wrapper.properties **，替换 distributionUrl 中的内容"></a>1.1 找到 **gradle\gradle-wrapper.properties **，替换 <strong>distributionUrl</strong> 中的内容</h3><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 我这里使用的是腾讯的，也可以使用阿里的</span></span><br><span class="line"><span class="attr">distributionUrl</span>=<span class="string">https\://mirrors.cloud.tencent.com/gradle/gradle-8.7-bin.zip</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/Android/image-20240920220018165.png" alt="image-20240920220018165"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="1-2-找到根目录下的-settings-gradle-kts-文件，替换文件中的全部内容"><a href="#1-2-找到根目录下的-settings-gradle-kts-文件，替换文件中的全部内容" class="headerlink" title="1.2 找到根目录下的 settings.gradle.kts 文件，替换文件中的全部内容"></a>1.2 找到根目录下的 <strong>settings.gradle.kts</strong> 文件，替换文件中的全部内容</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">pluginManagement &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">        <span class="comment">//下面三个是我们自己加的</span></span><br><span class="line">        maven &#123; url = uri(<span class="string">&quot;https://maven.aliyun.com/repository/public/&quot;</span>) &#125;</span><br><span class="line"><span class="comment">//        maven &#123; url &#x27;https://maven.aliyun.com/repository/public/&#x27; &#125;</span></span><br><span class="line">        maven &#123; url = uri(<span class="string">&quot;https://maven.aliyun.com/repository/gradle-plugin&quot;</span>) &#125;</span><br><span class="line">        maven &#123; url = uri(<span class="string">&quot;https://maven.aliyun.com/repository/central&quot;</span>) &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//下面三个是原有的</span></span><br><span class="line">        google()</span><br><span class="line">        mavenCentral()</span><br><span class="line">        gradlePluginPortal()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">dependencyResolutionManagement &#123;</span><br><span class="line">    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)</span><br><span class="line">    repositories &#123;</span><br><span class="line">        <span class="comment">//下面两个是我们自己加的</span></span><br><span class="line">        maven &#123; url = uri(<span class="string">&quot;https://maven.aliyun.com/repository/public/&quot;</span>) &#125;</span><br><span class="line">        maven &#123; url =uri(<span class="string">&quot;https://maven.aliyun.com/repository/central&quot;</span>) &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//下面两个是原有的</span></span><br><span class="line">        google()</span><br><span class="line">        mavenCentral()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rootProject.name = <span class="string">&quot;My Application&quot;</span></span><br><span class="line">include(<span class="string">&quot;:app&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/Android/image-20240920220103781.png" alt="image-20240920220103781"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="1-3-重新下载需要依赖的包"><a href="#1-3-重新下载需要依赖的包" class="headerlink" title="1.3 重新下载需要依赖的包"></a>1.3 重新下载需要依赖的包</h3><p><img src="/../picture/Android/image-20240920220131556.png" alt="image-20240920220131556"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">出现下面的内容表示下载成功</span></span><br><span class="line"></span><br><span class="line">Starting Gradle Daemon...</span><br><span class="line">Gradle Daemon started in 1 s 202 ms</span><br><span class="line"><span class="meta prompt_">&gt; </span><span class="language-bash">Task :prepareKotlinBuildScriptModel UP-TO-DATE</span></span><br><span class="line"></span><br><span class="line">BUILD SUCCESSFUL in 40s</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/Android/image-20240920220235332.png" alt="image-20240920220235332"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="2-修改gradle包的位置"><a href="#2-修改gradle包的位置" class="headerlink" title="2. 修改gradle包的位置"></a>2. 修改gradle包的位置</h2><h3 id="2-1-打开设置找到gradle选项，默认是-C-Users-JarryLi-gradle-JarryLi为自己的用户名"><a href="#2-1-打开设置找到gradle选项，默认是-C-Users-JarryLi-gradle-JarryLi为自己的用户名" class="headerlink" title="2.1 打开设置找到gradle选项，默认是 C:\Users\JarryLi.gradle (JarryLi为自己的用户名)"></a>2.1 打开设置找到gradle选项，默认是 <strong>C:\Users\JarryLi.gradle</strong> (JarryLi为自己的用户名)</h3><p><img src="/../picture/Android/image-20240920220254843.png" alt="image-20240920220254843"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/Android/image-20240920221540548.png" alt="image-20240920221540548"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><font color=red>Warning: 右侧的文件夹可以更改设置，但是只是对该项目生效；从 All settings… 修改也是无效的。（但是idea中这么设置是有效的）</font></p>
+<h3 id="2-2-添加环境变量"><a href="#2-2-添加环境变量" class="headerlink" title="2.2 添加环境变量"></a>2.2 添加环境变量</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GRADLE_USER_HOME</span><br><span class="line"></span><br><span class="line">F:\Develop\Android\gradle-8.7 # 这里改成自己存储 gradle 的路径</span><br></pre></td></tr></table></figure>
+
+<p><font color=red>Warning: 添加完之后一定要重启系统!!!</font></p>
+<p><img src="/../picture/Android/image-20240920220327333.png" alt="image-20240920220327333"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="2-3-gradle文件夹详细内容"><a href="#2-3-gradle文件夹详细内容" class="headerlink" title="2.3 gradle文件夹详细内容"></a>2.3 gradle文件夹详细内容</h3><p><img src="/../picture/Android/image-20240920220359993.png" alt="image-20240920220359993"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+
+</article>
+    
+    <div class="trm-reward">
+        
+            <span class="trm-reward-btn trm-glow" onclick='var qr = document.getElementById("qr"); qr.style.display = (qr.style.display === "none") ? "block" : "none";'>
+                <i class="iconfont fas fa-hand-holding-usd"></i>
+            </span>
+        
+        <p class="trm-reward-comment">sponsor</p>
+        <div id="qr" style="display:none;">
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='/img/wechat.jpg' target='_blank' >
+                       <img src="/img/wechat.jpg" alt="微信" loading="lazy">
+                    </a>
+                    <p>微信</p>
+                </div>
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='/img/zhifubao.jpg' target='_blank' >
+                       <img src="/img/zhifubao.jpg" alt="支付宝" loading="lazy">
+                    </a>
+                    <p>支付宝</p>
+                </div>
+            
+        </div>
+    </div>
+
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            Other Articles
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
     
         <div class="col-lg-6">
     <div class="trm-blog-card trm-scroll-animation">
@@ -424,261 +430,10 @@
     </div>
 </div>
     
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/09/02/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/Git/">
-                    Git
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/09/02/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="trm-anima-link">
-                    常用的 Git 命令
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>24/09/02</li>
-                <li>10:30</li>
-                
-                
-            </ul>
-        </div>
-    </div>
 </div>
-    
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/08/14/libmodbus%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/">
-                    嵌入式
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/08/14/libmodbus%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8/" class="trm-anima-link">
-                    libmodbus库的使用
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>24/08/14</li>
-                <li>10:11</li>
-                
-                
-            </ul>
-        </div>
-    </div>
-</div>
-    
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/08/10/Modbus%E5%8A%9F%E8%83%BD%E7%A0%81%E8%AF%A6%E8%A7%A3/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/">
-                    嵌入式
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/08/10/Modbus%E5%8A%9F%E8%83%BD%E7%A0%81%E8%AF%A6%E8%A7%A3/" class="trm-anima-link">
-                    Modbus 功能码详解
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>24/08/10</li>
-                <li>22:23</li>
-                
-                
-            </ul>
-        </div>
-    </div>
-</div>
-    
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/08/10/Modbus%E5%8D%8F%E8%AE%AE%E5%BC%80%E5%8F%91/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/%E5%B5%8C%E5%85%A5%E5%BC%8F/">
-                    嵌入式
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/08/10/Modbus%E5%8D%8F%E8%AE%AE%E5%BC%80%E5%8F%91/" class="trm-anima-link">
-                    Modbus 协议开发
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>24/08/10</li>
-                <li>18:34</li>
-                
-                
-            </ul>
-        </div>
-    </div>
-</div>
-    
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/08/04/chapter13%E5%A4%9A%E7%A7%8DIO%E5%87%BD%E6%95%B0/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
-                    网络编程
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/08/04/chapter13%E5%A4%9A%E7%A7%8DIO%E5%87%BD%E6%95%B0/" class="trm-anima-link">
-                    多种 I/O 函数
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>24/08/04</li>
-                <li>22:51</li>
-                
-                
-            </ul>
-        </div>
-    </div>
-</div>
-    
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/08/03/C++%2011%20%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/C/">
-                    C++
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/08/03/C++%2011%20%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" class="trm-anima-link">
-                    C++ 11 类型转换
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>24/08/03</li>
-                <li>18:01</li>
-                
-                
-            </ul>
-        </div>
-    </div>
-</div>
-    
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/07/28/IO%E5%A4%8D%E7%94%A8/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
-                    网络编程
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/07/28/IO%E5%A4%8D%E7%94%A8/" class="trm-anima-link">
-                    I/O 复用
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>24/07/28</li>
-                <li>09:32</li>
-                
-                
-            </ul>
-        </div>
-    </div>
-</div>
-    
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/07/23/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
-                    网络编程
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/07/23/%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/" class="trm-anima-link">
-                    进程间通信
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>24/07/23</li>
-                <li>23:18</li>
-                
-                
-            </ul>
-        </div>
-    </div>
-</div>
-    
-</div>
-<!-- newest publications end -->
 
+    
 
-    <div class="trm-pagination">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a>
-    </div>
 
 
                     <div class="trm-divider footer-divider"></div>
@@ -723,6 +478,10 @@
             
 <div class="trm-fixed-container">
     
+    
+        <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
     
     
     <div id="trm-back-top" class="trm-fixed-btn" data-title="Back To Top">
@@ -797,6 +556,10 @@
     
 
     <!-- 评论插件 -->
+    
+        
+
+        
     
 
 		
