@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="Shell脚本编程1. 第一个 Shell 脚本123#!&#x2F;bin&#x2F;bashecho &quot;Hello World!&quot;exit 0  执行方式1: ​		bash myFirstShell  	#使用指定的解释器来执行这个shell脚本 执行方式2: ​		chmod +x myFirstShell	#给shell 脚本文件myFirstShell 添加可执行权限，称为可自行文件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shell脚本编程">
+<meta property="og:url" content="http://example.com/2024/09/20/shell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="JarryLi&#39;s Blog">
+<meta property="og:description" content="Shell脚本编程1. 第一个 Shell 脚本123#!&#x2F;bin&#x2F;bashecho &quot;Hello World!&quot;exit 0  执行方式1: ​		bash myFirstShell  	#使用指定的解释器来执行这个shell脚本 执行方式2: ​		chmod +x myFirstShell	#给shell 脚本文件myFirstShell 添加可执行权限，称为可自行文件">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-09-20T14:31:56.645Z">
+<meta property="article:modified_time" content="2024-08-30T00:22:44.613Z">
+<meta property="article:author" content="JarryLi">
+<meta name="twitter:card" content="summary">
+
+
+<title >Shell脚本编程</title>
+
+<!-- Favicon -->
+
+    <link href='/img/favicon.svg?v=2.2.2' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/favicon.svg?v=2.2.2' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"JarryLi","root":"/","typed_text":null,"theme_version":"2.2.2","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","apple_touch_icon":null,"webmanifest":null,"visibilitychange":false,"hidden":"/failure.ico","show_text":"(/≧▽≦/)Hey! Good again!","hide_text":"(●—●)Oh, crash!"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","trigger":"auto","path":"search.xml"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-08-30 08:22:44"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<!-- <a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/favicon.svg">
+    
+    
+        <div class="trm-logo-text">
+            Async<span>Theme</span>
+        </div>
+    
+</a> -->
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    Home
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    Archives
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            Shell脚本编程
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2024
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        JarryLi
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com/jarryLi-max" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                Residence:
+            </div>
+            <div class="trm-label trm-label-light">
+                China
+            </div>
+        </li>
+        <li>
+            <div class="trm-label">
+                email:
+            </div>
+            <div class="trm-label trm-label-light">
+                2976562002@qq.com
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            09/20
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            22:31
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            JarryLi
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h1 id="Shell脚本编程"><a href="#Shell脚本编程" class="headerlink" title="Shell脚本编程"></a>Shell脚本编程</h1><h2 id="1-第一个-Shell-脚本"><a href="#1-第一个-Shell-脚本" class="headerlink" title="1. 第一个 Shell 脚本"></a>1. 第一个 Shell 脚本</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">echo &quot;Hello World!&quot;</span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>执行方式1:</strong></p>
+<p>​		bash myFirstShell  	#使用指定的解释器来执行这个shell脚本</p>
+<p><strong>执行方式2:</strong></p>
+<p>​		chmod +x myFirstShell	#给shell 脚本文件myFirstShell 添加可执行权限，称为可自行文件</p>
+<p>​		.&#x2F;myFirstShell	</p>
+<blockquote>
+<p>文件的第一行通常是 #!&#x2F;bin&#x2F;bash 或 #!&#x2F;bin&#x2F;sh #! 用于指定这个脚本文件使用什么解释器来运行。如果不写这一行，就使用默认的解释器来执行该脚本。bash 或者sh是执行Shell脚本的“解释器”。如果在文件第一行指定了解释器，那么直接执行该脚本时就会自动使用该解释器来运行该脚本。如果使用方式1来执行shell脚本，那么shell脚本的第一行就失效了。</p>
+</blockquote>
+<h2 id="2-变量"><a href="#2-变量" class="headerlink" title="2. 变量"></a>2. 变量</h2><h3 id="2-1-变量赋值"><a href="#2-1-变量赋值" class="headerlink" title="2.1 变量赋值"></a>2.1 变量赋值</h3><p>• 使用&#x3D;对变量进行赋值，&#x3D;的两边不能有空白字符(空格、制表符、回车)</p>
+<h3 id="2-2-变量名和变量替换"><a href="#2-2-变量名和变量替换" class="headerlink" title="2.2 变量名和变量替换"></a>2.2 变量名和变量替换</h3><p><font color=Cyan>$变量名 才表示变量名的值，称为“变量替换”</font></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">a=&quot;JarryLi&quot;</span><br><span class="line">a=&quot;China&quot;</span><br><span class="line"></span><br><span class="line">echo $a</span><br><span class="line"></span><br><span class="line">a=&quot;JarryLi&quot;</span><br><span class="line">a=&quot;$&#123;a&#125;China&quot;</span><br><span class="line">echo $a</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>Result:</strong></em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@jarryli:/home/jarryli/$ ./myFirstshell</span><br><span class="line">China</span><br><span class="line">JarryLiChina</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-变量的类型"><a href="#2-3-变量的类型" class="headerlink" title="2.3 变量的类型"></a>2.3 变量的类型</h3><p>根据具体使用方式，来判定它的类型。默认情况，相当于是字符串类型</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">a=&quot;JarryLi&quot;</span><br><span class="line">a=&quot;China&quot;</span><br><span class="line"></span><br><span class="line">echo $a</span><br><span class="line"></span><br><span class="line">a=100</span><br><span class="line">((a=a+1))</span><br><span class="line">echo $a</span><br><span class="line"></span><br><span class="line">a=$((a+1))</span><br><span class="line">echo $a</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">实现浮点运算</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">scale表示保留的小数位</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">bc是一个计算器</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">|表示左侧的输出作为右侧的输入</span></span><br><span class="line">a=$(echo &quot;scale=2;3.14 * 2.5 * 2.5&quot; | bc)</span><br><span class="line">echo $a</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>Result:</strong></em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">root@jarryli:/home/jarryli/$ ./myFirstshell</span><br><span class="line">China</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">19.62</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-局部变脸和全局变量"><a href="#2-4-局部变脸和全局变量" class="headerlink" title="2.4 局部变脸和全局变量"></a>2.4 局部变脸和全局变量</h3><p><font color=Cyan>在函数内部使用 local 定义本函数范围内的局部变量</font></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">name=&quot;JarryLi&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">定义一个函数</span></span><br><span class="line">function myFunc</span><br><span class="line">&#123;</span><br><span class="line">	local name=&quot;China&quot;</span><br><span class="line">	echo $name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">echo $name</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">调用函数</span></span><br><span class="line">myFunc</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>Result:</strong></em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@jarryli:/home/jarryli/$ ./myFirstshell</span><br><span class="line">JarryLi</span><br><span class="line">China</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-5-位置参数-Shell脚本的参数"><a href="#2-5-位置参数-Shell脚本的参数" class="headerlink" title="2.5 位置参数(Shell脚本的参数)"></a>2.5 位置参数(Shell脚本的参数)</h3><p>执行脚本的时候，可以附加参数，用空格隔开 (相当于 int main(int argc, char* argv[]))</p>
+<p>在脚本文件内， 使用$0表示脚本文件的文件名 </p>
+<p>使用$1表示第1个参数</p>
+<p>使用$2表示第2个参数</p>
+<p>… </p>
+<p>使用$9表示第9个参数 </p>
+<p>使用${10}表示第10个参数 </p>
+<p>使用$* 表示所有参数 </p>
+<p>使用$@ 表示所有参数</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">echo &quot;参数 0=&quot;$0</span><br><span class="line">echo &quot;参数 1=&quot;$1</span><br><span class="line">echo &quot;参数 2=&quot;$2</span><br><span class="line">echo &quot;参数 3=&quot;$3</span><br><span class="line"></span><br><span class="line">echo &quot;全部参数&quot;=$@</span><br><span class="line">echo &quot;全部参数&quot;=$*</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>Result:</strong></em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">参数 0=./myFirstshell</span><br><span class="line">参数 1=ont</span><br><span class="line">参数 2=two</span><br><span class="line">参数 3=three</span><br><span class="line">全部参数=ont two three four</span><br><span class="line">全部参数=ont two three four</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-6-退出状态"><a href="#2-6-退出状态" class="headerlink" title="2.6 退出状态"></a>2.6 退出状态</h3><blockquote>
+<p>一般情况下，约定： </p>
+<p>脚本执行成功，返回0,脚本执行失败,返回非零值（1-255） </p>
+<p>脚本执行完之后，可以使用 $? 获取这个脚本的返回值。</p>
+</blockquote>
+<h2 id="3-Shell脚本的常见运算"><a href="#3-Shell脚本的常见运算" class="headerlink" title="3. Shell脚本的常见运算"></a>3. Shell脚本的常见运算</h2><h3 id="3-1-计算操作"><a href="#3-1-计算操作" class="headerlink" title="3.1 计算操作"></a>3.1 计算操作</h3><table>
+<thead>
+<tr>
+<th>+</th>
+<th>加</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>-</strong></td>
+<td><strong>减</strong></td>
+</tr>
+<tr>
+<td>*****</td>
+<td><strong>乘</strong></td>
+</tr>
+<tr>
+<td><strong>&#x2F;</strong></td>
+<td>除</td>
+</tr>
+<tr>
+<td>******</td>
+<td><strong>求幂</strong></td>
+</tr>
+<tr>
+<td><strong>%</strong></td>
+<td><strong>取模</strong></td>
+</tr>
+</tbody></table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">a=10</span><br><span class="line">b=3</span><br><span class="line">echo $((a+b))</span><br><span class="line">echo $((a-b))</span><br><span class="line">echo $((a*b))</span><br><span class="line">echo $((a/b))</span><br><span class="line">echo $((a**b))</span><br><span class="line">echo $((a%b))</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>Result:</strong></em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@jarryli:/home/jarryli/$ ./myFirstshell</span><br><span class="line">13</span><br><span class="line">7</span><br><span class="line">30</span><br><span class="line">3</span><br><span class="line">1000</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-位操作"><a href="#3-2-位操作" class="headerlink" title="3.2 位操作"></a>3.2 位操作</h3><table>
+<thead>
+<tr>
+<th>&lt;&lt;</th>
+<th>位左移</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>&lt;&lt;&#x3D;</strong></td>
+<td>****</td>
+</tr>
+<tr>
+<td><strong>&gt;&gt;</strong></td>
+<td>****</td>
+</tr>
+<tr>
+<td><strong>&gt;&gt;&#x3D;</strong></td>
+<td>****</td>
+</tr>
+<tr>
+<td><strong>&amp;</strong></td>
+<td>****</td>
+</tr>
+<tr>
+<td><strong>&amp;&#x3D;</strong></td>
+<td>****</td>
+</tr>
+<tr>
+<td><strong>|</strong></td>
+<td>****</td>
+</tr>
+<tr>
+<td><strong>|&#x3D;</strong></td>
+<td>****</td>
+</tr>
+<tr>
+<td><strong>~</strong></td>
+<td>****</td>
+</tr>
+<tr>
+<td><strong>!</strong></td>
+<td>****</td>
+</tr>
+<tr>
+<td><strong>^</strong></td>
+<td>****</td>
+</tr>
+<tr>
+<td><strong>^&#x3D;</strong></td>
+<td>****</td>
+</tr>
+</tbody></table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">a=2</span><br><span class="line">b=$((a&lt;&lt;7))</span><br><span class="line">echo $b</span><br><span class="line"></span><br><span class="line">((a&lt;&lt;=3))</span><br><span class="line">echo $a</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>Result:</strong></em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@jarryli:/home/jarryli/$ ./myFirstshell</span><br><span class="line">256</span><br><span class="line">16</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-比较操作"><a href="#3-3-比较操作" class="headerlink" title="3.3 比较操作"></a>3.3 比较操作</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">IF 判断(方式1)</span></span><br><span class="line">if [ command ];then</span><br><span class="line">	符合该条件执行的语句</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">IF 判断(方式2)</span></span><br><span class="line">if [ command ];then</span><br><span class="line">elif [ command ];then</span><br><span class="line">	符合该条件执行的语句</span><br><span class="line">fi </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">IF 判断(方式3)</span></span><br><span class="line">if [ command ];then</span><br><span class="line">	符合该条件执行的语句</span><br><span class="line">elif [ command ];then</span><br><span class="line">	符合该条件执行的语句</span><br><span class="line">else </span><br><span class="line">	符合该条件执行的语句</span><br><span class="line">fi</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">注意 [ 和 ] 左右两侧需要有空格(<span class="keyword">if</span>语句和<span class="keyword">then</span>关键字前面的 ; 和 ] 的右侧之间可以没有空格)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-p 是 <span class="built_in">read</span> 命令的一个选项，用于指定在提示用户输入之前显示的提示信息</span></span><br><span class="line">read -p &quot;请输入你的成绩:&quot; num</span><br><span class="line">if [ $&#123;num&#125; -eq 100 ];then</span><br><span class="line">	echo &quot;满分，不错哦!&quot;</span><br><span class="line">elif [ $&#123;num&#125; -lt 60 ];then</span><br><span class="line">	echo &quot;不及格!&quot;</span><br><span class="line">else </span><br><span class="line">	echo &quot;及格!&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-4-整数比较"><a href="#3-4-整数比较" class="headerlink" title="3.4 整数比较"></a>3.4 整数比较</h3><table>
+<thead>
+<tr>
+<th><strong>-eq</strong></th>
+<th><strong>等于</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>-ne</strong></td>
+<td><strong>等于</strong></td>
+</tr>
+<tr>
+<td><strong>-lt</strong></td>
+<td><strong>小于</strong></td>
+</tr>
+<tr>
+<td><strong>-gt</strong></td>
+<td><strong>大于</strong></td>
+</tr>
+<tr>
+<td><strong>-ge</strong></td>
+<td><strong>大于等于</strong></td>
+</tr>
+<tr>
+<td><strong>-le</strong></td>
+<td><strong>小于等于</strong></td>
+</tr>
+<tr>
+<td><strong>&#x3D;&#x3D;</strong></td>
+<td><strong>等于</strong></td>
+</tr>
+<tr>
+<td><strong>!&#x3D;</strong></td>
+<td><strong>小于</strong></td>
+</tr>
+<tr>
+<td><strong>&lt;&#x3D;</strong></td>
+<td><strong>小于等于</strong></td>
+</tr>
+<tr>
+<td><strong>&gt;</strong></td>
+<td><strong>大于</strong></td>
+</tr>
+<tr>
+<td><strong>&gt;&#x3D;</strong></td>
+<td><strong>大于等于</strong></td>
+</tr>
+</tbody></table>
+<p><font color=cyan>使用[ ]需要使用$获取变脸的值，而使用 (()) 不需要使用$获取变量的值，直接使用变量即可拿到值。</font></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">read -p &quot;请输入你的成绩: &quot; score</span><br><span class="line"></span><br><span class="line">if ((score == 100));then</span><br><span class="line">	echo &quot;满分！&quot;</span><br><span class="line">elif ((score&lt;60));then</span><br><span class="line">	echo &quot;不及格!&quot;</span><br><span class="line">else </span><br><span class="line">	echo &quot;及格!&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-5-字符串比较"><a href="#3-5-字符串比较" class="headerlink" title="3.5 字符串比较"></a>3.5 字符串比较</h3><table>
+<thead>
+<tr>
+<th><strong>&#x3D;&#x3D;</strong></th>
+<th><strong>等于 可以使用[ ],也可以使用[[ ]]</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>&#x3D;</strong></td>
+<td><strong>等效于&#x3D;&#x3D;</strong></td>
+</tr>
+<tr>
+<td><strong>!&#x3D;</strong></td>
+<td><strong>不等于</strong></td>
+</tr>
+<tr>
+<td><strong>&lt;</strong></td>
+<td><strong>小于,按照ASCII字符排序</strong></td>
+</tr>
+<tr>
+<td><strong>&gt;</strong></td>
+<td><strong>大于</strong></td>
+</tr>
+<tr>
+<td><strong>-z</strong></td>
+<td><strong>字符串是空字符串,即长度为0,则结果为真</strong></td>
+</tr>
+<tr>
+<td><strong>-n</strong></td>
+<td><strong>字符串不是空字符串,则结果为真</strong></td>
+</tr>
+</tbody></table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span> </span><br><span class="line"></span><br><span class="line">pwd1=&quot;123456&quot;</span><br><span class="line">read -p &quot;Please input password:&quot; pwd2</span><br><span class="line">if [ $pwd2 == $pwd1 ];then </span><br><span class="line">	echo &quot;登录成功&quot;</span><br><span class="line">else </span><br><span class="line">	echo &quot;密码错误&quot;</span><br><span class="line">fi </span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span> </span><br><span class="line"></span><br><span class="line">pwd1=&quot;123456&quot;</span><br><span class="line">read -p &quot;Please input password:&quot; pwd2</span><br><span class="line"></span><br><span class="line">if [ $pwd2 == $pwd1 ];then # 也可以使用[[]]</span><br><span class="line">	echo &quot;等于&quot;</span><br><span class="line">elif [[ $pwd2 &lt; $pwd1 ]];then </span><br><span class="line">	echo &quot;小于&quot;</span><br><span class="line">else </span><br><span class="line">	echo &quot;大于&quot;</span><br><span class="line">fi </span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span> </span><br><span class="line"></span><br><span class="line">name=&quot;123456&quot;</span><br><span class="line">if [[ -z $name ]];then # -z 和 $ 之间有空格</span><br><span class="line">	echo &quot;size = 0&quot;</span><br><span class="line">else </span><br><span class="line">	echo &quot;size != 0&quot;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<p>-z 和 -n 也可以同时使用[]，但是同时必须使用””，如[ -z “$name” ]</p>
+<h3 id="3-6-逻辑运算符"><a href="#3-6-逻辑运算符" class="headerlink" title="3.6 逻辑运算符"></a>3.6 逻辑运算符</h3><table>
+<thead>
+<tr>
+<th><strong>&amp;&amp;</strong></th>
+<th><strong>逻辑与</strong></th>
+<th><strong>需要使用[[ ]]</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>||</strong></td>
+<td><strong>逻辑或</strong></td>
+<td><strong>需要使用[[ ]]</strong></td>
+</tr>
+</tbody></table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">name=&quot;JarryLi&quot;</span><br><span class="line">pwd=&quot;123456&quot;</span><br><span class="line"></span><br><span class="line">read -p &quot;请输入用户名: &quot; name1</span><br><span class="line">read -p &quot;请输入密码:&quot; pwd1</span><br><span class="line"></span><br><span class="line">if [[ $name1 == $name &amp;&amp; $pwd1 == $pwd ]];then </span><br><span class="line">	echo &quot;登陆成功&quot;</span><br><span class="line">else </span><br><span class="line">	echo &quot;登录失败&quot;</span><br><span class="line">fi </span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-7-文件测试操作"><a href="#3-7-文件测试操作" class="headerlink" title="3.7 文件测试操作"></a>3.7 文件测试操作</h3><table>
+<thead>
+<tr>
+<th><strong>-e</strong></th>
+<th><strong>文件存在</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>-f</strong></td>
+<td><strong>文件是一个普通文件(不是目录或设备文件)</strong></td>
+</tr>
+<tr>
+<td><strong>-s</strong></td>
+<td><strong>我呢见大小不为0</strong></td>
+</tr>
+<tr>
+<td><strong>-d</strong></td>
+<td><strong>文件是一个目录</strong></td>
+</tr>
+<tr>
+<td><strong>-b</strong></td>
+<td><strong>文件是一个块设备(软盘、光驱等等)</strong></td>
+</tr>
+<tr>
+<td><strong>-c</strong></td>
+<td><strong>文件是一个字符设备(键盘，调制解调器，声卡等等)</strong></td>
+</tr>
+<tr>
+<td><strong>-p</strong></td>
+<td><strong>文件是一个管道</strong></td>
+</tr>
+<tr>
+<td><strong>-h</strong></td>
+<td><strong>文件是一个符号链接</strong></td>
+</tr>
+<tr>
+<td><strong>-l</strong></td>
+<td><strong>文件存在，而且是一个符号链接</strong></td>
+</tr>
+<tr>
+<td><strong>-s</strong></td>
+<td><strong>文件是一个socket</strong></td>
+</tr>
+<tr>
+<td><strong>-t</strong></td>
+<td><strong>文件(描述符)与一个终端设备相关</strong></td>
+</tr>
+<tr>
+<td><strong>-r</strong></td>
+<td><strong>文件是否可读(指运行这个测试命令的用户的读权限)</strong></td>
+</tr>
+<tr>
+<td><strong>-w</strong></td>
+<td><strong>文件是否可写(指运行这个测试命令的用户的学权限)</strong></td>
+</tr>
+<tr>
+<td><strong>-x</strong></td>
+<td><strong>文件是否可执行(指运行这个测试命令的用户的执行权限)</strong></td>
+</tr>
+<tr>
+<td><strong>-g</strong></td>
+<td><strong>文件或目录的sgid标记被设置。如果一个目录的sgid标志被设置，在这个目录下创建的文件都属于拥有此目录的用户组，而不是创建文件的用户所属的组。</strong></td>
+</tr>
+<tr>
+<td><strong>-u</strong></td>
+<td><strong>文件的suid标志被设置。如果一个文件的suid位被设置，它将以文件所有者的权限执行该文件而不是执行它的用户的权限。这通常用于允许普通用户以root或其他用户的身份执行特定的程序。</strong></td>
+</tr>
+</tbody></table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span> </span><br><span class="line">if [ -x $0 ];then </span><br><span class="line">	echo &quot;有执行权限&quot;</span><br><span class="line">else </span><br><span class="line">	echo &quot;没有执行权限&quot;</span><br><span class="line">fi </span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-循环判断"><a href="#4-循环判断" class="headerlink" title="4. 循环判断"></a>4. 循环判断</h2><h3 id="4-1-Shell-的判断语句-case"><a href="#4-1-Shell-的判断语句-case" class="headerlink" title="4.1 Shell 的判断语句 case"></a>4.1 Shell 的判断语句 case</h3><p>类似C语言的switch</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">语法:</span></span><br><span class="line">case $&quot;变量&quot; in</span><br><span class="line">	值1)</span><br><span class="line">		命令集1</span><br><span class="line">	;;</span><br><span class="line">	值2)</span><br><span class="line">		命令集2</span><br><span class="line">	;;</span><br><span class="line">	值3)</span><br><span class="line">		命令集3</span><br><span class="line">	;;</span><br><span class="line">	......</span><br><span class="line">	*)</span><br><span class="line">		命令集n</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>匹配符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>*</td>
+<td>任意字符</td>
+</tr>
+<tr>
+<td>?</td>
+<td>任意单个字符</td>
+</tr>
+<tr>
+<td>[ ]</td>
+<td>括号中的任意一个字符</td>
+</tr>
+<tr>
+<td>|</td>
+<td>多重选择</td>
+</tr>
+</tbody></table>
+<p><strong>Demo1:</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span> </span><br><span class="line">read -p &quot;please input address: &quot; addr </span><br><span class="line"></span><br><span class="line">case $addr in </span><br><span class="line">	&quot;山东&quot;)</span><br><span class="line">		echo &quot;This is shandong!&quot;</span><br><span class="line">		echo &quot;This is shandong!&quot;;;</span><br><span class="line">	&quot;北京&quot;)</span><br><span class="line">		echo &quot;This is beijing!&quot;</span><br><span class="line">		echo &quot;This is beijing!&quot;;;</span><br><span class="line">	*)</span><br><span class="line">		echo &quot;huijia!&quot;;;</span><br><span class="line">esac </span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>Demo2:</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span> </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">执行 <span class="built_in">arch</span> 命令(获取当前系统的架构名称),然后把命令的返回值赋值给name</span></span><br><span class="line">name=$(arch)</span><br><span class="line">case $name in </span><br><span class="line">	&quot;x86_64&quot;)</span><br><span class="line">		echo &quot;x86_64系统架构&quot;;;</span><br><span class="line">	&quot;i386&quot;)</span><br><span class="line">		echo &quot;80386架构&quot;;;</span><br><span class="line">	*)</span><br><span class="line">		echo &quot;其他架构&quot;;;</span><br><span class="line">esac</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>Demo3:</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span> </span><br><span class="line"></span><br><span class="line">read -p &quot;您确定要安装该软件吗? &quot; answer </span><br><span class="line"></span><br><span class="line">case $answer in </span><br><span class="line">	y|Y|yes|OK|是|是的|确定)</span><br><span class="line">		echo &quot;开始安装&quot;</span><br><span class="line">		echo &quot;安装完成&quot;;;</span><br><span class="line">	*) </span><br><span class="line">		echo “退出安装”;;</span><br><span class="line">esac </span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>Demo4:</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span> </span><br><span class="line"></span><br><span class="line">read -p &quot;请输入年龄: &quot; age</span><br><span class="line">case $age in </span><br><span class="line">	[0-3])</span><br><span class="line">		echo &quot;[0-3]&quot;;;</span><br><span class="line">	[4-9]|1[0-2]) # 相当于[4-9] | [10-12], 但是不能写成[10-12]</span><br><span class="line">		echo &quot;[4-9]|1[0-2]&quot;;;</span><br><span class="line">	1[3-7])</span><br><span class="line">		echo &quot;1[3-7]&quot;;;</span><br><span class="line">	*)</span><br><span class="line">		echo &quot;其他&quot;;;</span><br><span class="line">esac </span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-select-语句"><a href="#4-2-select-语句" class="headerlink" title="4.2 select 语句"></a>4.2 select 语句</h3><p>用于让用户选择某个选项，前面会出现1)、2) … n)，只需要输入对应的数字即可</p>
+<p><strong>Demo1:</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span> </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">PS3是输入提示的字符串</span></span><br><span class="line">PS3=&quot;Please select Linux version:&quot; </span><br><span class="line"></span><br><span class="line">select item in &quot;Ubuntu&quot; &quot;Centos&quot; &quot;ReadHat&quot; &quot;麒麟&quot;</span><br><span class="line">do </span><br><span class="line">	echo &quot;您选择的版本是: &quot; $item </span><br><span class="line">	echo &quot;欢迎使用$&#123;item&#125;系统&quot;</span><br><span class="line">	break</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<p><font color=Cyan>注意：如果不使用 break 将导致死循环，让用户不停的输入</font></p>
+<p><strong>Demo2:</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span> </span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">PS3是输入当前提示字符串</span></span><br><span class="line">PS3=&quot;请选择您的操作:&quot;</span><br><span class="line"></span><br><span class="line">clear </span><br><span class="line"></span><br><span class="line">select item in &quot;当前目录&quot; &quot;IP&quot; &quot;系统版本&quot; &quot;退出&quot;</span><br><span class="line">do </span><br><span class="line">	case $item in </span><br><span class="line">	&quot;当前目录&quot;)</span><br><span class="line">		echo &quot;当前目录是: &quot;</span><br><span class="line">		pwd;;</span><br><span class="line">	&quot;IP&quot;)</span><br><span class="line">		echo &quot;IP 地址信息: &quot;</span><br><span class="line">		ip addr show;;</span><br><span class="line">	&quot;系统版本&quot;)</span><br><span class="line">		echo &quot;系统版本: &quot;</span><br><span class="line">		uname -a;;</span><br><span class="line">	&quot;退出&quot;)</span><br><span class="line">		break;;</span><br><span class="line">	esac</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-for-循环"><a href="#4-3-for-循环" class="headerlink" title="4.3 for 循环"></a>4.3 for 循环</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">基本语法</span></span><br><span class="line">for 变量名 in [ 取值列表 ]</span><br><span class="line">do </span><br><span class="line">	循环体</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<p><strong>Demo1:</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span> </span><br><span class="line">for addr in &quot;山东&quot; &quot;北京&quot; &quot;上海&quot;</span><br><span class="line">do </span><br><span class="line">	echo &quot;到$addr&quot;旅游 </span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+
+
+</article>
+    
+    <div class="trm-reward">
+        
+            <span class="trm-reward-btn trm-glow" onclick='var qr = document.getElementById("qr"); qr.style.display = (qr.style.display === "none") ? "block" : "none";'>
+                <i class="iconfont fas fa-hand-holding-usd"></i>
+            </span>
+        
+        <p class="trm-reward-comment">sponsor</p>
+        <div id="qr" style="display:none;">
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='/img/wechat.jpg' target='_blank' >
+                       <img src="/img/wechat.jpg" alt="微信" loading="lazy">
+                    </a>
+                    <p>微信</p>
+                </div>
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='/img/zhifubao.jpg' target='_blank' >
+                       <img src="/img/zhifubao.jpg" alt="支付宝" loading="lazy">
+                    </a>
+                    <p>支付宝</p>
+                </div>
+            
+        </div>
+    </div>
+
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            Other Articles
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2024/09/20/Android%20Studio%E9%85%8D%E7%BD%AE%E9%98%BF%E9%87%8C%E6%BA%90%E5%8F%8A%E4%BF%AE%E6%94%B9gradle%E5%8C%85%E7%9A%84%E4%BD%8D%E7%BD%AE/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/Android/">
+                    Android
+                </a>
+            </div>
+            <h5>
+                <a href="/2024/09/20/Android%20Studio%E9%85%8D%E7%BD%AE%E9%98%BF%E9%87%8C%E6%BA%90%E5%8F%8A%E4%BF%AE%E6%94%B9gradle%E5%8C%85%E7%9A%84%E4%BD%8D%E7%BD%AE/" class="trm-anima-link">
+                    Android Studio配置阿里源及修改gradle包的位置
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/09/20</li>
+                <li>22:20</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                Powered by <a href="https://github.com/jarryLi-max" target="_blank" rel="noopener">JarryLi</a> 
+                <!-- v7.3.0 -->
+            </span>
+            <!-- <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                Theme - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.2
+            </span> -->
+        </div>
+      
+
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+            
+<div class="trm-fixed-container">
+    
+    
+        <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="Back To Top">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="Searching...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    Please enter keywords to search
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.2"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.2"></script>
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>
