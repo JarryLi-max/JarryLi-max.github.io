@@ -2422,4 +2422,26 @@
         <category>C++</category>
       </categories>
   </entry>
+  <entry>
+    <title>CLion通过SSH连接Linux</title>
+    <url>/2024/10/13/CLion%E9%80%9A%E8%BF%87SSH%E8%BF%9E%E6%8E%A5Linux/</url>
+    <content><![CDATA[<h1 id="CLion通过SSH连接Linux"><a href="#CLion通过SSH连接Linux" class="headerlink" title="CLion通过SSH连接Linux"></a>CLion通过SSH连接Linux</h1><h2 id="1-本地创建项目"><a href="#1-本地创建项目" class="headerlink" title="1. 本地创建项目"></a>1. 本地创建项目</h2><p><img src="/../picture/CLion/image-20241013115448308.png" alt="image-20241013115448308"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="2-添加Linux"><a href="#2-添加Linux" class="headerlink" title="2. 添加Linux"></a>2. 添加Linux</h2><p><img src="/../picture/CLion/%5Cimage-20241013115643987.png" alt="image-20241013115643987"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="3-选择调试环境"><a href="#3-选择调试环境" class="headerlink" title="3. 选择调试环境"></a>3. 选择调试环境</h2><p><img src="/../picture/CLion/image-20241013115722761.png" alt="image-20241013115722761"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="4-选择文件上传路径"><a href="#4-选择文件上传路径" class="headerlink" title="4. 选择文件上传路径"></a>4. 选择文件上传路径</h2><p><img src="/../picture/CLion/image-20241013120006488.png" alt="image-20241013120006488"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/CLion/image-20241013122018170.png" alt="image-20241013122018170"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="5-同步文件到服务器"><a href="#5-同步文件到服务器" class="headerlink" title="5. 同步文件到服务器"></a>5. 同步文件到服务器</h2><p><img src="/../picture/CLion/image-20241013120116276.png" alt="image-20241013120116276"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/CLion/image-20241013120143547.png" alt="image-20241013120143547"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/CLion/image-20241013120225079.png" alt="image-20241013120225079"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="6-选择Linux编译、调试环境"><a href="#6-选择Linux编译、调试环境" class="headerlink" title="6. 选择Linux编译、调试环境"></a>6. 选择Linux编译、调试环境</h2><p><img src="/../picture/CLion/image-20241013120347935.png" alt="image-20241013120347935"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="7-从服务器下载文件"><a href="#7-从服务器下载文件" class="headerlink" title="7. 从服务器下载文件"></a>7. 从服务器下载文件</h2><p><img src="/../picture/CLion/image-20241013120459360.png" alt="image-20241013120459360"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/CLion/image-20241013120540235.png" alt="image-20241013120540235"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/CLion/image-20241013120706228.png" alt="image-20241013120706228"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="8-启动SSH会话"><a href="#8-启动SSH会话" class="headerlink" title="8. 启动SSH会话"></a>8. 启动SSH会话</h2><p><img src="/../picture/CLion/image-20241013120423733.png" alt="image-20241013120423733"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/CLion/image-20241013122355553.png" alt="image-20241013122355553"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+  </entry>
 </search>
