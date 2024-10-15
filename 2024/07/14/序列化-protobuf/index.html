@@ -61,7 +61,7 @@
 
 
 <!-- Variable -->
-<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"JarryLi","root":"/","typed_text":null,"theme_version":"2.2.2","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","apple_touch_icon":null,"webmanifest":null,"visibilitychange":false,"hidden":"/failure.ico","show_text":"(/≧▽≦/)Hey! Good again!","hide_text":"(●—●)Oh, crash!"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","trigger":"auto","path":"search.xml"}};</script>
+<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"JarryLi","root":"/","typed_text":null,"theme_version":"2.2.2","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","apple_touch_icon":null,"webmanifest":null,"visibilitychange":false,"hidden":"/failure.ico","show_text":"(/≧▽≦/)Hey! Good again!","hide_text":"(●—●)Oh, crash!"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"01/01/2024 00:00:00","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","trigger":"auto","path":"search.xml"}};</script>
 <script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-07-15 10:49:11"};</script>
 
 <!-- Theme mode css -->
@@ -743,6 +743,8 @@
         </div>
       
 
+    
+        <div class="trm-footer-item blog-run-long"></div>
      
 
      
@@ -758,8 +760,24 @@
 
             
 
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        Article table of contents
+				<span id="post-toc-top">
+					TOP
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-1" title="1. 序列化"><a rel="nofollow" class="trm-toc-link" href="#1-序列化"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">1. 序列化</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-2" title="1.1 网络通信中的问题分析"><a rel="nofollow" class="trm-toc-link" href="#1-1-网络通信中的问题分析"><span class="trm-toc-number">1.1.</span> <span class="trm-toc-text">1.1 网络通信中的问题分析</span></a></li><li class="trm-toc-item trm-toc-level-2" title="1.2 常用的序列化方式"><a rel="nofollow" class="trm-toc-link" href="#1-2-常用的序列化方式"><span class="trm-toc-number">1.2.</span> <span class="trm-toc-text">1.2 常用的序列化方式</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-1" title="2. protobuf"><a rel="nofollow" class="trm-toc-link" href="#2-protobuf"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">2. protobuf</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-2" title="2.1 操作流程"><a rel="nofollow" class="trm-toc-link" href="#2-1-操作流程"><span class="trm-toc-number">2.1.</span> <span class="trm-toc-text">2.1 操作流程</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-1" title="3. 业务数据分析"><a rel="nofollow" class="trm-toc-link" href="#3-业务数据分析"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">3. 业务数据分析</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-2" title="3.1 客户端"><a rel="nofollow" class="trm-toc-link" href="#3-1-客户端"><span class="trm-toc-number">3.1.</span> <span class="trm-toc-text">3.1 客户端</span></a></li><li class="trm-toc-item trm-toc-level-2" title="3.2 服务器端"><a rel="nofollow" class="trm-toc-link" href="#3-2-服务器端"><span class="trm-toc-number">3.2.</span> <span class="trm-toc-text">3.2 服务器端</span></a></li></ol></li></ol>
+      </div>
+    </div>
+
             
 <div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="Open toc">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
     
     
         <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">
