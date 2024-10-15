@@ -1,336 +1,251 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<meta name="x5-fullscreen" content="true">
-<meta name="full-screen" content="yes">
-<meta name="theme-color" content="#317EFB" />
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
-<meta name="description" content="C++ 11 类型转换1. array12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667#define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING#inclu">
-<meta property="og:type" content="article">
-<meta property="og:title" content="C++ 11 类型转换">
-<meta property="og:url" content="http://example.com/2024/08/03/C++%2011%20%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/index.html">
-<meta property="og:site_name" content="JarryLi&#39;s Blog">
-<meta property="og:description" content="C++ 11 类型转换1. array12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667#define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING#inclu">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-08-03T10:01:53.548Z">
-<meta property="article:modified_time" content="2024-08-03T10:04:29.123Z">
-<meta property="article:author" content="JarryLi">
-<meta name="twitter:card" content="summary">
+  <meta charset="utf-8">
+  
+  <title>JarryLi&#39;s Blog | C++ 11 类型转换 | JarryLi&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="/css/public.css" />
+  <link rel="stylesheet" href="/css/layout.css" />
+  <link rel="stylesheet" href="/css/iconfont.css" />
+  <link rel="stylesheet" href="/css/nprogress.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" />
+  <link rel="shortcut icon" href="/imgs/shortcut-icon.ico" type="image/x-icon">
+  
+  <script src="/js/nprogress.js"></script>
 
 
-<title >C++ 11 类型转换</title>
-
-<!-- Favicon -->
-
-    <link href='/img/favicon.svg?v=2.2.2' rel='icon' type='image/png' sizes='16x16' ></link>
-
-
-    <link href='/img/favicon.svg?v=2.2.2' rel='icon' type='image/png' sizes='32x32' ></link>
-
-
-
-
-<!-- Plugin -->
-
-
-
-
-    
-<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
-
-    
-<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
-
-    
-    
-
-
-
-
-<!-- Icon -->
-
-    
-<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
-
-
-
-
-<!-- Variable -->
-<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"JarryLi","root":"/","typed_text":null,"theme_version":"2.2.2","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","apple_touch_icon":null,"webmanifest":null,"visibilitychange":false,"hidden":"/failure.ico","show_text":"(/≧▽≦/)Hey! Good again!","hide_text":"(●—●)Oh, crash!"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"01/01/2024 00:00:00","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","trigger":"auto","path":"search.xml"}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-08-03 18:04:29"};</script>
-
-<!-- Theme mode css -->
-<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
-<script>
-    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
-    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
-    let type = catchMode === 'style-dark' ? 'add' : 'remove';
-    document.documentElement.classList[type]('dark')
-</script>
-
-<!-- CDN -->
-
-
-    
-    
-
-
-
-<!-- Site Analytics -->
-
- 
+  <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
+  <script>
+    document.title = `JarryLi's Blog | C++ 11 类型转换`
+  </script>
 <meta name="generator" content="Hexo 7.3.0"></head>
-
 <body>
-
-  <!-- app wrapper -->
-  <div class="trm-app-frame">
-
-    <!-- page preloader -->
-    <div class="trm-preloader">
-    <div class="trm-holder">
-        <div class="preloader">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
-</div>
-    <!-- page preloader end -->
-
-    <!-- change mode preloader -->
-    <div class="trm-mode-swich-animation-frame">
-    <div class="trm-mode-swich-animation">
-        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
-        <div class="trm-horizon"></div>
-        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
-    </div>
-</div>
-    <!-- change mode preloader end -->
-
-      <!-- scroll container -->
-      <div id="trm-dynamic-content" class="trm-swup-animation">
-        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
-            <!-- top bar -->
-            <header class="trm-top-bar">
-	<div class="container">
-		<div class="trm-left-side">
-			<!-- logo -->
-<!-- <a href="/" class="trm-logo-frame trm-anima-link">
-    
-        <img alt="logo" src="/img/favicon.svg">
-    
-    
-        <div class="trm-logo-text">
-            Async<span>Theme</span>
-        </div>
-    
-</a> -->
-<!-- logo end -->
-		</div>
-		<div class="trm-right-side">
-			<!-- menu -->
-<div class="trm-menu">
-    <nav>
+  <div id="container" class="container w-100 vh-100">
+    <header class="header">
+  <div class="header-wrapper">
+    <div class="header-left">
+      <div class="header-search">
+        <input id="search-input" type="text" class="header-search--input" placeholder="请输入要检索的文章标题" />
+        <span id="search-btn" class="header-search--icon"><i class="iconfont icon-sousuo"></i></span>
+      </div>
+      <div id="search-layer" class="header-search--layer hidden">
+        <p class="title">
+          <span>以下是搜索内容：</span>
+          <span id="close-layer-btn">关闭</span>
+        </p>
         <ul>
-            
-            <li class="menu-item-has-children ">
-                <a  href="/" target="">
-                    Home
-                </a>
-                
-            </li>
-            
-            <li class="menu-item-has-children ">
-                <a  href="/archives/" target="">
-                    Archives
-                </a>
-                
-            </li>
-            
         </ul>
-    </nav>
-</div>
-<!-- menu end -->
-			
-    <!-- mode switcher place -->
-    <div class="trm-mode-switcher-place">
-        <div class="trm-mode-switcher">
-            <i class="iconfont far fa-sun"></i>
-            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
-            <label class="trm-swich" for="trm-swich"></label>
-            <i class="iconfont far fa-moon"></i>
-        </div>
+      </div>
     </div>
-    <!-- mode switcher place end -->
-
-			
-    
-    <div id="trm-search-btn" class="trm-search-btn">
-        <i class="iconfont fas fa-search"></i>
+    <div class="header-right">
+      <ul class="header-menu">
+        <li>
+          <a href="/">
+            <i class="header-menu--icon iconfont icon-shouye"></i>
+            <span class="header-menu--span">首页</span>
+          </a>
+        </li>
+        <li>
+          <a href="/log">
+            <i class="header-menu--icon iconfont icon-rizhi"></i>
+            <span class="header-menu--span">日志</span>
+          </a>
+        </li>
+        <li>
+          <a href="/link">
+            <i class="header-menu--icon iconfont icon-youqinglianjie"></i>
+            <span class="header-menu--span">友情链接</span>
+          </a>
+        </li>
+        <li>
+          <a href="/about">
+            <i class="header-menu--icon iconfont icon-guanyuwomen"></i>
+            <span class="header-menu--span">关于我</span>
+          </a>
+        </li>
+      </ul>
     </div>
-     
-
-		</div>
-		<div class="trm-menu-btn">
-			<span></span>
-		</div>
-	</div>
+  </div>
 </header>
-            <!-- top bar end -->
 
-            <!-- body -->
-            
-<div class="trm-content-start">
-    <!-- banner -->
-    <div class="trm-banner">
-    
-    <!-- banner cover -->
-    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
-    <!-- banner cover end -->
-    
+<script>
+  const ipt = document.querySelector('#search-input')
+  const btn = document.querySelector('#search-btn')
+  const layer = document.querySelector('#search-layer')
+  const posts = JSON.parse(`[{"title":"Android Studio配置阿里源及修改gradle包的位置","path":"2024/09/20/Android Studio配置阿里源及修改gradle包的位置/"},{"title":"C++ 11 类型转换","path":"2024/08/03/C++ 11 类型转换/"},{"title":"CLion通过SSH连接Linux","path":"2024/10/13/CLion通过SSH连接Linux/"},{"title":"常用的 Git 命令","path":"2024/09/02/Git常用命令/"},{"title":"I/O 复用","path":"2024/07/28/IO复用/"},{"title":"Modbus 功能码详解","path":"2024/08/10/Modbus功能码详解/"},{"title":"Modbus 协议开发","path":"2024/08/10/Modbus协议开发/"},{"title":"STM32F103C8T6(源码1-5)","path":"2024/09/17/STM32F103C8T6(源码1-5)/"},{"title":"git的基本操作","path":"2024/07/15/git/"},{"title":"Nginx 反向代理","path":"2024/07/14/Nginx反向代理/"},{"title":"libmodbus库的使用","path":"2024/08/14/libmodbus库的使用/"},{"title":"多种 I/O 函数","path":"2024/08/04/chapter13多种IO函数/"},{"title":"Shell脚本编程","path":"2024/09/20/shell脚本编程/"},{"title":"内存泄露检测","path":"2024/10/12/内存泄露检测/"},{"title":"域名及网络地址","path":"2024/07/17/域名及网络地址/"},{"title":"多线程和线程同步","path":"2024/10/15/多线程和线程同步/"},{"title":"套接字的多种可选项","path":"2024/07/17/套接字的多种可选项/"},{"title":"多进程服务器端","path":"2024/07/18/多进程服务器端/"},{"title":"序列化-protobuf","path":"2024/07/14/序列化-protobuf/"},{"title":"生成器使用","path":"2024/07/14/生成器使用/"},{"title":"进程间通信","path":"2024/07/23/进程间通信/"}]`)
+  ipt.addEventListener('keyup', e => {
+    if (e.key === 'Enter') {
+      handleSearch()
+    }
+  })
+  btn.addEventListener('click', () => {
+    handleSearch()
+  })
 
-    <!-- banner content -->
-    <div class="trm-banner-content trm-overlay">
-        <div class="container">
-            <div class="row">
-                
-                <div class="col-lg-4"></div>
-                
-                <div class="col-lg-8">
+  document.querySelector('#close-layer-btn').addEventListener('click', () => {
+    layer.classList.toggle('hidden')
+  })
 
-                    <!-- banner title -->
-                    <div class="trm-banner-text ">
-                        <div class="trm-label trm-mb-20">
-                            NEWS LETTER
-                        </div>
-                        <h1 class="trm-mb-30 trm-hsmb-font">
-                            C++ 11 类型转换
-                        </h1>
-
-                        
-                            <ul class="trm-breadcrumbs trm-label">
-                                <li>
-                                    <a href="/" class="trm-anima-link">Home</a>
-                                </li>
-                                <li>
-                                    <span>
-                                        2024
-                                    </span>
-                                </li>
-                            </ul>
-                        
-                    </div>
-                    <!-- banner title end -->
-
-                    <!-- scroll hint -->
-                    <span id="scroll-triger" class="trm-scroll-hint-frame">
-                        <div class="trm-scroll-hint"></div>
-                        <span class="trm-label">Scroll down</span>
-                    </span>
-                    <!-- scroll hint end -->
-
-                </div>
-            </div>
+  function handleSearch() {
+    if (ipt.value.trim() === '') {
+      return
+    }
+    let html = ''
+    const targetPosts = posts.filter(post => post.title.includes(ipt.value))
+    targetPosts.forEach(post => {
+      html += `
+        <li>
+          <div>
+            <a href="/${post.path}">${post.title.replace(new RegExp(ipt.value), `<span>${ipt.value}</span>`)}</a>
+          </div>
+          <img src="${post.cover || '/imgs/default-cover.webp' }" />
+        </li>
+      `
+    })
+    if (html.trim () === '') {
+      html += '<p class="empty">没有搜索到内容</p>'
+    }
+    layer.querySelector('ul').innerHTML = html
+    layer.classList.remove('hidden')
+  }
+</script> 
+    <section id="main" class="main">
+      <div class="main-left-wrapper">
+<div class="main-left">
+  <div class="main-left--block">
+    <div class="main-left--info">
+      <img src="/imgs/avatar.jpg"" class="main-left--avatar" />
+      <div class="main-left--intro">
+        <p class="main-left--name">Cola.</p>
+        <div class="main-left--tags">
+          <span class="main-left--tag">中二</span>
+          <span class="main-left--tag">宅</span>
         </div>
+      </div>
     </div>
-    <!-- banner content end -->
-</div>
-    <!-- banner end -->
-    <div class="container">
-        <div class="row">
-            
-                <div class="trm-page-sidebar col-lg-4 hidden-sm">
-                    <!-- main card -->
-                    <div class="trm-main-card-frame trm-sidebar">
-    <div class="trm-main-card"> 
-        <!-- card header -->
-<div class="trm-mc-header">
-    <div class="trm-avatar-frame trm-mb-20">
-        <img alt="Avatar" class="trm-avatar" src="/img/avatar.jpg">
-    </div>
-    <h5 class="trm-name trm-mb-15">
-        JarryLi
-    </h5>
-    
-</div>
-<!-- card header end -->
-        <!-- sidebar social -->
-
-<div class="trm-divider trm-mb-40 trm-mt-40"></div>
-<div class="trm-social">
-    
-        <a href="https://github.com/jarryLi-max" title="Github" rel="nofollow" target="_blank">
-            <i class="iconfont fab fa-github"></i>
+  
+    <div>
+      <div class="main-left--motto">
+        <p>“花有重开日，人无再少年”</p>
+        <p>“一个简单普通的男孩”</p>
+      </div>
+      <div class="main-left--github">
+        <span class="line"></span>
+        <a target="_blank" rel="noopener" href="https://github.com/Aizener"><i class="logo iconfont icon-github-fill"></i></a>
+        <span class="line"></span>
+      </div>
+      <div class="main-left--statics">
+        <a href="/categories">
+          <div>
+            <span>8</span>
+            <span>分类</span>
+          </div>
         </a>
-    
-</div>
-
-<!-- sidebar social end -->
-        <!-- info -->
-<div class="trm-divider trm-mb-40 trm-mt-40"></div>
-<ul class="trm-table trm-mb-20">
-    
-        <li>
-            <div class="trm-label">
-                Residence:
-            </div>
-            <div class="trm-label trm-label-light">
-                China
-            </div>
-        </li>
-        <li>
-            <div class="trm-label">
-                email:
-            </div>
-            <div class="trm-label trm-label-light">
-                2976562002@qq.com
-            </div>
-        </li>
-    
-</ul>
-<!-- info end -->
-
-        
+        <a href="/tags">
+          <div>
+            <span>0</span>
+            <span>标签</span>
+          </div>
+        </a>
+        <a href="/archives">
+          <div>
+            <span>4 </span>
+            <span>归档</span>
+          </div>
+        </a>
+      </div>
     </div>
-</div>
-                    <!-- main card end -->
-                </div>
+  </div>
+
+  <div class="main-left--block">
+    <ul class="main-left--menu">
+      
+        <li>
+          <a href="/">
+            <span class="header-menu--span">小站首页</span>
+            <i class="header-menu--icon iconfont icon-shouye"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a href="/log">
+            <span class="header-menu--span">个人日志</span>
+            <i class="header-menu--icon iconfont icon-rizhi"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a href="/link">
+            <span class="header-menu--span">友情链接</span>
+            <i class="header-menu--icon iconfont icon-youqinglianjie"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a href="/about">
+            <span class="header-menu--span">关于自己</span>
+            <i class="header-menu--icon iconfont icon-guanyuwomen"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a href="/tools">
+            <span class="header-menu--span">我的工具</span>
+            <i class="header-menu--icon iconfont icon-gongju"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="main-left--block">
+    <div class="main-left--site">
+      <h5 class="main-left--title">
+        <span>站点信息</span>
+        <i class="iconfont icon-zhandian"></i>
+      </h5>
+      <p class="main-left--subtitle">
+        <span>文章数目：</span>
+        <span>21 篇</span>
+      </p>
+      <p class="main-left--subtitle">
+        <span>最近动态：</span>
+        <span>昨天</span>
+      </p>
+      <p class="main-left--subtitle">
+        <span>上线时间：</span>
+        <span>973天</span>
+      </p>
+    </div>
+  </div>
+</div></div>
+      <div id="main-container" class="main-container">
+
+
+  <div class="article-container">
+  <div class="article">
+    <h1 class="article-title">C++ 11 类型转换</h1>
+    <div class="article-info">
+      <div class="article-info--item">
+        <div class="article-info--info">
+          <div class="article-info--categories">
+            <span>分类：</span>
+            <a class="category-link" href="/categories/C/">C++</a>
+          </div>
+          <div class="article-info--tags">
+            <span>标签：</span>
             
-            <div class="trm-page-content col-lg-8">
-                <div id="trm-content" class="trm-content">
-                    <div class="trm-post-info row hidden-sm">
-    <div class="col-sm-4">
-        <div class="trm-card trm-label trm-label-light text-center">
-            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
-            08/03
+          </div>
+          <p class="article-info--date">日期：2024-08-03 18:01:53</p>
         </div>
+        <img src="/imgs/default-cover.webp" alt="" class="article-cover">
+      </div>
     </div>
-    <div class="col-sm-4">
-        <div class="trm-card trm-label trm-label-light text-center">
-            <i class="iconfont far fa-clock trm-icon"></i><br>
-            18:01
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
-            <i class="iconfont far fa-user trm-icon"></i><br>
-            JarryLi
-        </div>
-    </div>
-</div>
-<div class="trm-card ">
-    <article id="article-container" class="trm-publication">
-    <h1 id="C-11-类型转换"><a href="#C-11-类型转换" class="headerlink" title="C++ 11 类型转换"></a>C++ 11 类型转换</h1><h2 id="1-array"><a href="#1-array" class="headerlink" title="1. array"></a>1. array</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;array&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Student</span>() &#123;&#125;;</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Student</span>() &#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    array&lt;<span class="type">int</span>, 5&gt; a1;       <span class="comment">// 一个存放int且长度为5的array容器</span></span><br><span class="line">    array&lt;<span class="type">double</span>, 5&gt; a2;    <span class="comment">// 一个存放double且长度为5的array容器</span></span><br><span class="line">    array&lt;Student, 5&gt; a3;   <span class="comment">// 一个存放Student类且长度为5的array容器</span></span><br><span class="line">    array&lt;<span class="type">int</span>, 5&gt; a5;</span><br><span class="line">    </span><br><span class="line">    array&lt;<span class="type">int</span>, 5&gt; a4 = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> &#125;; <span class="comment">// 不够默认补0</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; a<span class="number">4.</span><span class="built_in">size</span>(); i++) </span><br><span class="line">        cout &lt;&lt; a4[i] &lt;&lt; <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 赋值</span></span><br><span class="line">    a<span class="number">1.</span><span class="built_in">assign</span>(<span class="number">10</span>); <span class="comment">// 赋值 #define一下</span></span><br><span class="line">    a5 = a1;</span><br><span class="line">    a<span class="number">1.f</span>ill(<span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">    a<span class="number">4.</span><span class="built_in">swap</span>(a1); <span class="comment">// 交换a1、a4的值</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// array的大小</span></span><br><span class="line">    <span class="comment">// array.size();        // 容器的大小</span></span><br><span class="line">    <span class="comment">// array.max_size();    // 最大大小 等于size</span></span><br><span class="line">    <span class="comment">// array.empty();       // 判断是否为空</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// array的数据存取</span></span><br><span class="line">    <span class="comment">// 使用下标操作 a1[0] = 100;</span></span><br><span class="line">    <span class="comment">// 使用at 方法 如 : a1.at(2) = 100;</span></span><br><span class="line">    <span class="comment">// 接口返回的引用 a2.front() 和 a2.back()</span></span><br><span class="line">    <span class="comment">// 返回内建数组的指针 a1.data()</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// array 迭代器访问</span></span><br><span class="line">    <span class="comment">// array.begin();      //返回容器中第一个数据的迭代器。</span></span><br><span class="line">    <span class="comment">// array.end();        //返回容器中最后一个数据之后的迭代器。</span></span><br><span class="line">    <span class="comment">// array.rbegin();     //返回容器中倒数第一个元素的迭代器。</span></span><br><span class="line">    <span class="comment">// array.rend();       //返回容器中倒数最后一个元素的后面的迭代器。</span></span><br><span class="line">    <span class="comment">// array.cbegin();     //返回容器中第一个数据的常量迭代器。</span></span><br><span class="line">    <span class="comment">// array.cend();       //返回容器中最后一个数据之后的常量迭代器。</span></span><br><span class="line">    <span class="comment">// array.crbegin();    //返回容器中倒数第一个元素的常量迭代器。</span></span><br><span class="line">    <span class="comment">// array.crend();      //返回容器中倒数最后一个元素的后面的常量迭代器。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// for (array&lt;int, 5&gt;::iterator it = arrayInt.begin(); it != arrayInt.end(); ++it)</span></span><br><span class="line">    <span class="comment">// &#123;</span></span><br><span class="line">    <span class="comment">//     int elem = *it;</span></span><br><span class="line">    <span class="comment">//     cout &lt;&lt; elem;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    <article class="article-content">
+      <h1 id="C-11-类型转换"><a href="#C-11-类型转换" class="headerlink" title="C++ 11 类型转换"></a>C++ 11 类型转换</h1><h2 id="1-array"><a href="#1-array" class="headerlink" title="1. array"></a>1. array</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;array&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">Student</span>() &#123;&#125;;</span><br><span class="line">    <span class="keyword">virtual</span> ~<span class="built_in">Student</span>() &#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    array&lt;<span class="type">int</span>, 5&gt; a1;       <span class="comment">// 一个存放int且长度为5的array容器</span></span><br><span class="line">    array&lt;<span class="type">double</span>, 5&gt; a2;    <span class="comment">// 一个存放double且长度为5的array容器</span></span><br><span class="line">    array&lt;Student, 5&gt; a3;   <span class="comment">// 一个存放Student类且长度为5的array容器</span></span><br><span class="line">    array&lt;<span class="type">int</span>, 5&gt; a5;</span><br><span class="line">    </span><br><span class="line">    array&lt;<span class="type">int</span>, 5&gt; a4 = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span> &#125;; <span class="comment">// 不够默认补0</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; a<span class="number">4.</span><span class="built_in">size</span>(); i++) </span><br><span class="line">        cout &lt;&lt; a4[i] &lt;&lt; <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 赋值</span></span><br><span class="line">    a<span class="number">1.</span><span class="built_in">assign</span>(<span class="number">10</span>); <span class="comment">// 赋值 #define一下</span></span><br><span class="line">    a5 = a1;</span><br><span class="line">    a<span class="number">1.f</span>ill(<span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">    a<span class="number">4.</span><span class="built_in">swap</span>(a1); <span class="comment">// 交换a1、a4的值</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// array的大小</span></span><br><span class="line">    <span class="comment">// array.size();        // 容器的大小</span></span><br><span class="line">    <span class="comment">// array.max_size();    // 最大大小 等于size</span></span><br><span class="line">    <span class="comment">// array.empty();       // 判断是否为空</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// array的数据存取</span></span><br><span class="line">    <span class="comment">// 使用下标操作 a1[0] = 100;</span></span><br><span class="line">    <span class="comment">// 使用at 方法 如 : a1.at(2) = 100;</span></span><br><span class="line">    <span class="comment">// 接口返回的引用 a2.front() 和 a2.back()</span></span><br><span class="line">    <span class="comment">// 返回内建数组的指针 a1.data()</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// array 迭代器访问</span></span><br><span class="line">    <span class="comment">// array.begin();      //返回容器中第一个数据的迭代器。</span></span><br><span class="line">    <span class="comment">// array.end();        //返回容器中最后一个数据之后的迭代器。</span></span><br><span class="line">    <span class="comment">// array.rbegin();     //返回容器中倒数第一个元素的迭代器。</span></span><br><span class="line">    <span class="comment">// array.rend();       //返回容器中倒数最后一个元素的后面的迭代器。</span></span><br><span class="line">    <span class="comment">// array.cbegin();     //返回容器中第一个数据的常量迭代器。</span></span><br><span class="line">    <span class="comment">// array.cend();       //返回容器中最后一个数据之后的常量迭代器。</span></span><br><span class="line">    <span class="comment">// array.crbegin();    //返回容器中倒数第一个元素的常量迭代器。</span></span><br><span class="line">    <span class="comment">// array.crend();      //返回容器中倒数最后一个元素的后面的常量迭代器。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// for (array&lt;int, 5&gt;::iterator it = arrayInt.begin(); it != arrayInt.end(); ++it)</span></span><br><span class="line">    <span class="comment">// &#123;</span></span><br><span class="line">    <span class="comment">//     int elem = *it;</span></span><br><span class="line">    <span class="comment">//     cout &lt;&lt; elem;</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
@@ -390,283 +305,128 @@
 </ol>
 <p> C++大牛建议：一般情况下，不建议进行类型转换；避免进行类型转换。</p>
 
-</article>
-    
-    <div class="trm-reward">
-        
-            <span class="trm-reward-btn trm-glow" onclick='var qr = document.getElementById("qr"); qr.style.display = (qr.style.display === "none") ? "block" : "none";'>
-                <i class="iconfont fas fa-hand-holding-usd"></i>
-            </span>
-        
-        <p class="trm-reward-comment">sponsor</p>
-        <div id="qr" style="display:none;">
-            
-                <div style="display:inline-block">
-                    <a rel="noopener noreferrer" href='/img/wechat.jpg' target='_blank' >
-                       <img src="/img/wechat.jpg" alt="微信" loading="lazy">
-                    </a>
-                    <p>微信</p>
-                </div>
-            
-                <div style="display:inline-block">
-                    <a rel="noopener noreferrer" href='/img/zhifubao.jpg' target='_blank' >
-                       <img src="/img/zhifubao.jpg" alt="支付宝" loading="lazy">
-                    </a>
-                    <p>支付宝</p>
-                </div>
-            
-        </div>
-    </div>
-
-    
-
-</div>
-<div class="trm-post-next-prev row">
-    <div class="col-lg-12">
-        <!-- title -->
-        <h5 class="trm-title-with-divider">
-            Other Articles
-            <span data-number="02"></span>
-        </h5>
-    </div>
-    
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/08/04/chapter13%E5%A4%9A%E7%A7%8DIO%E5%87%BD%E6%95%B0/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
-                    网络编程
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/08/04/chapter13%E5%A4%9A%E7%A7%8DIO%E5%87%BD%E6%95%B0/" class="trm-anima-link">
-                    多种 I/O 函数
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>24/08/04</li>
-                <li>22:51</li>
-                
-                
-            </ul>
-        </div>
-    </div>
-</div>
-    
-    
-        <div class="col-lg-6">
-    <div class="trm-blog-card trm-scroll-animation">
-        <a href="/2024/07/28/IO%E5%A4%8D%E7%94%A8/" class="trm-cover-frame trm-anima-link">
-            
-            
-                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
-            
-        </a>
-        
-        <div class="trm-card-descr">
-            <div class="trm-label trm-category trm-mb-20">
-                <a href=" /categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">
-                    网络编程
-                </a>
-            </div>
-            <h5>
-                <a href="/2024/07/28/IO%E5%A4%8D%E7%94%A8/" class="trm-anima-link">
-                    I/O 复用
-                </a>
-            </h5>
-            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
-            <ul class="trm-card-data trm-label">
-                <li>24/07/28</li>
-                <li>09:32</li>
-                
-                
-            </ul>
-        </div>
-    </div>
-</div>
-    
-</div>
-
-    
-
-
-
-                    <div class="trm-divider footer-divider"></div>
-
-                    <!-- footer -->
-                    <footer class="trm-footer-card trm-scroll-animation">
-
-    
-
-    
-
-    
-        <div class="trm-footer-item">
-            <span>
-                Powered by <a href="https://github.com/jarryLi-max" target="_blank" rel="noopener">JarryLi</a> 
-                <!-- v7.3.0 -->
-            </span>
-            <!-- <span class="footer-separator" data-separator=" | "></span>
-            <span> 
-                Theme - 
-                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
-                v2.2.2
-            </span> -->
+    </article>
+  </div>
+  <div class="article-catelogue">
+    <div class="article-catelogue--wrapper">
+      <div class="catelogue catelogue-1">
+        <h3>目录</h3>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-11-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.</span> <span class="toc-text">C++ 11 类型转换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-array"><span class="toc-number">1.1.</span> <span class="toc-text">1. array</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.2.</span> <span class="toc-text">2.类型转换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-C-%E8%BD%AC%E6%8D%A2%E8%AF%A6%E8%A7%A3"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 C++ 转换详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-static-cast"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">2.1.1 static_cast</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-2-reinterpret-cast"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">2.1.2 reinterpret_cast</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-3-dynamic-cast"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">5.1.3 dynamic_cast</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-3-const-cast"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">5.1.3 const_cast</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-4-%E6%80%BB%E7%BB%93"><span class="toc-number">1.2.1.5.</span> <span class="toc-text">5.1.4 总结</span></a></li></ol></li></ol></li></ol></li></ol>
+      </div>
+      
+        <div class="catelogue catelogue-2">
+          
+            <p>
+              <span>上一篇：</span>
+              <a href="/2024/08/04/chapter13多种IO函数/">多种 I/O 函数</a>
+            </p>
+           
+          
+            <p>
+              <span>下一篇</span>
+              <a href="/2024/07/28/IO复用/">I/O 复用</a>
+            </p>
+          
         </div>
       
-
-    
-        <div class="trm-footer-item blog-run-long"></div>
-     
-
-     
-</footer>
-                    <!-- footer end -->
-
-                </div>
-            </div>
-        </div>
     </div>
-</div>
-            <!-- body end -->
-
-            
-
-    <div id="post-toc" class="trm-post-toc">
-      <div class="trm-post-toc-header">
-        Article table of contents
-				<span id="post-toc-top">
-					TOP
-				</span>
-      </div>
-      <div class="trm-post-toc-content">
-        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-1" title="C++ 11 类型转换"><a rel="nofollow" class="trm-toc-link" href="#C-11-类型转换"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">C++ 11 类型转换</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-2" title="1. array"><a rel="nofollow" class="trm-toc-link" href="#1-array"><span class="trm-toc-number">1.1.</span> <span class="trm-toc-text">1. array</span></a></li><li class="trm-toc-item trm-toc-level-2" title="2.类型转换"><a rel="nofollow" class="trm-toc-link" href="#2-类型转换"><span class="trm-toc-number">1.2.</span> <span class="trm-toc-text">2.类型转换</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="2.1 C++ 转换详解"><a rel="nofollow" class="trm-toc-link" href="#2-1-C-转换详解"><span class="trm-toc-number">1.2.1.</span> <span class="trm-toc-text">2.1 C++ 转换详解</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="2.1.1 static_cast"><a rel="nofollow" class="trm-toc-link" href="#2-1-1-static-cast"><span class="trm-toc-number">1.2.1.1.</span> <span class="trm-toc-text">2.1.1 static_cast</span></a></li><li class="trm-toc-item trm-toc-level-4" title="2.1.2 reinterpret_cast"><a rel="nofollow" class="trm-toc-link" href="#2-1-2-reinterpret-cast"><span class="trm-toc-number">1.2.1.2.</span> <span class="trm-toc-text">2.1.2 reinterpret_cast</span></a></li><li class="trm-toc-item trm-toc-level-4" title="5.1.3 dynamic_cast"><a rel="nofollow" class="trm-toc-link" href="#5-1-3-dynamic-cast"><span class="trm-toc-number">1.2.1.3.</span> <span class="trm-toc-text">5.1.3 dynamic_cast</span></a></li><li class="trm-toc-item trm-toc-level-4" title="5.1.3 const_cast"><a rel="nofollow" class="trm-toc-link" href="#5-1-3-const-cast"><span class="trm-toc-number">1.2.1.4.</span> <span class="trm-toc-text">5.1.3 const_cast</span></a></li><li class="trm-toc-item trm-toc-level-4" title="5.1.4 总结"><a rel="nofollow" class="trm-toc-link" href="#5-1-4-总结"><span class="trm-toc-number">1.2.1.5.</span> <span class="trm-toc-text">5.1.4 总结</span></a></li></ol></li></ol></li></ol></li></ol>
-      </div>
-    </div>
-
-            
-<div class="trm-fixed-container">
-    
-        <div class="trm-fixed-btn post-toc-btn" data-title="Open toc">
-            <i class="iconfont fas fa-th-list"></i>
-        </div>
-    
-    
-        <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">
-            <i class="iconfont fas fa-book-reader"></i>
-        </div>
-    
-    
-    <div id="trm-back-top" class="trm-fixed-btn" data-title="Back To Top">
-        <i class="iconfont fas fa-arrow-up"></i>
-    </div>
-</div>
-        </div>
-      </div>
-      <!-- scroll container end -->
   </div>
-  <!-- app wrapper end -->
+</div>
+<script src="/js/prism.js"></script>
 
-  
-    <div class="trm-search-popup">
-        <div class="trm-search-wrapper">
-            <div class="form trm-search-form">
-                <div class="trm-search-input-icon">
-                    <i class="iconfont fas fa-search"></i>
-                </div>
-                <input class="trm-search-input" type="text" placeholder="Searching...">
-                <div class="trm-search-btn-close">
-                    <i class="iconfont fas fa-times"></i>
-                </div>
-            </div>
-            <div class="trm-search-result-container">
-                <div class="trm-search-empty">
-                    Please enter keywords to search
-                </div>
-            </div>
-            <div class="trm-search-footer">
-                <div class="trm-search-stats"></div>
-                <ul class="trm-search-commands">
-                    <li>
-                        <kbd class="command-palette-commands-key">
-                            <svg width="15" height="15" aria-label="Escape key" role="img">
-                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="1.2">
-                                    <path
-                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
-                                    </path>
-                                </g>
-                            </svg>
-                        </kbd>
-                        <span class="command-palette-Label">to close</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
+<script>
+  $(document).on('pjax:complete', function() {
+    const tocs = document.querySelector('.toc')
+    const as = tocs ? tocs.querySelectorAll('a') : []
+    as.forEach(a => {
+      a.addEventListener('click', e => {
+        const href = decodeURIComponent(a.href)
+        href.search(/#(.*)/)
+        const id = RegExp.$1
+        const target = document.querySelector('#' + id)
+        const top = target.offsetTop
+        document.documentElement.scrollTo({
+          top: top - 100,
+          behavior: 'smooth'
+        })
+        e.preventDefault()
+      })
+    })
+  })
+</script> 
+
+</div>
+      <div class="main-right-wrapper"><div class="main-right">
+  <div class="main-right--board">
+    <div class="main-right--title">
+      <h5>公告栏</h5>
+      <i class="iconfont icon-gonggao"></i>
     </div>
+    <div class="main-right--content">
+      Hello~大噶好。唔系可乐爱宅着，欢迎你们来到我的博客小站，希望能在这里收获到有用的东西哦！ 
+    </div>
+  </div>
 
-  <!-- Plugin -->
+  <div id="aplayer" class="main-right--music"></div>
 
+  <div class="backtop">
+    <i class="iconfont icon-huidaodingbu"></i>
+    <span>回到顶部</span>
+  </div>
 
+  <div class="main-right--site">
+    <div class="main-right--power">
+      <p>Power By <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a>.</p>
+      <p>Theme：<a target="_blank" rel="noopener" href="https://github.com/Aizener/hexo-theme-cola">Cola.</a></p>
+    </div>
+    <p class="main-right--refer">浙公网安备 33010002000124号 </p>
+  </div>
+</div>
 
+<script>
+  const musics = JSON.parse(`[{"name":"安河桥","artist":"宋冬野","url":"http://ting6.yymp3.net:82/new25/songdongye/11.mp3","cover":"https://img2.baidu.com/it/u=1260056724,1076343118&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"},{"name":"卡布达","artist":"暂无","url":"/music/kabuda.mp3","cover":"https://img2.baidu.com/it/u=705831265,2862720033&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500"}]`)
+  const ap = new APlayer({
+    container: document.querySelector('#aplayer'),
+    audio: musics,
+  })
 
-    
-    
-<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+  document.querySelector('.backtop').addEventListener('click', () => {
+    document.documentElement.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  })
+</script></div>
+    </section>
+    <footer class="footer">
+</footer> 
+  </div>
 
-    
-
-    
-
-    
-        
-<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
-
-        <script src="/js/plugins/local_search.js?v=2.2.2"></script>
-    
-
-    <!-- 数学公式 -->
-    
-
-    <!-- 评论插件 -->
-    
-        
-
-        
-    
-
-		
-
-
-
-
-    <!-- Service Worker -->
-    
-    <!-- baidu push -->
-    
-
-
-<script id="async-script" src="/js/main.js?v=2.2.2"></script>
-
-<!-- CDN -->
-
-
-    
-
-    
-
-    
-
-
-
+  <script>
+    function initScroll () {
+      const doc = document.documentElement
+      const pageHeight = doc.offsetHeight
+      const clientHeight = doc.clientHeight
+      NProgress.configure({
+        parent: 'body',
+        showSpinner: false,
+        minimum: 0,
+      })
+      document.addEventListener('scroll', () => {
+        const scrollTop = doc.scrollTop
+        let ratio = scrollTop / (pageHeight - clientHeight)
+        ratio = ratio > .99 ? .99999 : ratio
+        NProgress.set(ratio)
+      })
+    }
+    window.onload = function () {
+      initScroll()
+    }
+    // 对所有链接跳转事件绑定pjax容器container
+    $(document).pjax('a[target!=_blank]', '#main-container', {fragment:'#main-container', timeout:8000})
+    $(document).on('pjax:complete', function() {
+      initScroll()
+    })
+  </script>
 </body>
-
 </html>
