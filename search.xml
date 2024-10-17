@@ -2654,4 +2654,47 @@
         <category>网络编程</category>
       </categories>
   </entry>
+  <entry>
+    <title>epoll的使用</title>
+    <url>/2024/10/17/epoll%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h1><h2 id="1-epoll-create"><a href="#1-epoll-create" class="headerlink" title="1. epoll_create"></a>1. epoll_create</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/epoll.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// epoll_create() creates a new epoll(7) instance.  Since Linux 2.6.8, the size argument is ignored, but must be greater than zero;</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">epoll_create</span><span class="params">(<span class="type">int</span> size)</span></span>;</span><br><span class="line">	-&gt; epoll 的创建</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-epoll-ctl"><a href="#2-epoll-ctl" class="headerlink" title="2. epoll_ctl"></a>2. epoll_ctl</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/epoll.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// This  system  call is used to add, modify, or remove entries in the interest list of the epoll(7) instance referred to by the file descriptor epfd.</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">epoll_ctl</span><span class="params">(<span class="type">int</span> epfd, <span class="type">int</span> op, <span class="type">int</span> fd, <span class="keyword">struct</span> epoll_event *_Nullable event)</span></span>;</span><br><span class="line">	-&gt; epoll 的操作控制</span><br><span class="line">		• epfd: 过 epoll_create 创建的 epoll 对象句柄；</span><br><span class="line">		• op: 对红黑树的操作 -&gt;  EPOLL_CTL_ADD、EPOLL_CTL_DEL、<span class="built_in">EPOLL_CTL_MOD</span>(添加、删除、修改)；</span><br><span class="line">		• fd: 需要添加监听的 socket 描述符，可以是监听套接字，也可以是与客户端通讯的通讯套接字；(比如fd为监听的建立 socket 连接的文件描述符)</span><br><span class="line">		• event: 事件信息</span><br></pre></td></tr></table></figure>
+
+<p><code>添加事件:</code> 相当于往红黑树添加一个节点，每个客户端连接服务器后会有一个通讯套接字，每个连接的通讯套接字都不重复，所以这个通讯套接字就是红黑树的 key；<br><code>修改事件:</code> 把红黑树上监听的 socket 对应的监听事件做修改；<br><code>删除事件:</code>相当于取消监听 socket 的事件；</p>
+<h3 id="2-1-struct-epoll-event"><a href="#2-1-struct-epoll-event" class="headerlink" title="2.1 struct epoll_event"></a>2.1 struct epoll_event</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">union</span> <span class="title class_">epoll_data</span> </span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">void</span>        *ptr;</span><br><span class="line">  <span class="type">int</span>          fd;</span><br><span class="line">  <span class="type">uint32_t</span>     u32;</span><br><span class="line">  <span class="type">uint64_t</span>     u64;</span><br><span class="line">&#125; <span class="type">epoll_data_t</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">epoll_event</span> </span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">uint32_t</span>     events;      <span class="comment">/* Epoll 事件 */</span></span><br><span class="line">  <span class="type">epoll_data_t</span> data;        <span class="comment">/* 用户数据 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>events成员</strong></p>
+<table>
+<thead>
+<tr>
+<th>events参数取值</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EPOLLIN</td>
+<td>监听 fd 的读事件。举例：如果客户端发送消息过来，代表服务器收到了可读事件。</td>
+</tr>
+<tr>
+<td>EPOLLOUT</td>
+<td>监听 fd 的写事件。如果 fd 对应的发数据内核缓冲区不为满，只要监听了写事件，就会触发可写事件。</td>
+</tr>
+<tr>
+<td>EPOLLRDHUP</td>
+<td>监听套接字关闭或半关闭事件，Linux 内核 2.6.17 后可用。</td>
+</tr>
+<tr>
+<td>EPOLLPRI</td>
+<td>监听紧急数据可读事件。</td>
+</tr>
+</tbody></table>
+<p><strong>举例：</strong>假设现在我们的服务器通过调用 accept 函数成功与客户端建立连接并得到了通讯套接字 connfd，如果我们需要关心这个客户端是否给服务器发送数据过来（读事件），我们需要将 event 参数的 events 成员的 EPOLLIN 置位为1，相当于 event.events |&#x3D; EPOLLIN，如果我们并不关心服务器是否可以往客户端写数据（写事件），我们可以将 event 参数的 events 成员的 EPOLLOUT 置位为 0，相当于 event.events &amp;&#x3D; ~EPOLLOUT。同理，如果你还关心某个事件或者不关心某个事件，就将该位置为 1 或者 0 即可，再通过 epoll_ctl 函数来修改。这样，当我们调用 epoll_wait 函数等待事件时，一旦发生了我们希望监听的事件时，epoll_wait 函数就会返回并通知我们哪个描述符发生了对应的事件。</p>
+<h2 id="3-epoll-wait"><a href="#3-epoll-wait" class="headerlink" title="3. epoll_wait"></a>3. epoll_wait</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/epoll.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">epoll_event</span> evs[<span class="number">1024</span>];</span><br><span class="line"><span class="type">int</span> maxevents = <span class="built_in">sizeof</span>(evs) / <span class="built_in">sizeof</span>(<span class="keyword">struct</span> epoll_event);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">epoll_wait</span><span class="params">(<span class="type">int</span> epfd, <span class="keyword">struct</span> epoll_event *events, <span class="type">int</span> maxevents, <span class="type">int</span> timeout)</span></span>;</span><br><span class="line">	-&gt; 阻塞一段时间并等待事件发生，返回事件集合，也就是获取内核的事件通知。</span><br><span class="line">            &gt; <span class="number">0</span>: 代表有几个我们希望监听的事件发生了</span><br><span class="line">            = <span class="number">0</span>: timeout 超时时间到了</span><br><span class="line">            &lt; <span class="number">0</span>: 出错，可以通过 errno 值获取出错原因</span><br><span class="line">        • epid: epoll_create 返回的 epoll 对象描述符;</span><br><span class="line">        • events: 存放就绪的事件集合，这个是传出参数;</span><br><span class="line">        • maxevents: 代表可以存放的事件个数，也就是 events 数组的大小;</span><br><span class="line">        • timeout: 阻塞等待的时间长短，以毫秒为单位，如果传入 <span class="number">-1</span> 代表阻塞等待。</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>C++</category>
+      </categories>
+  </entry>
 </search>
