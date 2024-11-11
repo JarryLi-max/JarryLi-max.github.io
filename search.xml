@@ -2704,8 +2704,8 @@
 <p>Windows版本: <a href="https://nginx.org/download/nginx-1.26.2.zip">https://nginx.org/download/nginx-1.26.2.zip</a></p>
 <h3 id="1-2-数据库"><a href="#1-2-数据库" class="headerlink" title="1.2 数据库"></a>1.2 数据库</h3><p>按照需要下载对应的数据库即可</p>
 <h2 id="2-SpringBoot-代码打包"><a href="#2-SpringBoot-代码打包" class="headerlink" title="2. SpringBoot 代码打包"></a>2. SpringBoot 代码打包</h2><h3 id="2-1-注意端口信息以及请求路径信息"><a href="#2-1-注意端口信息以及请求路径信息" class="headerlink" title="2.1 注意端口信息以及请求路径信息"></a>2.1 注意端口信息以及请求路径信息</h3><p><strong>本地测试通过之后，后面没问题</strong></p>
-<p><img src="D:\Develop\Blog\source_posts\assets\image-20241111225224385.png" alt="image-20241111225224385"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
-<h3 id="2-2-打成-jar-包"><a href="#2-2-打成-jar-包" class="headerlink" title="2.2 打成 jar 包"></a>2.2 打成 jar 包</h3><p><img src="D:\Develop\Blog\source_posts\assets\image-20241111222759111.png" alt="image-20241111222759111"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>![image-20241111225224385](..&#x2F;picture&#x2F;SpringBoot + Vue 项目部署到服务器&#x2F;image-20241111225224385.png)</p>
+<h3 id="2-2-打成-jar-包"><a href="#2-2-打成-jar-包" class="headerlink" title="2.2 打成 jar 包"></a>2.2 打成 jar 包</h3><p>![image-20241111222759111](..&#x2F;picture&#x2F;SpringBoot + Vue 项目部署到服务器&#x2F;image-20241111222759111.png)</p>
 <blockquote>
 <p>依次执行：clean -&gt; compile -&gt; package</p>
 </blockquote>
