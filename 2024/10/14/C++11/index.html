@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="1. final12final 放到重写函数的后面表示不允许后面的子类继续重写      放到类后面表示不允许重写该类  2. template123456789101112131415161718192021222324template&lt;typename T &#x3D; int, typename U &#x3D; long&gt; &#x2F;&#x2F; 可以提供默认值，而且可以根据参数类类型自动推导参数类型void d(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++11 新特性">
+<meta property="og:url" content="http://example.com/2024/10/14/C++11/index.html">
+<meta property="og:site_name" content="JarryLi&#39;s Blog">
+<meta property="og:description" content="1. final12final 放到重写函数的后面表示不允许后面的子类继续重写      放到类后面表示不允许重写该类  2. template123456789101112131415161718192021222324template&lt;typename T &#x3D; int, typename U &#x3D; long&gt; &#x2F;&#x2F; 可以提供默认值，而且可以根据参数类类型自动推导参数类型void d(">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-10-14T02:39:16.907Z">
+<meta property="article:modified_time" content="2024-11-16T09:33:04.902Z">
+<meta property="article:author" content="JarryLi">
+<meta name="twitter:card" content="summary">
+
+
+<title >C++11 新特性</title>
+
+<!-- Favicon -->
+
+    <link href='/img/favicon.svg?v=2.2.2' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/favicon.svg?v=2.2.2' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"JarryLi","root":"/","typed_text":null,"theme_version":"2.2.2","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","apple_touch_icon":null,"webmanifest":null,"visibilitychange":false,"hidden":"/failure.ico","show_text":"(/≧▽≦/)Hey! Good again!","hide_text":"(●—●)Oh, crash!"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"01/01/2024 00:00:00","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","trigger":"auto","path":"search.xml"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2024-11-16 17:33:04"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<!-- <a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/favicon.svg">
+    
+    
+        <div class="trm-logo-text">
+            Async<span>Theme</span>
+        </div>
+    
+</a> -->
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    Home
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    Archives
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            C++11 新特性
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2024
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        JarryLi
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com/jarryLi-max" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                Residence:
+            </div>
+            <div class="trm-label trm-label-light">
+                China
+            </div>
+        </li>
+        <li>
+            <div class="trm-label">
+                email:
+            </div>
+            <div class="trm-label trm-label-light">
+                2976562002@qq.com
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            10/14
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            10:39
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            JarryLi
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h2 id="1-final"><a href="#1-final" class="headerlink" title="1. final"></a>1. final</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> 放到重写函数的后面表示不允许后面的子类继续重写</span><br><span class="line">      放到类后面表示不允许重写该类</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-template"><a href="#2-template" class="headerlink" title="2. template"></a>2. template</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T = <span class="type">int</span>, <span class="keyword">typename</span> U = <span class="type">long</span>&gt; <span class="comment">// 可以提供默认值，而且可以根据参数类类型自动推导参数类型</span></span><br><span class="line"><span class="type">void</span> <span class="built_in">d</span>(T t = <span class="string">&#x27;A&#x27;</span>, U u = <span class="string">&#x27;B&#x27;</span>)</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; t &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; u &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">d</span>(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>) -&gt; <span class="built_in">d</span>(<span class="type">char</span>, <span class="type">char</span>)</span><br><span class="line"><span class="built_in">d</span>&lt;<span class="type">int</span>&gt;(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>) -&gt; <span class="type">int</span> 匹配 T, <span class="type">char</span> 推到</span><br><span class="line"><span class="built_in">d</span>&lt;<span class="type">int</span>, <span class="type">char</span>&gt;(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>) -&gt; <span class="type">int</span> <span class="type">char</span></span><br><span class="line"><span class="built_in">d</span>&lt;<span class="type">char</span>, <span class="type">int</span>&gt;(<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>) -&gt; <span class="function"><span class="type">char</span> <span class="type">int</span></span></span><br><span class="line"><span class="function"><span class="title">d</span><span class="params">()</span> -&gt; 没有指定类型会根据默认的参数提供类型，前提是有默认类型，如果只是提供默认值，而没有提供默认类型则会报错，如下：</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> U&gt;    <span class="comment">// 报错</span></span></span><br><span class="line"><span class="function"> <span class="type">void</span> <span class="title">d</span><span class="params">(T t = <span class="string">&#x27;A&#x27;</span>, U u = <span class="string">&#x27;B&#x27;</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; t &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; u &lt;&lt; endl;</span><br><span class="line">&#125;   </span><br><span class="line">    </span><br><span class="line">模板类调用:</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T = <span class="type">int</span>, T t = <span class="number">520</span>&gt;</span><br><span class="line"><span class="keyword">class</span> Test</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">&#125;;</span><br><span class="line">Test&lt;&gt; t; 需要写尖括号</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-assert-和-static-assert"><a href="#3-assert-和-static-assert" class="headerlink" title="3. assert 和 static_assert"></a>3. assert 和 static_assert</h2><p>assert动态断言：执行时判断</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cassert&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">char</span>* <span class="title">createMem</span><span class="params">(<span class="type">const</span> <span class="type">int</span> size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">assert</span>(size &gt; <span class="number">0</span>);</span><br><span class="line">    <span class="type">char</span>* mem = <span class="keyword">new</span> <span class="type">char</span>[size];</span><br><span class="line">    <span class="keyword">return</span> mem;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">char</span>* buf = <span class="built_in">createMem</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>static_assert静态断言：编译时判断</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">static_assert</span>(<span class="built_in">sizeof</span>(<span class="type">long</span>) == <span class="number">4</span>, <span class="string">&quot;错误，不是32位平台&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-noexcept-不允许抛出异常"><a href="#4-noexcept-不允许抛出异常" class="headerlink" title="4. noexcept 不允许抛出异常"></a>4. noexcept 不允许抛出异常</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">MyException</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">MyException</span>(string str) : <span class="built_in">msg</span>(str) &#123;&#125;</span><br><span class="line">    string msg;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 什么异常都可以抛出</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 表示这个函数只能抛出这三种类型的异常，别的类型会直接报错</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">()</span> <span class="title">throw</span><span class="params">(<span class="type">int</span>, <span class="type">double</span>, MyException)</span> </span>&#123;&#125;</span><br><span class="line">    </span><br><span class="line"><span class="comment">// 不允许抛出异常(小括号什么也不写)</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">()</span> <span class="title">throw</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">()</span> <span class="keyword">noexcept</span> </span>&#123;&#125; 	<span class="comment">// 不允许抛出异常</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">()</span> <span class="title">noexcept</span><span class="params">(<span class="literal">false</span>)</span> </span>&#123;&#125; <span class="comment">// 可以抛出异常</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">()</span> <span class="title">noexcept</span><span class="params">(<span class="literal">true</span>)</span> </span>&#123;&#125; <span class="comment">// 不可以抛异常 </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">()</span> <span class="title">throw</span> <span class="params">(<span class="type">int</span>, <span class="type">double</span>, MyException)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">try</span> </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// throw 1; // 抛出异常后会找catch，程序不会继续执行</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="built_in">MyException</span>(<span class="string">&quot;MyException!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">catch</span>(<span class="type">int</span> e)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; e &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">catch</span> (MyException e)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;自定义异常 -&gt; MyException&quot;</span> &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">func</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-auto"><a href="#5-auto" class="headerlink" title="5. auto"></a>5. auto</h2><h3 id="1-可推导情形"><a href="#1-可推导情形" class="headerlink" title="1. 可推导情形"></a>1. 可推导情形</h3><p><code>使用auto声明的变量必须初始化，让编译器推导出它的实际类型</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> 变量名 = 值;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> v = <span class="number">3</span>; <span class="comment">// int</span></span><br><span class="line"><span class="keyword">auto</span> v = <span class="number">3.14</span>; <span class="comment">// double</span></span><br><span class="line"><span class="keyword">auto</span> v = <span class="string">&#x27;a&#x27;</span>; <span class="comment">// char</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>auto 可以和指针、引用结合起来使用，也可以带上const、volatile限定符，在不同的环境下，有不同的推到规则：</strong></p>
+<p>① 当变量不是指针或者引用类型时，auto 推到的结果中<code>不保留</code> const、volatile 关键字；</p>
+<p>② 当变量类型是指针或者引用类型时，auto 推到的结果中<code>保留</code> const、volatile 关键字；</p>
+<p><strong>Example1:</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> v = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">auto</span>* a = &amp;v; <span class="comment">// auto被推导为 int 类型</span></span><br><span class="line"><span class="keyword">auto</span> a = &amp;v; <span class="comment">// auto 推导为 int* 类型</span></span><br><span class="line"><span class="keyword">auto</span>&amp;c = v; <span class="comment">// auto 推导为 int 类型</span></span><br><span class="line"><span class="keyword">auto</span> d = v; <span class="comment">// auto 推导为 int 类型</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Example2:</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> v = <span class="number">1</span>;</span><br><span class="line"><span class="type">const</span> <span class="keyword">auto</span> x1 = v; <span class="comment">// auto 推导为 int 类型</span></span><br><span class="line"><span class="keyword">auto</span> x2 = x1; <span class="comment">// auto 推导为 int 类型(因为x2没有声明为指针或者引用，const 被去掉)</span></span><br><span class="line"><span class="type">const</span> <span class="keyword">auto</span>&amp; x3 = v; <span class="comment">// auto 推导为 int 类型</span></span><br><span class="line"><span class="keyword">auto</span>&amp; x4 = x3; <span class="comment">// auto 推导为 const int&amp;(因为x4被声明为引用，所以 const 保留)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-不可推导情形"><a href="#2-不可推导情形" class="headerlink" title="2. 不可推导情形"></a>2. 不可推导情形</h3><p><strong>① 不能作为函数参数使用，因为函数在调用的时候才会传参，但是auto赋值的时候需要参数</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">func</span><span class="params">(<span class="keyword">auto</span> a, <span class="keyword">auto</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// ERR</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>② 不能用于类的非静态成员变量的初始化</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">T</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">auto</span> x = <span class="number">0</span>; <span class="comment">// ERR</span></span><br><span class="line">    <span class="type">static</span> <span class="keyword">auto</span> y = <span class="number">0</span>; <span class="comment">// ERR,类的静态非成员变量不允许在类内部初始化</span></span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="keyword">auto</span> v3 = <span class="number">0</span>; <span class="comment">// OK</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>③ 不能使用 auto 定义数组</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a[] = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span> &#125;;</span><br><span class="line"><span class="keyword">auto</span> v1 = a; <span class="comment">// OK，auto被推导为 int* 类型</span></span><br><span class="line"><span class="keyword">auto</span> v2[] = a; <span class="comment">// ERR，auto无法定义数组</span></span><br><span class="line"><span class="keyword">auto</span> v3 = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span> &#125;; <span class="comment">// ERR，auto无法定义数组</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>④ 不能使用auto推导模板参数</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">T</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    T&lt;<span class="type">double</span>&gt; t1; <span class="comment">// OK</span></span><br><span class="line">    T&lt;<span class="keyword">auto</span>&gt; t2; <span class="comment">// ERR</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-auto-的使用"><a href="#3-auto-的使用" class="headerlink" title="3. auto 的使用"></a>3. auto 的使用</h3><p><strong>① 遍历C++ STL容器</strong></p>
+<p>C++11之前，迭代器遍历方式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    map&lt;<span class="type">int</span>, string&gt; x;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (map&lt;<span class="type">int</span>, string&gt;::iterator it = x.<span class="built_in">begin</span>(); i != x.<span class="built_in">end</span>(); it++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// printf();</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>引入 auto 之后</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;map&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    map&lt;<span class="type">int</span>, string&gt; x;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> it = x.<span class="built_in">begin</span>(); it != x.<span class="built_in">end</span>(); it++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// printf();</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 遍历 list</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;list&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    list&lt;<span class="type">int</span>&gt; lists = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span> &#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> x : lists)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, x);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>② 用于泛型编程</strong></p>
+<p>使用 template 的时候，大多时候不知道变量应该定义为什么类型，比如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">T1</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">int</span> <span class="title">get</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">T2</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> string <span class="title">get</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;This is T2&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> A&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// auto </span></span><br><span class="line">    <span class="keyword">auto</span> v = A::<span class="built_in">get</span>();</span><br><span class="line">    cout &lt;&lt; v &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">fun</span>&lt;T1&gt;(); <span class="comment">// 外部不需要指定调用的参数</span></span><br><span class="line">    <span class="built_in">fun</span>&lt;T2&gt;(); <span class="comment">// 外部不需要指定调用的参数</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果不适用 auto，就需要再定义一个模板参数，并且在外部</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">T1</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> <span class="type">int</span> <span class="title">get</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">T2</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">static</span> string <span class="title">get</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;This is T2&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">class</span> A, <span class="keyword">typename</span> B&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    B v = A::<span class="built_in">get</span>();</span><br><span class="line">    cout &lt;&lt; v &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">fun</span>&lt;T1, <span class="type">int</span>&gt;();</span><br><span class="line">    <span class="built_in">fun</span>&lt;T2, string&gt;();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-decltype"><a href="#6-decltype" class="headerlink" title="6. decltype"></a>6. decltype</h2><p>decltype：不需要或者不能定义变量，但是希望的到某种类型。</p>
+<p>语法格式：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">decltype</span>(表达式);</span><br><span class="line"></span><br><span class="line"><span class="comment">// decltype的推导是在编译时期完成的，它只是用于表达式类型的推导，并不会计算表达式的值。</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">decltype</span>(a) b = <span class="number">100</span>; <span class="comment">// b的类型推导为 int</span></span><br><span class="line"><span class="keyword">decltype</span>(a + <span class="number">1.1</span>) c = <span class="number">12.2</span>; <span class="comment">// c -&gt; double</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-可推导情形-1"><a href="#1-可推导情形-1" class="headerlink" title="1. 可推导情形"></a>1. 可推导情形</h3><p><strong>① 表达式为普通变量、普通表达式、类表达式，在这种情形下，使用 decltype 推导出的类型和表达式的类型是一致的</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">T</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    string a;</span><br><span class="line">    <span class="type">static</span> <span class="type">const</span> <span class="type">int</span> v = <span class="number">1</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">2</span>;  </span><br><span class="line">    <span class="type">const</span> <span class="type">int</span>&amp; y = x; </span><br><span class="line">    <span class="keyword">decltype</span>(x) a = x; <span class="comment">// int</span></span><br><span class="line">    <span class="keyword">decltype</span>(y) b = x; <span class="comment">// const int&amp;</span></span><br><span class="line">    <span class="keyword">decltype</span>(T::v) c = <span class="number">2</span>; <span class="comment">// cont int</span></span><br><span class="line"></span><br><span class="line">    T t;</span><br><span class="line">    <span class="keyword">decltype</span>(t.a) d = <span class="string">&quot;string&quot;</span>; <span class="comment">// string</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>② 表达式是函数调用，使用decltype推导出的类型和函数返回值一致。</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">T</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">fun_int</span><span class="params">()</span></span>; <span class="comment">// 返回值类型 int</span></span><br><span class="line"><span class="function"><span class="type">int</span>&amp; <span class="title">fun_int_r</span><span class="params">()</span></span>; <span class="comment">// 返回值类型 int&amp;</span></span><br><span class="line"><span class="function"><span class="type">int</span>&amp;&amp; <span class="title">fun_int_rr</span><span class="params">()</span></span>; <span class="comment">// 返回值类型 int&amp;&amp;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">int</span> <span class="title">fun_cint</span><span class="params">()</span></span>; <span class="comment">// 返回值类型 const int</span></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">int</span>&amp; <span class="title">fun_cint_r</span><span class="params">()</span></span>; <span class="comment">// 返回值类型 const int&amp;</span></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">int</span>&amp;&amp; <span class="title">fun_cint_rr</span><span class="params">()</span></span>; <span class="comment">// 返回值类型 const int&amp;&amp;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">const</span> T <span class="title">fun_t</span><span class="params">()</span></span>; <span class="comment">// 返回值类型 const T</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> Z = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">decltype</span>(<span class="built_in">fun_int</span>()) a = <span class="number">0</span>; <span class="comment">// a -&gt; int</span></span><br><span class="line"><span class="keyword">decltype</span>(<span class="built_in">fun_int_r</span>()) b = Z; <span class="comment">// b -&gt; int&amp;</span></span><br><span class="line"><span class="keyword">decltype</span>(<span class="built_in">fun_int_rr</span>()) c = <span class="number">0</span>; <span class="comment">// c -&gt; int&amp;&amp;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">decltype</span>(<span class="built_in">fun_cint</span>()) d = <span class="number">0</span>; <span class="comment">// d -&gt; const int</span></span><br><span class="line"><span class="keyword">decltype</span>(<span class="built_in">fun_cint_r</span>()) e = Z; <span class="comment">// e -&gt; const int&amp;</span></span><br><span class="line"><span class="keyword">decltype</span>(<span class="built_in">fun_cint_rr</span>()) f = <span class="number">0</span>; <span class="comment">// f -&gt; const int&amp;&amp;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">decltype</span>(<span class="built_in">fun_t</span>()) g = <span class="built_in">T</span>(); <span class="comment">// g -&gt; const T</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>③ 表达式是一个左值，或者被括号( )包围，使用 decltype 推导出的是表达式类型的引用（如果有const、volatile限定符不能忽略）</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">T</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">const</span> T t;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">decltype</span>(t.num) a = <span class="number">0</span>;  <span class="comment">// a -&gt; int</span></span><br><span class="line">    <span class="keyword">decltype</span>((t.num)) b = a; <span class="comment">// b -&gt; const int&amp;</span></span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> n = <span class="number">0</span>, m = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">decltype</span>(n + m) c = <span class="number">0</span>;      <span class="comment">// c -&gt; int, n + m 得到一个右值</span></span><br><span class="line">    <span class="keyword">decltype</span>(n = n + m) d = n; <span class="comment">// d -&gt; int&amp;, n = n + m 得到一个左值</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><font color=red>左值 </font>就是那些可以出现在赋值符号左边的东西，它标识了一个可以存储结果值的地点。 程序在编译时，编译器会为每个变量分配一个地址(左值)，这个地址在编译是即可知。 也就是说，左值在编译时即可知，左值标志存储结果的一个地方，也可以理解为左值就是一块空间。</p>
+<p>**<font color=red>右值 </font>**就是那些可以出现在赋值符号右边的东西，它必须具有一个特定的值。 与左值相反，变量中存储的那个值(右值),只有在运行时才可知，且只有要用到变量中存储的值时，编译器才会发出指令从指定的地址读入变量的值，并将它存于寄存器中。 也就是说，右值就是一个数字或一个字面值或一个常量，它并不标识任何位置。</p>
+<h3 id="2-decltype-的使用"><a href="#2-decltype-的使用" class="headerlink" title="2. decltype 的使用"></a>2. decltype 的使用</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;list&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">class</span> <span class="title class_">T</span>&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">C</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">fun</span><span class="params">(T&amp; t)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (it = t.<span class="built_in">begin</span>(); it != t.<span class="built_in">end</span>(); it++)</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; *it &lt;&lt; <span class="string">&#x27; &#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">decltype</span>(<span class="built_in">T</span>().<span class="built_in">begin</span>()) it; <span class="comment">// 这里不能确定具体的类型</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">const</span> list&lt;<span class="type">int</span>&gt; lists1&#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span> &#125;;</span><br><span class="line">    C&lt;<span class="type">const</span> list&lt;<span class="type">int</span>&gt;&gt; l1;</span><br><span class="line"></span><br><span class="line">    list&lt;<span class="type">int</span>&gt; lists2&#123; <span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span> &#125;;</span><br><span class="line">    C&lt;list&lt;<span class="type">int</span>&gt;&gt; l2;</span><br><span class="line"></span><br><span class="line">    l<span class="number">1.f</span>un(lists1);</span><br><span class="line">    l<span class="number">2.f</span>un(lists2);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><font color=Cyan>Warning：</font>在程序的第18行，关于迭代器一共有两种类型，一种是 <code>只读(T::const_iterator)</code>和<code>读写(T::iterator)</code>，使用 decltype 就可以完美的解决这个问题，即当 T 是一个非 const 容器得到一个 <code>T::iterator</code>，当 T 是一个 const 容器就会得到一个 <code>T::const_iterator</code>。</p>
+<h2 id="7-返回类型后置"><a href="#7-返回类型后置" class="headerlink" title="7. 返回类型后置"></a>7. 返回类型后置</h2><p>在泛型编程中，可能需要通过参数的运算来的得到返回值的类型。比如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> R, <span class="keyword">typename</span> A, <span class="keyword">typename</span> B&gt;</span></span><br><span class="line"><span class="function">R <span class="title">add</span><span class="params">(A a, B b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">520</span>;</span><br><span class="line">    <span class="type">double</span> y = <span class="number">13.14</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> res1 = <span class="built_in">add</span>&lt;<span class="keyword">decltype</span>(x + y), <span class="type">int</span>, <span class="type">double</span>&gt;(x, y);</span><br><span class="line">    <span class="keyword">auto</span> res2 = <span class="built_in">add</span>&lt;<span class="keyword">decltype</span>(x + y)&gt;(x, y); <span class="comment">// 简单写法</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;res1: &quot;</span> &lt;&lt; res1 &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;res2: &quot;</span> &lt;&lt; res2 &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在C++11中，增加了返回类型后置语法，即将 auto 和 decltype 结合起来使用，完成一系列推导，具体语法如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">func</span><span class="params">(参数<span class="number">1</span>, 参数<span class="number">2</span>, ...)</span> -&gt; <span class="title">decltype</span><span class="params">(参数表达式)</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Example1:</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回类型后置语法</span></span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> A, <span class="keyword">typename</span> B&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">add</span><span class="params">(A a, B b)</span> -&gt; <span class="title">decltype</span><span class="params">(a + b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">520</span>;</span><br><span class="line">    <span class="type">double</span> y = <span class="number">13.14</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> res1 = <span class="built_in">add</span>&lt;<span class="type">int</span>, <span class="type">double</span>&gt;(x, y);</span><br><span class="line">    <span class="keyword">auto</span> res2 = <span class="built_in">add</span>(x, y); <span class="comment">// 简单写法</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;res1: &quot;</span> &lt;&lt; res1 &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;res2: &quot;</span> &lt;&lt; res2 &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Example2:</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span>&amp; <span class="title">test</span><span class="params">(<span class="type">int</span>&amp; i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">double</span> <span class="title">test</span><span class="params">(<span class="type">double</span>&amp; d)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    d = d + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">myFunc</span><span class="params">(T&amp; t)</span> -&gt; <span class="title">decltype</span><span class="params">(test(t))</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">test</span>(t);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> x = <span class="number">520</span>;</span><br><span class="line">    <span class="type">double</span> y = <span class="number">13.14</span>;</span><br><span class="line">    <span class="keyword">auto</span> z1 = <span class="built_in">myFunc</span>&lt;<span class="type">int</span>&gt;(x);</span><br><span class="line">    <span class="keyword">auto</span> z2 = <span class="built_in">myFunc</span>(x);             <span class="comment">// 简化之后的写法</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;z1: &quot;</span> &lt;&lt; z1 &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">auto</span> z3 = <span class="built_in">myFunc</span>&lt;<span class="type">double</span>&gt;(y);</span><br><span class="line">    <span class="keyword">auto</span> z4 = <span class="built_in">myFunc</span>(y);            <span class="comment">// 简化之后的写法</span></span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;z3: &quot;</span> &lt;&lt; z3 &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</article>
+    
+    <div class="trm-reward">
+        
+            <span class="trm-reward-btn trm-glow" onclick='var qr = document.getElementById("qr"); qr.style.display = (qr.style.display === "none") ? "block" : "none";'>
+                <i class="iconfont fas fa-hand-holding-usd"></i>
+            </span>
+        
+        <p class="trm-reward-comment">sponsor</p>
+        <div id="qr" style="display:none;">
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='/img/wechat.jpg' target='_blank' >
+                       <img src="/img/wechat.jpg" alt="微信" loading="lazy">
+                    </a>
+                    <p>微信</p>
+                </div>
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='/img/zhifubao.jpg' target='_blank' >
+                       <img src="/img/zhifubao.jpg" alt="支付宝" loading="lazy">
+                    </a>
+                    <p>支付宝</p>
+                </div>
+            
+        </div>
+    </div>
+
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            Other Articles
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2024/10/15/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/C/">
+                    C++
+                </a>
+            </div>
+            <h5>
+                <a href="/2024/10/15/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/" class="trm-anima-link">
+                    多线程和线程同步
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/10/15</li>
+                <li>11:41</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2024/10/13/CLion%E9%80%9A%E8%BF%87SSH%E8%BF%9E%E6%8E%A5Linux/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/C/">
+                    C++
+                </a>
+            </div>
+            <h5>
+                <a href="/2024/10/13/CLion%E9%80%9A%E8%BF%87SSH%E8%BF%9E%E6%8E%A5Linux/" class="trm-anima-link">
+                    CLion通过SSH连接Linux
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>24/10/13</li>
+                <li>11:53</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                Powered by <a href="https://github.com/jarryLi-max" target="_blank" rel="noopener">JarryLi</a> 
+                <!-- v7.3.0 -->
+            </span>
+            <!-- <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                Theme - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.2
+            </span> -->
+        </div>
+      
+
+    
+        <div class="trm-footer-item blog-run-long"></div>
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        Article table of contents
+				<span id="post-toc-top">
+					TOP
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-2" title="1. final"><a rel="nofollow" class="trm-toc-link" href="#1-final"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">1. final</span></a></li><li class="trm-toc-item trm-toc-level-2" title="2. template"><a rel="nofollow" class="trm-toc-link" href="#2-template"><span class="trm-toc-number">2.</span> <span class="trm-toc-text">2. template</span></a></li><li class="trm-toc-item trm-toc-level-2" title="3. assert 和 static_assert"><a rel="nofollow" class="trm-toc-link" href="#3-assert-和-static-assert"><span class="trm-toc-number">3.</span> <span class="trm-toc-text">3. assert 和 static_assert</span></a></li><li class="trm-toc-item trm-toc-level-2" title="4. noexcept 不允许抛出异常"><a rel="nofollow" class="trm-toc-link" href="#4-noexcept-不允许抛出异常"><span class="trm-toc-number">4.</span> <span class="trm-toc-text">4. noexcept 不允许抛出异常</span></a></li><li class="trm-toc-item trm-toc-level-2" title="5. auto"><a rel="nofollow" class="trm-toc-link" href="#5-auto"><span class="trm-toc-number">5.</span> <span class="trm-toc-text">5. auto</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="1. 可推导情形"><a rel="nofollow" class="trm-toc-link" href="#1-可推导情形"><span class="trm-toc-number">5.1.</span> <span class="trm-toc-text">1. 可推导情形</span></a></li><li class="trm-toc-item trm-toc-level-3" title="2. 不可推导情形"><a rel="nofollow" class="trm-toc-link" href="#2-不可推导情形"><span class="trm-toc-number">5.2.</span> <span class="trm-toc-text">2. 不可推导情形</span></a></li><li class="trm-toc-item trm-toc-level-3" title="3. auto 的使用"><a rel="nofollow" class="trm-toc-link" href="#3-auto-的使用"><span class="trm-toc-number">5.3.</span> <span class="trm-toc-text">3. auto 的使用</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="6. decltype"><a rel="nofollow" class="trm-toc-link" href="#6-decltype"><span class="trm-toc-number">6.</span> <span class="trm-toc-text">6. decltype</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="1. 可推导情形"><a rel="nofollow" class="trm-toc-link" href="#1-可推导情形-1"><span class="trm-toc-number">6.1.</span> <span class="trm-toc-text">1. 可推导情形</span></a></li><li class="trm-toc-item trm-toc-level-3" title="2. decltype 的使用"><a rel="nofollow" class="trm-toc-link" href="#2-decltype-的使用"><span class="trm-toc-number">6.2.</span> <span class="trm-toc-text">2. decltype 的使用</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="7. 返回类型后置"><a rel="nofollow" class="trm-toc-link" href="#7-返回类型后置"><span class="trm-toc-number">7.</span> <span class="trm-toc-text">7. 返回类型后置</span></a></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="Open toc">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="Back To Top">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="Searching...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    Please enter keywords to search
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.2"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.2"></script>
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>
