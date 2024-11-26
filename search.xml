@@ -3189,7 +3189,7 @@
 <h2 id="16-clear"><a href="#16-clear" class="headerlink" title="16. clear"></a>16. clear</h2><p><strong>删除断点</strong></p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">clear main <span class="comment">// 删除 main 上的断点</span></span><br><span class="line">clear <span class="number">12</span> <span class="comment">// 删除12行上的断点</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="D:\Develop\Blog\source_posts\assets\image-20241126105541927.png" alt="image-20241126105541927"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/GDB%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7/image-20241126105541927.png" alt="image-20241126105541927"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 ]]></content>
       <categories>
         <category>C++</category>
