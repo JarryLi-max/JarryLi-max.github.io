@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="FFmpeg编译1. FFmpeg 编译安装1.1 安装 MSYS2(Windows mingw)1https:&#x2F;&#x2F;www.msys2.org&#x2F;   1.2 安装依赖123pacman -Ss gccpacman -S make gcc diffutils pkg-config nasm     12# 更新pacman -Sy  安装工具链 12# 回车，y全部安装pacman -S mingw">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FFmpeg编译">
+<meta property="og:url" content="http://example.com/2025/02/01/FFmpeg%E7%BC%96%E8%AF%91/index.html">
+<meta property="og:site_name" content="JarryLi&#39;s Blog">
+<meta property="og:description" content="FFmpeg编译1. FFmpeg 编译安装1.1 安装 MSYS2(Windows mingw)1https:&#x2F;&#x2F;www.msys2.org&#x2F;   1.2 安装依赖123pacman -Ss gccpacman -S make gcc diffutils pkg-config nasm     12# 更新pacman -Sy  安装工具链 12# 回车，y全部安装pacman -S mingw">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="article:published_time" content="2025-02-01T09:11:13.212Z">
+<meta property="article:modified_time" content="2025-02-01T09:13:05.166Z">
+<meta property="article:author" content="JarryLi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/404.jpg">
+
+
+<title >FFmpeg编译</title>
+
+<!-- Favicon -->
+
+    <link href='/img/favicon.svg?v=2.2.2' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/favicon.svg?v=2.2.2' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"JarryLi","root":"/","typed_text":null,"theme_version":"2.2.2","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","apple_touch_icon":null,"webmanifest":null,"visibilitychange":false,"hidden":"/failure.ico","show_text":"(/≧▽≦/)Hey! Good again!","hide_text":"(●—●)Oh, crash!"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"01/01/2024 00:00:00","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","trigger":"auto","path":"search.xml"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-02-01 17:13:05"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<!-- <a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/favicon.svg">
+    
+    
+        <div class="trm-logo-text">
+            Async<span>Theme</span>
+        </div>
+    
+</a> -->
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    Home
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    Archives
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            FFmpeg编译
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2025
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        JarryLi
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com/jarryLi-max" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                Residence:
+            </div>
+            <div class="trm-label trm-label-light">
+                China
+            </div>
+        </li>
+        <li>
+            <div class="trm-label">
+                email:
+            </div>
+            <div class="trm-label trm-label-light">
+                2976562002@qq.com
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            02/01
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            17:11
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            JarryLi
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h1 id="FFmpeg编译"><a href="#FFmpeg编译" class="headerlink" title="FFmpeg编译"></a>FFmpeg编译</h1><h2 id="1-FFmpeg-编译安装"><a href="#1-FFmpeg-编译安装" class="headerlink" title="1. FFmpeg 编译安装"></a>1. FFmpeg 编译安装</h2><h3 id="1-1-安装-MSYS2-Windows-mingw"><a href="#1-1-安装-MSYS2-Windows-mingw" class="headerlink" title="1.1 安装 MSYS2(Windows mingw)"></a>1.1 安装 MSYS2(Windows mingw)</h3><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.msys2.org/</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122113942844.png" alt="image-20250122113942844"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="1-2-安装依赖"><a href="#1-2-安装依赖" class="headerlink" title="1.2 安装依赖"></a>1.2 安装依赖</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -Ss gcc</span><br><span class="line"></span><br><span class="line">pacman -S make gcc diffutils pkg-config nasm</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122113958377.png" alt="image-20250122113958377"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122145250027.png" alt="image-20250122145250027"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122145456390.png" alt="image-20250122145456390"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">更新</span></span><br><span class="line">pacman -Sy</span><br></pre></td></tr></table></figure>
+
+<p><strong>安装工具链</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">回车，y全部安装</span></span><br><span class="line">pacman -S mingw-w64-x86_64-toolchain</span><br></pre></td></tr></table></figure>
+
+<p><strong>安装git</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pacman -S git</span><br></pre></td></tr></table></figure>
+
+<p><strong>安装make等工具</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">pacman -S make</span><br><span class="line">pacman -S automake</span><br><span class="line">pacman -S autoconf</span><br><span class="line">pacman -S perl</span><br><span class="line">pacman -S libtool</span><br><span class="line">pacman -S mingw-w64-i686-cmake</span><br><span class="line">pacman -S pkg-config</span><br><span class="line">pacman -S mingw-w64-x86_64-SDL2</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-重命名文件"><a href="#1-3-重命名文件" class="headerlink" title="1.3 重命名文件"></a>1.3 重命名文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/bin</span><br><span class="line">mv link.exe link.bak</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122151229099.png" alt="image-20250122151229099"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="1-4-安装-YASM-和-nasm"><a href="#1-4-安装-YASM-和-nasm" class="headerlink" title="1.4 安装 YASM 和 nasm"></a>1.4 安装 YASM 和 nasm</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pacman -S nasm</span><br><span class="line">pacman -S yasm</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-5-重新启动-MSYS2"><a href="#1-5-重新启动-MSYS2" class="headerlink" title="1.5 重新启动 MSYS2"></a>1.5 重新启动 MSYS2</h3><p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122152627273.png" alt="image-20250122152627273"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>跳转到 MSYS2 文件夹，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msys2_shell.cmd -mingw64</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122152644939.png" alt="image-20250122152644939"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="1-6-查看依赖是否完整"><a href="#1-6-查看依赖是否完整" class="headerlink" title="1.6 查看依赖是否完整"></a>1.6 查看依赖是否完整</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">which cl link yasm cpp</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122152816642.png" alt="image-20250122152816642"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="1-7-设置中文显示"><a href="#1-7-设置中文显示" class="headerlink" title="1.7 设置中文显示"></a>1.7 设置中文显示</h3><p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122152943790.png" alt="image-20250122152943790"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122152959717.png" alt="image-20250122152959717"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="1-8-下载和编译x264"><a href="#1-8-下载和编译x264" class="headerlink" title="1.8 下载和编译x264"></a>1.8 下载和编译x264</h3><p><strong>创建文件夹</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/home/JarryLi/ffmpeg</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122153339841.png" alt="image-20250122153339841"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitee.com/zgdcool/x264.git</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/home/JarryLi/ffmpeg/build/libx264 --host=x86_64-w64-mingw32 --enable-shared --enable-static --extra-ldflags=-Wl,--output-def=libx264.def</span><br><span class="line"></span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122155400942.png" alt="image-20250122155400942"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp ./libx264.def /home/JarryLi/ffmpeg/build/libx264/lib/</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122160540959.png" alt="image-20250122160540959"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd /home/JarryLi/ffmpeg/build/libx264/lib/</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">生成64位文件</span></span><br><span class="line">lib /machine:X64 /def:libx264.def</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">生成32位文件(如果有需要)</span></span><br><span class="line">lib /machine:i386 /def:libx264.def</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122160646699.png" alt="image-20250122160646699"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="1-8-下载和编译fdk-aac"><a href="#1-8-下载和编译fdk-aac" class="headerlink" title="1.8 下载和编译fdk-aac"></a>1.8 下载和编译fdk-aac</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/mstorsjo/fdk-aac.git</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd fdk-aac/</span><br><span class="line">./autogen.sh</span><br><span class="line">./configure --prefix=/home/JarryLi/ffmpeg/build/libfdk-aac --enable-static --enable-shared</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-9-下载和编译mp3"><a href="#1-9-下载和编译mp3" class="headerlink" title="1.9 下载和编译mp3"></a>1.9 下载和编译mp3</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitee.com/hqiu/lame.git</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd lame/</span><br><span class="line">./configure --prefix=/home/JarryLi/ffmpeg/build/libmp3lame --disable-shared --disable-frontend --enable-static</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-10下载和编译-libvpx"><a href="#1-10下载和编译-libvpx" class="headerlink" title="1.10下载和编译 libvpx"></a>1.10下载和编译 libvpx</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/webmproject/libvpx.git</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd libvpx/</span><br><span class="line"></span><br><span class="line">./configure --prefix=/home/JarryLi/ffmpeg/build/libvpx --disable-examples --disable-unit-tests --enable-vp9-highbitdepth --as=yasm</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-11-下载-ffmpeg"><a href="#1-11-下载-ffmpeg" class="headerlink" title="1.11 下载 ffmpeg"></a>1.11 下载 ffmpeg</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://ffmpeg.org/releases/ffmpeg-4.2.10.tar.xz</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122174757989.png" alt="image-20250122174757989"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">./configure \</span><br><span class="line">  --prefix=/home/JarryLi/ffmpeg/build/ffmpeg-4.2.10 \</span><br><span class="line">  --<span class="built_in">arch</span>=x86_64 \</span><br><span class="line">  --enable-shared \</span><br><span class="line">  --enable-gpl \</span><br><span class="line">  --enable-libfdk-aac \</span><br><span class="line">  --enable-nonfree \</span><br><span class="line">  --enable-libvpx \</span><br><span class="line">  --enable-libx264 \</span><br><span class="line">  --enable-libmp3lame \</span><br><span class="line">  --extra-cflags=<span class="string">&quot;-I/home/JarryLi/ffmpeg/build/libfdk-aac/include&quot;</span> \</span><br><span class="line">  --extra-ldflags=<span class="string">&quot;-L/home/JarryLi/ffmpeg/build/libfdk-aac/lib&quot;</span> \</span><br><span class="line">  --extra-cflags=<span class="string">&quot;-I/home/JarryLi/ffmpeg/build/libvpx/include&quot;</span> \</span><br><span class="line">  --extra-ldflags=<span class="string">&quot;-L/home/JarryLi/ffmpeg/build/libvpx/lib&quot;</span> \</span><br><span class="line">  --extra-cflags=<span class="string">&quot;-I/home/JarryLi/ffmpeg/build/libx264/include&quot;</span> \</span><br><span class="line">  --extra-ldflags=<span class="string">&quot;-L/home/JarryLi/ffmpeg/build/libx264/lib&quot;</span> \</span><br><span class="line">  --extra-cflags=<span class="string">&quot;-I/home/JarryLi/ffmpeg/build/libmp3lame/include&quot;</span> \</span><br><span class="line">  --extra-ldflags=<span class="string">&quot;-L/home/JarryLi/ffmpeg/build/libmp3lame/lib&quot;</span> \</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sh build_ffmpeg.sh</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<p><strong>出现以下情况就可以编译了</strong></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122174440698.png" alt="image-20250122174440698"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="1-12-查看结果"><a href="#1-12-查看结果" class="headerlink" title="1.12 查看结果"></a>1.12 查看结果</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffplay rtmp://liteavapp.qcloud.com/live/liteavdemoplayerstreamid</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122181649127.png" alt="image-20250122181649127"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="1-13-添加环境变量-PATH"><a href="#1-13-添加环境变量-PATH" class="headerlink" title="1.13 添加环境变量 PATH"></a>1.13 添加环境变量 PATH</h3><p>cmd运行 <code>ffmpeg --version</code>，缺少库的话就复制 MSYS2 生成的库到<code>C:\Windows\System32</code></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122205343371.png" alt="image-20250122205343371"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="2-1-安装-MSYS2-Windows-msvc"><a href="#2-1-安装-MSYS2-Windows-msvc" class="headerlink" title="2.1 安装 MSYS2(Windows msvc)"></a>2.1 安装 MSYS2(Windows msvc)</h3><p><strong>x64 Native Tools 启动 mingw64</strong></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122145250027.png" alt="image-20250122145250027"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">跳到msys2文件夹</span></span><br><span class="line">msys2_shell.cmd -mingw64</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pacman -S nasm</span><br><span class="line">pacman -S yasm</span><br><span class="line">pacman -S make cmake</span><br><span class="line">pacman -S diffutils</span><br><span class="line">pacman -S pkg-config</span><br><span class="line">pacman -S git</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-编译x264"><a href="#2-2-编译x264" class="headerlink" title="2.2 编译x264"></a>2.2 编译x264</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">msys2 编译</span></span><br><span class="line">cd x264/</span><br><span class="line">CC=cl ./configure --enable-shared</span><br><span class="line">make -j20</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201115326566.png" alt="image-20250201115326566"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="2-3-编译fdk-aac-2020-07版本"><a href="#2-3-编译fdk-aac-2020-07版本" class="headerlink" title="2.3 编译fdk-aac(2020 07版本)"></a>2.3 编译fdk-aac(2020 07版本)</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">直接使用 vs 的控制台即可</span></span><br><span class="line">cd fdk-aac/</span><br><span class="line">nmake -f Makefile.vc </span><br><span class="line">nmake -f Makefile.vc prefix=.\install install</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201123424393.png" alt="image-20250201123424393"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201123601836.png" alt="image-20250201123601836"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><strong>修改 fdk-aac.pc 文件内容</strong></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">prefix</span>=<span class="string">/usr/local</span></span><br><span class="line"><span class="attr">exec_prefix</span>=<span class="string">$&#123;prefix&#125;</span></span><br><span class="line"><span class="attr">libdir</span>=<span class="string">$&#123;exec_prefix&#125;/lib</span></span><br><span class="line"><span class="attr">includedir</span>=<span class="string">$&#123;prefix&#125;/include</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Name</span>: <span class="string">Fraunhofer FDK AAC Codec Library</span></span><br><span class="line"><span class="attr">Description</span>: <span class="string">AAC codec library</span></span><br><span class="line"><span class="attr">Version</span>: <span class="string"></span></span><br><span class="line"><span class="attr">Libs</span>: <span class="string">-L$&#123;libdir&#125; -lfdk-aac</span></span><br><span class="line"><span class="attr">Libs.private</span>:<span class="string"></span></span><br><span class="line"><span class="attr">Cflags</span>: <span class="string">-I$&#123;includedir&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-4-编译x265"><a href="#2-4-编译x265" class="headerlink" title="2.4 编译x265"></a>2.4 编译x265</h3><p><strong>安装cmake，并且修改 msys2 中 cmake 的名称，安装完后重启所有控制台</strong></p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://cmake.org/download/</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201124445510.png" alt="image-20250201124445510"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/bin</span><br><span class="line">mv cmake.exe cccmake.exe</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201124703186.png" alt="image-20250201124703186"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">msys2 编译</span></span><br><span class="line">cd x265/build/msys-cl</span><br><span class="line">./make-Makefiles.sh</span><br><span class="line">nmake install</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201125647066.png" alt="image-20250201125647066"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201125815160.png" alt="image-20250201125815160"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prefix=/usr/local</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-5-编译-ffmpeg-4-3"><a href="#2-5-编译-ffmpeg-4-3" class="headerlink" title="2.5 编译 ffmpeg-4.3"></a>2.5 编译 ffmpeg-4.3</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">CC=cl.exe ./configure --prefix=./install \</span><br><span class="line">	--toolchain=msvc \</span><br><span class="line">	--enable-shared \</span><br><span class="line">	--disable-programs \</span><br><span class="line">	--disable-ffplay \</span><br><span class="line">	--disable-ffmpeg \</span><br><span class="line">	--disable-ffprobe \</span><br><span class="line">	--enable-libx264 \</span><br><span class="line">	--enable-libx265 \</span><br><span class="line">	--enable-gpl \</span><br><span class="line">	--enable-libfdk-aac \</span><br><span class="line">	--enable-nonfree</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201131718687.png" alt="image-20250201131718687"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><strong>解决报错1：</strong></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201132102044.png" alt="image-20250201132102044"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201132146154.png" alt="image-20250201132146154"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><strong>解决报错2:</strong></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201132409281.png" alt="image-20250201132409281"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><strong>解决报错3:</strong></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201132934833.png" alt="image-20250201132934833"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make -j20</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>编译好的ffmpeg</strong></p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.videohelp.com/software/ffmpeg/old-versions</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>安装软件</strong></p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://sourceforge.net/projects/screencapturer/files/</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-1-安装-SDK"><a href="#3-1-安装-SDK" class="headerlink" title="3.1 安装 SDK"></a>3.1 安装 SDK</h3><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://developer.microsoft.com/zh-cn/windows/downloads/windows-sdk/</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-Qt-使用-FFmpeg"><a href="#4-1-Qt-使用-FFmpeg" class="headerlink" title="4.1 Qt 使用 FFmpeg"></a>4.1 Qt 使用 FFmpeg</h3><h4 id="4-1-1-C-语言配置"><a href="#4-1-1-C-语言配置" class="headerlink" title="4.1.1 C 语言配置"></a>4.1.1 C 语言配置</h4><p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250124212815676.png" alt="image-20250124212815676"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">win64</span></span><br><span class="line"><span class="attr">&#123;</span></span><br><span class="line"><span class="attr">INCLUDEPATH</span> <span class="string">+= $$PWD/ffmpeg-4.2.10/include</span></span><br><span class="line"><span class="attr">LIBS</span> <span class="string">+= $$PWD/ffmpeg-4.2.10/bin/avformat.lib \</span></span><br><span class="line"><span class="string">        $$PWD/ffmpeg-4.2.10/bin/avcodec.lib \</span></span><br><span class="line"><span class="string">        $$PWD/ffmpeg-4.2.10/bin/avdevice.lib \</span></span><br><span class="line"><span class="string">        $$PWD/ffmpeg-4.2.10/bin/avfilter.lib \</span></span><br><span class="line"><span class="string">        $$PWD/ffmpeg-4.2.10/bin/avutil.lib \</span></span><br><span class="line"><span class="string">        $$PWD/ffmpeg-4.2.10/bin/postproc.lib \</span></span><br><span class="line"><span class="string">        $$PWD/ffmpeg-4.2.10/bin/swresample.lib \</span></span><br><span class="line"><span class="string">        $$PWD/ffmpeg-4.2.10/bin/swscale.lib</span></span><br><span class="line"><span class="attr">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;libavutil/avutil.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello FFmpeg! Version: is %s\n&quot;</span>, av_version_info());</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-2-C-配置"><a href="#4-1-2-C-配置" class="headerlink" title="4.1.2 C++ 配置"></a>4.1.2 C++ 配置</h3><p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250124213453563.png" alt="image-20250124213453563"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="meta">#<span class="keyword">include</span> <span class="string">&quot;libavutil/avutil.h&quot;</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Hello FFmpeg! Version is: &quot;</span> &lt;&lt; <span class="built_in">av_version_info</span>() &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line">    <span class="meta">#<span class="keyword">define</span> __STDC_CONSTANT_MACROS</span></span><br><span class="line">    <span class="meta">#<span class="keyword">include</span> <span class="string">&quot;libavutil/avutil.h&quot;</span></span></span><br><span class="line">    <span class="meta">#<span class="keyword">include</span> <span class="string">&quot;libavdevice/avdevice.h&quot;</span></span></span><br><span class="line">    <span class="meta">#<span class="keyword">include</span> <span class="string">&quot;libavformat/avformat.h&quot;</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>其余配置一样</strong></p>
+<p><font color=red><strong>要是没有配置环境变量或者没有将库加到 <code>C:\Windows\System32</code>下，需要将对应的库拷贝到当前项目文件夹下。</strong></font></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250124223231992.png" alt="image-20250124223231992"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="2-FFmpeg-基本命令"><a href="#2-FFmpeg-基本命令" class="headerlink" title="2. FFmpeg 基本命令"></a>2. FFmpeg 基本命令</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-version</code></td>
+<td>显示版本</td>
+</tr>
+<tr>
+<td><code>-demuxers</code></td>
+<td>显示可用的demuxers</td>
+</tr>
+<tr>
+<td><code>-muxers</code></td>
+<td>显示可用的muxers</td>
+</tr>
+<tr>
+<td><code>-devices</code></td>
+<td>显示可用的设备</td>
+</tr>
+<tr>
+<td><code>-codecs</code></td>
+<td>显示所有编解码器</td>
+</tr>
+<tr>
+<td><code>-decoders</code></td>
+<td>显示可用的解码器</td>
+</tr>
+<tr>
+<td><code>-encoders</code></td>
+<td>显示所有的编码器</td>
+</tr>
+<tr>
+<td><code>-bsfs</code></td>
+<td>显示比特流filter</td>
+</tr>
+<tr>
+<td><code>-formats</code></td>
+<td>显示可用的格式</td>
+</tr>
+<tr>
+<td><code>-protocols</code></td>
+<td>显示可用的协议</td>
+</tr>
+<tr>
+<td><code>-filters</code></td>
+<td>显示可用的过滤器</td>
+</tr>
+<tr>
+<td><code>-pix_fmts</code></td>
+<td>显示可用的像素格式</td>
+</tr>
+<tr>
+<td><code>-sample_fmts</code></td>
+<td>显示可用的采样格式</td>
+</tr>
+<tr>
+<td><code>-layouts</code></td>
+<td>显示channel名称</td>
+</tr>
+<tr>
+<td><code>-colors</code></td>
+<td>显示识别颜色的名称</td>
+</tr>
+</tbody></table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看可用设备名称</span></span><br><span class="line">ffmpeg -list_devices true -f dshow -i dummy</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">录制视频</span></span><br><span class="line">ffmpeg -f dshow -i video=&quot;screen-capture-recorder&quot; v-out.mp4 # 桌面</span><br><span class="line">ffmpeg -f dshow -pix_fmt yuyv422 -i video=&quot;Integrated Camera&quot; -y v-out2.flv # 摄像头</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">录制系统声音</span></span><br><span class="line">ffmpeg -f dshow -i audio=&quot;virtual-audio-capturer&quot; a-out.aac</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">录制麦克风 + 系统音频</span></span><br><span class="line">ffmpeg -f dshow -i audio=&quot;麦克风阵列 (Realtek(R) Audio)&quot; -f dshow -i audio=&quot;virtual-audio-capturer&quot; -filter_complex </span><br><span class="line">amix=inputs=2:duration=first:dropout_transition=2  a-out2.aac </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">录制系统 + 麦克风声音 + 视频(系统桌面)</span></span><br><span class="line">ffmpeg -f dshow -i audio=&quot;麦克风阵列 (Realtek(R) Audio)&quot; -f dshow -i audio=&quot;virtual-audio-capturer&quot; -filter_complex amix=inputs=2:duration=first:dropout_transition=2 -f dshow -i video=&quot;screen-capture-recorder&quot;  -y av-out.flv</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看视频录制的可选参数</span></span><br><span class="line">ffmpeg -f dshow -list_options true -i video=&quot;screen-capture-recorder&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看音频录制的可选参数</span></span><br><span class="line">ffmpeg -f dshow -list_options true -i audio=&quot;virtual-audio-capturer&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看麦克风阵列 (Realtek(R) Audio)</span></span><br><span class="line">ffmpeg -f dshow -list_options true -i audio=&quot;麦克风阵列 (Realtek(R) Audio)&quot;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">指定参数录制音视频</span></span><br><span class="line">ffmpeg -f dshow -i audio=&quot;麦克风阵列 (Realtek(R) Audio)&quot; -f dshow -i audio=&quot;virtual-audio-capturer&quot; -filter_complex amix=inputs=2:duration=first:dropout_transition=2 -f dshow -video_size 1920x1080 -framerate 15 -pixel_format yuv420p  -i video=&quot;screen-capture-recorder&quot; -vcodec h264_qsv  -b:v 3M  -y av-out.flv</span><br><span class="line"></span><br><span class="line">-video_size: 视频大小</span><br><span class="line">-vcodec: 视频编码格式</span><br><span class="line">-framerate: 视频帧率</span><br><span class="line">-pixel_format: 视频像素格式</span><br><span class="line">-b:v: 视频码率</span><br><span class="line">-r: 帧率</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-音视频处理流程"><a href="#3-音视频处理流程" class="headerlink" title="3. 音视频处理流程"></a>3. 音视频处理流程</h2><h3 id="3-1-直播客户端处理流程"><a href="#3-1-直播客户端处理流程" class="headerlink" title="3.1 直播客户端处理流程"></a>3.1 直播客户端处理流程</h3><p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122210850917.png" alt="image-20250122210850917"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="3-2-音视频数据流"><a href="#3-2-音视频数据流" class="headerlink" title="3.2 音视频数据流"></a>3.2 音视频数据流</h3><p>①音频采集的数据是 PCM(数字信号)</p>
+<p>②编码器编码生成对应的格式(压缩后的数据)</p>
+<p>③套一层衣服</p>
+<p><strong>共享端：</strong></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122211219156.png" alt="image-20250122211219156"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><strong>观看端：</strong></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122211313503.png" alt="image-20250122211313503"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="4-声音"><a href="#4-声音" class="headerlink" title="4. 声音"></a>4. 声音</h2><p>**赫兹(Hz):**每秒震动的次数。</p>
+<p>人可以听到的声音赫兹大约为:<code>20Hz~20kHz</code></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122211719902.png" alt="image-20250122211719902"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><strong>音调：</strong>声音的快慢</p>
+<p><strong>音量：</strong>震动的幅度</p>
+<p><strong>音色：</strong>谐波产生的</p>
+<h2 id="5-模数转换"><a href="#5-模数转换" class="headerlink" title="5. 模数转换"></a>5. 模数转换</h2><p>①对声音进行量化(分一小块一小块)</p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122212451188.png" alt="image-20250122212451188"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>②得到量化后的数字信息(去掉模拟信号线条)</p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122212536805.png" alt="image-20250122212536805"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>③十进制转换为二进制</p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122212615501.png" alt="image-20250122212615501"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>④转换为二进制方波</p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122212640895.png" alt="image-20250122212640895"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="6-PCM-和-WAV"><a href="#6-PCM-和-WAV" class="headerlink" title="6. PCM 和 WAV"></a>6. PCM 和 WAV</h2><h3 id="6-1-音频原始数据"><a href="#6-1-音频原始数据" class="headerlink" title="6.1 音频原始数据"></a>6.1 音频原始数据</h3><p><strong>PCM：</strong>纯原始数据</p>
+<p><strong>WAV：</strong>可以存原始数据，也可以存压缩数据(基本格式为<code>PCM + WAv Header</code>)</p>
+<h3 id="6-2-量化基本概念"><a href="#6-2-量化基本概念" class="headerlink" title="6.2 量化基本概念"></a>6.2 量化基本概念</h3><p><strong>采样大小：</strong>一个采样用多少bit存储。通常是16bit；</p>
+<p><strong>采样率：</strong>采样频率8k、8k、16k、32k、44.1k、48k；采样率越高，数字信号与模拟信号越接近，误差越小；</p>
+<p><strong>声道数：</strong>单声道、双声道、多声道；</p>
+<p><strong>PCM音频流的码率：</strong>采样大小 * 采样率 * 声道数；</p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122213916571.png" alt="image-20250122213916571"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="6-3-WAV-Header"><a href="#6-3-WAV-Header" class="headerlink" title="6.3 WAV Header"></a>6.3 WAV Header</h3><p>Header中三个主要的信息: <code>采样率、采样大小、声道数</code></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122214025172.png" alt="image-20250122214025172"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250122214426322.png" alt="image-20250122214426322"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="7-通过命令方式采集音频数据"><a href="#7-通过命令方式采集音频数据" class="headerlink" title="7. 通过命令方式采集音频数据"></a>7. 通过命令方式采集音频数据</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">采集</span></span><br><span class="line">ffmpeg -f avfoundation -i :0 out.wav</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">播放</span></span><br><span class="line">ffplay out.wav</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-Swift-基础"><a href="#8-Swift-基础" class="headerlink" title="8. Swift 基础"></a>8. Swift 基础</h2><h3 id="8-1-基础语法"><a href="#8-1-基础语法" class="headerlink" title="8.1 基础语法"></a>8.1 基础语法</h3><p><strong>1. 变量和常量</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a <span class="operator">=</span> <span class="number">10</span> <span class="comment">// var 用来定义变量</span></span><br><span class="line"><span class="keyword">let</span> b <span class="operator">=</span> <span class="number">20</span> <span class="comment">// let 用来定义常量</span></span><br><span class="line"><span class="keyword">var</span> c: <span class="type">Int</span> <span class="operator">=</span> <span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2. 判断语句</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> 判断条件 </span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello, World!&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c: <span class="type">Int</span> <span class="operator">=</span> <span class="number">20</span></span><br><span class="line"><span class="keyword">if</span> c <span class="operator">&lt;=</span> <span class="number">20</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;c &lt;= 20&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;c &gt; 20&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3. switch</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> state</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">    <span class="operator">...</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">    <span class="operator">...</span></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">    <span class="operator">...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello, World!&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c: <span class="type">Int</span> <span class="operator">=</span> <span class="number">20</span></span><br><span class="line"><span class="keyword">switch</span> c</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">10</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;10&quot;</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="number">20</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;20&quot;</span>)</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;other&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3. 循环</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> list</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> n<span class="operator">..&lt;</span>m</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> i <span class="operator">&lt;</span> n</span><br><span class="line">&#123;</span><br><span class="line">	i <span class="operator">=</span> i <span class="operator">+</span> <span class="number">1</span> <span class="comment">// 没有 i++ 或者 i--    </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello, World!&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// for 1</span></span><br><span class="line"><span class="keyword">var</span> list <span class="operator">=</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> list</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// for 2</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">25</span><span class="operator">..&lt;</span><span class="number">100</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;other:&quot;</span>, i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// while</span></span><br><span class="line"><span class="keyword">var</span> i <span class="operator">=</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> i <span class="operator">&lt;</span> <span class="number">10</span></span><br><span class="line">&#123;</span><br><span class="line">    i <span class="operator">=</span> i <span class="operator">+</span> <span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;i: &quot;</span>, i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3. 函数</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 有返回值</span></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">myfunc</span>(<span class="params">a</span>: <span class="type">Int</span>) -&gt; <span class="type">Int</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;this is: &quot;</span>, a)</span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b <span class="operator">=</span> myfunc(a : <span class="number">10</span>)</span><br><span class="line"><span class="built_in">print</span>(b)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 没有返回值</span></span><br><span class="line"><span class="keyword">func</span> <span class="title function_">myfunc</span>(<span class="params">a</span>: <span class="type">Int</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;this is: &quot;</span>, a)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">myfunc(a: <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="9-FFmpeg-采集音频流程"><a href="#9-FFmpeg-采集音频流程" class="headerlink" title="9. FFmpeg 采集音频流程"></a>9. FFmpeg 采集音频流程</h2><ul>
+<li><p>打开输入设备</p>
+<ul>
+<li>注册设备</li>
+<li>设置采集方式(<code>Windows: dshow</code>,<code>Mac: avfoundation</code>,<code>Linux: alsa</code>)</li>
+<li>打开音频设备</li>
+</ul>
+</li>
+<li><p>获取数据包</p>
+</li>
+<li><p>输出文件</p>
+</li>
+</ul>
+<h2 id="9-音频压缩"><a href="#9-音频压缩" class="headerlink" title="9. 音频压缩"></a>9. 音频压缩</h2><p><strong>音频压缩技术</strong>是在保证信号在听觉方面不产生失真的前提下对音频数据信号进行尽可能大的压缩。</p>
+<p>压缩的主要方法是去除采集到的音频冗余信息。所谓冗余信息包括人耳听觉范围外的音频信号以及被掩蔽掉的音频信号。</p>
+<h3 id="9-1-有损压缩技术"><a href="#9-1-有损压缩技术" class="headerlink" title="9.1 有损压缩技术"></a>9.1 有损压缩技术</h3><p>不能完全还原回原来的数据。</p>
+<p>① 人无法感知的(&lt;20Hz，&gt;20KHz)；</p>
+<p>② 频域遮蔽的；</p>
+<p>③ 时域遮蔽的；</p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250123194802863.png" alt="image-20250123194802863"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250123195010074.png" alt="image-20250123195010074"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="9-2-无损压缩技术"><a href="#9-2-无损压缩技术" class="headerlink" title="9.2 无损压缩技术"></a>9.2 无损压缩技术</h3><p>可以完全还原之前的数据，用短的编码替换使用频率高的内容，长的编码替换使用频率低的编码。</p>
+<p><strong>商编码：</strong>哈夫曼编码、算数编码、香弄编码</p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250123195734805.png" alt="image-20250123195734805"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h2 id="10-常见的音频编解码器"><a href="#10-常见的音频编解码器" class="headerlink" title="10. 常见的音频编解码器"></a>10. 常见的音频编解码器</h2><p>OPUS、AAC、Ogg、Speex、iLBC、AMR、G.711等等</p>
+<p>其中，AAC在直播系统中应用的比较广泛；OPUS是较新的音编码器；WebRTC默认使用OPUS；电话一般用的G.711系列</p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250123200212529.png" alt="image-20250123200212529"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250123200352959.png" alt="image-20250123200352959"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="10-1-AAC-Advanced-Audio-Coding-编码器简介"><a href="#10-1-AAC-Advanced-Audio-Coding-编码器简介" class="headerlink" title="10.1 AAC(Advanced Audio Coding)编码器简介"></a>10.1 AAC(Advanced Audio Coding)编码器简介</h3><p>AAC目的是取代MP3格式</p>
+<p>最开始是基于MPEG-2的音频编码技术，MPEG-4标准出现后AAC重新集成了其特性，加入了SBR技术和PS技术。<br>目前常用的规格有 AAC LC、AAC HE V1 、AAC HE V2</p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250123200632674.png" alt="image-20250123200632674"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><strong>AAC LC:</strong>(Low Complexity)低复杂度规格,码流是128k，音质好；</p>
+<p>**AAC HE:**等于 AAC LC+SBR(Spectral Band Replication)。其核心思相是按频谱分保存。低频编码保存主要成分，高频单独放大编码保存音质。码流在64k左右；</p>
+<p>**AAC HE V2:**等于 AACLC+SBR+PS(Parametric Stereo)。其核心思相是双声道中的声音存在某种相似性，只需存储一个声道的全部信息，然后，花很少的字节用参数描述另一个声道和它不同的地方。</p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250123201030233.png" alt="image-20250123201030233"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="10-2-ADTS-结构"><a href="#10-2-ADTS-结构" class="headerlink" title="10.2 ADTS 结构"></a>10.2 ADTS 结构</h3><p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250123201314808.png" alt="image-20250123201314808"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250123201506630.png" alt="image-20250123201506630"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://p23.nl/projects/aac-header/</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250123201630244.png" alt="image-20250123201630244"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<h3 id="10-3-ffmpeg-生成-AAC-文件"><a href="#10-3-ffmpeg-生成-AAC-文件" class="headerlink" title="10.3 ffmpeg 生成 AAC 文件"></a>10.3 ffmpeg 生成 AAC 文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i D:\trailer.mp4 -vn -c:a libfdk_aac -ar 44100 -channels 2 -profile:a aac_he_v2 1.aac</span><br><span class="line"></span><br><span class="line">ffplay 1.aac</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">av_init_packet(); <span class="comment">// 初始化数据包</span></span><br><span class="line">av_packet_unref(); <span class="comment">// 释放资源</span></span><br><span class="line"></span><br><span class="line">av_packet_alloc(); <span class="comment">// 堆空间</span></span><br><span class="line">av_packet_free(); <span class="comment">// 释放资源</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="11-VS创建FFmpeg工程项目"><a href="#11-VS创建FFmpeg工程项目" class="headerlink" title="11. VS创建FFmpeg工程项目"></a>11. VS创建FFmpeg工程项目</h2><h3 id="11-1-创建基本文件"><a href="#11-1-创建基本文件" class="headerlink" title="11.1 创建基本文件"></a>11.1 创建基本文件</h3><p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201165706004.png" alt="image-20250201165706004"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>其中，<code>bin下创建x64文件夹</code>，<code>include下复制编译好的ffmpeg中的include文件夹中的内容</code>，<code>lib下创建x64文件夹</code>，<code>src用于创建vs工程指定代码的文件夹</code>，<code>tools存储的是ffmpeg源码</code>。</p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201165910838.png" alt="image-20250201165910838"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>编译好的<code>.dll</code>库存储到<code>bin\x64下</code>，编译过的ffmpeg生成的<code>.pdb</code>复制到这(为了调试)</p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201170015457.png" alt="image-20250201170015457"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>编译好的<code>.lib</code>库存储到<code>lib\x64下</code></p>
+<p>上述的<code>dll</code>和<code>lib</code>均在编译ffmeg指定生成路径下的<code>lib</code>文件夹下</p>
+<h3 id="11-2-创建VS工程项目"><a href="#11-2-创建VS工程项目" class="headerlink" title="11.2 创建VS工程项目"></a>11.2 创建VS工程项目</h3><p><strong>指定输入目录（vs相对路径是以<code>.vcxproj</code>为基准的）</strong></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201170226557.png" alt="image-20250201170226557"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><strong>指定调试目录</strong></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201170545269.png" alt="image-20250201170545269"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><strong>指定包含头文件目录</strong></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201170249074.png" alt="zh"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p><strong>指定库路径</strong></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201170310150.png" alt="image-20250201170310150"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+<p>对于库可以在<code>输入\附加依赖项</code>中指定，也可以使用代码指定<code>#pragma comment(lib, &quot;avcodec.lib&quot;)</code></p>
+<p><strong>指定编译过的ffmpeg源码</strong></p>
+<p><img src="/../picture/FFmpeg%E7%BC%96%E8%AF%91/image-20250201170422270.png" alt="image-20250201170422270"  data-tag='post-image' loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
+
+</article>
+    
+    <div class="trm-reward">
+        
+            <span class="trm-reward-btn trm-glow" onclick='var qr = document.getElementById("qr"); qr.style.display = (qr.style.display === "none") ? "block" : "none";'>
+                <i class="iconfont fas fa-hand-holding-usd"></i>
+            </span>
+        
+        <p class="trm-reward-comment">sponsor</p>
+        <div id="qr" style="display:none;">
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='/img/wechat.jpg' target='_blank' >
+                       <img src="/img/wechat.jpg" alt="微信" loading="lazy">
+                    </a>
+                    <p>微信</p>
+                </div>
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='/img/zhifubao.jpg' target='_blank' >
+                       <img src="/img/zhifubao.jpg" alt="支付宝" loading="lazy">
+                    </a>
+                    <p>支付宝</p>
+                </div>
+            
+        </div>
+    </div>
+
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            Other Articles
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2025/01/13/Makefile/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/C/">
+                    C++
+                </a>
+            </div>
+            <h5>
+                <a href="/2025/01/13/Makefile/" class="trm-anima-link">
+                    Makefile
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>25/01/13</li>
+                <li>19:39</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                Powered by <a href="https://github.com/jarryLi-max" target="_blank" rel="noopener">JarryLi</a> 
+                <!-- v7.3.0 -->
+            </span>
+            <!-- <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                Theme - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.2
+            </span> -->
+        </div>
+      
+
+    
+        <div class="trm-footer-item blog-run-long"></div>
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        Article table of contents
+				<span id="post-toc-top">
+					TOP
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-1" title="FFmpeg编译"><a rel="nofollow" class="trm-toc-link" href="#FFmpeg编译"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">FFmpeg编译</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-2" title="1. FFmpeg 编译安装"><a rel="nofollow" class="trm-toc-link" href="#1-FFmpeg-编译安装"><span class="trm-toc-number">1.1.</span> <span class="trm-toc-text">1. FFmpeg 编译安装</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="1.1 安装 MSYS2(Windows mingw)"><a rel="nofollow" class="trm-toc-link" href="#1-1-安装-MSYS2-Windows-mingw"><span class="trm-toc-number">1.1.1.</span> <span class="trm-toc-text">1.1 安装 MSYS2(Windows mingw)</span></a></li><li class="trm-toc-item trm-toc-level-3" title="1.2 安装依赖"><a rel="nofollow" class="trm-toc-link" href="#1-2-安装依赖"><span class="trm-toc-number">1.1.2.</span> <span class="trm-toc-text">1.2 安装依赖</span></a></li><li class="trm-toc-item trm-toc-level-3" title="1.3 重命名文件"><a rel="nofollow" class="trm-toc-link" href="#1-3-重命名文件"><span class="trm-toc-number">1.1.3.</span> <span class="trm-toc-text">1.3 重命名文件</span></a></li><li class="trm-toc-item trm-toc-level-3" title="1.4 安装 YASM 和 nasm"><a rel="nofollow" class="trm-toc-link" href="#1-4-安装-YASM-和-nasm"><span class="trm-toc-number">1.1.4.</span> <span class="trm-toc-text">1.4 安装 YASM 和 nasm</span></a></li><li class="trm-toc-item trm-toc-level-3" title="1.5 重新启动 MSYS2"><a rel="nofollow" class="trm-toc-link" href="#1-5-重新启动-MSYS2"><span class="trm-toc-number">1.1.5.</span> <span class="trm-toc-text">1.5 重新启动 MSYS2</span></a></li><li class="trm-toc-item trm-toc-level-3" title="1.6 查看依赖是否完整"><a rel="nofollow" class="trm-toc-link" href="#1-6-查看依赖是否完整"><span class="trm-toc-number">1.1.6.</span> <span class="trm-toc-text">1.6 查看依赖是否完整</span></a></li><li class="trm-toc-item trm-toc-level-3" title="1.7 设置中文显示"><a rel="nofollow" class="trm-toc-link" href="#1-7-设置中文显示"><span class="trm-toc-number">1.1.7.</span> <span class="trm-toc-text">1.7 设置中文显示</span></a></li><li class="trm-toc-item trm-toc-level-3" title="1.8 下载和编译x264"><a rel="nofollow" class="trm-toc-link" href="#1-8-下载和编译x264"><span class="trm-toc-number">1.1.8.</span> <span class="trm-toc-text">1.8 下载和编译x264</span></a></li><li class="trm-toc-item trm-toc-level-3" title="1.8 下载和编译fdk-aac"><a rel="nofollow" class="trm-toc-link" href="#1-8-下载和编译fdk-aac"><span class="trm-toc-number">1.1.9.</span> <span class="trm-toc-text">1.8 下载和编译fdk-aac</span></a></li><li class="trm-toc-item trm-toc-level-3" title="1.9 下载和编译mp3"><a rel="nofollow" class="trm-toc-link" href="#1-9-下载和编译mp3"><span class="trm-toc-number">1.1.10.</span> <span class="trm-toc-text">1.9 下载和编译mp3</span></a></li><li class="trm-toc-item trm-toc-level-3" title="1.10下载和编译 libvpx"><a rel="nofollow" class="trm-toc-link" href="#1-10下载和编译-libvpx"><span class="trm-toc-number">1.1.11.</span> <span class="trm-toc-text">1.10下载和编译 libvpx</span></a></li><li class="trm-toc-item trm-toc-level-3" title="1.11 下载 ffmpeg"><a rel="nofollow" class="trm-toc-link" href="#1-11-下载-ffmpeg"><span class="trm-toc-number">1.1.12.</span> <span class="trm-toc-text">1.11 下载 ffmpeg</span></a></li><li class="trm-toc-item trm-toc-level-3" title="1.12 查看结果"><a rel="nofollow" class="trm-toc-link" href="#1-12-查看结果"><span class="trm-toc-number">1.1.13.</span> <span class="trm-toc-text">1.12 查看结果</span></a></li><li class="trm-toc-item trm-toc-level-3" title="1.13 添加环境变量 PATH"><a rel="nofollow" class="trm-toc-link" href="#1-13-添加环境变量-PATH"><span class="trm-toc-number">1.1.14.</span> <span class="trm-toc-text">1.13 添加环境变量 PATH</span></a></li><li class="trm-toc-item trm-toc-level-3" title="2.1 安装 MSYS2(Windows msvc)"><a rel="nofollow" class="trm-toc-link" href="#2-1-安装-MSYS2-Windows-msvc"><span class="trm-toc-number">1.1.15.</span> <span class="trm-toc-text">2.1 安装 MSYS2(Windows msvc)</span></a></li><li class="trm-toc-item trm-toc-level-3" title="2.2 编译x264"><a rel="nofollow" class="trm-toc-link" href="#2-2-编译x264"><span class="trm-toc-number">1.1.16.</span> <span class="trm-toc-text">2.2 编译x264</span></a></li><li class="trm-toc-item trm-toc-level-3" title="2.3 编译fdk-aac(2020 07版本)"><a rel="nofollow" class="trm-toc-link" href="#2-3-编译fdk-aac-2020-07版本"><span class="trm-toc-number">1.1.17.</span> <span class="trm-toc-text">2.3 编译fdk-aac(2020 07版本)</span></a></li><li class="trm-toc-item trm-toc-level-3" title="2.4 编译x265"><a rel="nofollow" class="trm-toc-link" href="#2-4-编译x265"><span class="trm-toc-number">1.1.18.</span> <span class="trm-toc-text">2.4 编译x265</span></a></li><li class="trm-toc-item trm-toc-level-3" title="2.5 编译 ffmpeg-4.3"><a rel="nofollow" class="trm-toc-link" href="#2-5-编译-ffmpeg-4-3"><span class="trm-toc-number">1.1.19.</span> <span class="trm-toc-text">2.5 编译 ffmpeg-4.3</span></a></li><li class="trm-toc-item trm-toc-level-3" title="3.1 安装 SDK"><a rel="nofollow" class="trm-toc-link" href="#3-1-安装-SDK"><span class="trm-toc-number">1.1.20.</span> <span class="trm-toc-text">3.1 安装 SDK</span></a></li><li class="trm-toc-item trm-toc-level-3" title="4.1 Qt 使用 FFmpeg"><a rel="nofollow" class="trm-toc-link" href="#4-1-Qt-使用-FFmpeg"><span class="trm-toc-number">1.1.21.</span> <span class="trm-toc-text">4.1 Qt 使用 FFmpeg</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-4" title="4.1.1 C 语言配置"><a rel="nofollow" class="trm-toc-link" href="#4-1-1-C-语言配置"><span class="trm-toc-number">1.1.21.1.</span> <span class="trm-toc-text">4.1.1 C 语言配置</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-3" title="4.1.2 C++ 配置"><a rel="nofollow" class="trm-toc-link" href="#4-1-2-C-配置"><span class="trm-toc-number">1.1.22.</span> <span class="trm-toc-text">4.1.2 C++ 配置</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="2. FFmpeg 基本命令"><a rel="nofollow" class="trm-toc-link" href="#2-FFmpeg-基本命令"><span class="trm-toc-number">1.2.</span> <span class="trm-toc-text">2. FFmpeg 基本命令</span></a></li><li class="trm-toc-item trm-toc-level-2" title="3. 音视频处理流程"><a rel="nofollow" class="trm-toc-link" href="#3-音视频处理流程"><span class="trm-toc-number">1.3.</span> <span class="trm-toc-text">3. 音视频处理流程</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="3.1 直播客户端处理流程"><a rel="nofollow" class="trm-toc-link" href="#3-1-直播客户端处理流程"><span class="trm-toc-number">1.3.1.</span> <span class="trm-toc-text">3.1 直播客户端处理流程</span></a></li><li class="trm-toc-item trm-toc-level-3" title="3.2 音视频数据流"><a rel="nofollow" class="trm-toc-link" href="#3-2-音视频数据流"><span class="trm-toc-number">1.3.2.</span> <span class="trm-toc-text">3.2 音视频数据流</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="4. 声音"><a rel="nofollow" class="trm-toc-link" href="#4-声音"><span class="trm-toc-number">1.4.</span> <span class="trm-toc-text">4. 声音</span></a></li><li class="trm-toc-item trm-toc-level-2" title="5. 模数转换"><a rel="nofollow" class="trm-toc-link" href="#5-模数转换"><span class="trm-toc-number">1.5.</span> <span class="trm-toc-text">5. 模数转换</span></a></li><li class="trm-toc-item trm-toc-level-2" title="6. PCM 和 WAV"><a rel="nofollow" class="trm-toc-link" href="#6-PCM-和-WAV"><span class="trm-toc-number">1.6.</span> <span class="trm-toc-text">6. PCM 和 WAV</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="6.1 音频原始数据"><a rel="nofollow" class="trm-toc-link" href="#6-1-音频原始数据"><span class="trm-toc-number">1.6.1.</span> <span class="trm-toc-text">6.1 音频原始数据</span></a></li><li class="trm-toc-item trm-toc-level-3" title="6.2 量化基本概念"><a rel="nofollow" class="trm-toc-link" href="#6-2-量化基本概念"><span class="trm-toc-number">1.6.2.</span> <span class="trm-toc-text">6.2 量化基本概念</span></a></li><li class="trm-toc-item trm-toc-level-3" title="6.3 WAV Header"><a rel="nofollow" class="trm-toc-link" href="#6-3-WAV-Header"><span class="trm-toc-number">1.6.3.</span> <span class="trm-toc-text">6.3 WAV Header</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="7. 通过命令方式采集音频数据"><a rel="nofollow" class="trm-toc-link" href="#7-通过命令方式采集音频数据"><span class="trm-toc-number">1.7.</span> <span class="trm-toc-text">7. 通过命令方式采集音频数据</span></a></li><li class="trm-toc-item trm-toc-level-2" title="8. Swift 基础"><a rel="nofollow" class="trm-toc-link" href="#8-Swift-基础"><span class="trm-toc-number">1.8.</span> <span class="trm-toc-text">8. Swift 基础</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="8.1 基础语法"><a rel="nofollow" class="trm-toc-link" href="#8-1-基础语法"><span class="trm-toc-number">1.8.1.</span> <span class="trm-toc-text">8.1 基础语法</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="9. FFmpeg 采集音频流程"><a rel="nofollow" class="trm-toc-link" href="#9-FFmpeg-采集音频流程"><span class="trm-toc-number">1.9.</span> <span class="trm-toc-text">9. FFmpeg 采集音频流程</span></a></li><li class="trm-toc-item trm-toc-level-2" title="9. 音频压缩"><a rel="nofollow" class="trm-toc-link" href="#9-音频压缩"><span class="trm-toc-number">1.10.</span> <span class="trm-toc-text">9. 音频压缩</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="9.1 有损压缩技术"><a rel="nofollow" class="trm-toc-link" href="#9-1-有损压缩技术"><span class="trm-toc-number">1.10.1.</span> <span class="trm-toc-text">9.1 有损压缩技术</span></a></li><li class="trm-toc-item trm-toc-level-3" title="9.2 无损压缩技术"><a rel="nofollow" class="trm-toc-link" href="#9-2-无损压缩技术"><span class="trm-toc-number">1.10.2.</span> <span class="trm-toc-text">9.2 无损压缩技术</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="10. 常见的音频编解码器"><a rel="nofollow" class="trm-toc-link" href="#10-常见的音频编解码器"><span class="trm-toc-number">1.11.</span> <span class="trm-toc-text">10. 常见的音频编解码器</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="10.1 AAC(Advanced Audio Coding)编码器简介"><a rel="nofollow" class="trm-toc-link" href="#10-1-AAC-Advanced-Audio-Coding-编码器简介"><span class="trm-toc-number">1.11.1.</span> <span class="trm-toc-text">10.1 AAC(Advanced Audio Coding)编码器简介</span></a></li><li class="trm-toc-item trm-toc-level-3" title="10.2 ADTS 结构"><a rel="nofollow" class="trm-toc-link" href="#10-2-ADTS-结构"><span class="trm-toc-number">1.11.2.</span> <span class="trm-toc-text">10.2 ADTS 结构</span></a></li><li class="trm-toc-item trm-toc-level-3" title="10.3 ffmpeg 生成 AAC 文件"><a rel="nofollow" class="trm-toc-link" href="#10-3-ffmpeg-生成-AAC-文件"><span class="trm-toc-number">1.11.3.</span> <span class="trm-toc-text">10.3 ffmpeg 生成 AAC 文件</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="11. VS创建FFmpeg工程项目"><a rel="nofollow" class="trm-toc-link" href="#11-VS创建FFmpeg工程项目"><span class="trm-toc-number">1.12.</span> <span class="trm-toc-text">11. VS创建FFmpeg工程项目</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="11.1 创建基本文件"><a rel="nofollow" class="trm-toc-link" href="#11-1-创建基本文件"><span class="trm-toc-number">1.12.1.</span> <span class="trm-toc-text">11.1 创建基本文件</span></a></li><li class="trm-toc-item trm-toc-level-3" title="11.2 创建VS工程项目"><a rel="nofollow" class="trm-toc-link" href="#11-2-创建VS工程项目"><span class="trm-toc-number">1.12.2.</span> <span class="trm-toc-text">11.2 创建VS工程项目</span></a></li></ol></li></ol></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="Open toc">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="Back To Top">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="Searching...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    Please enter keywords to search
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.2"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.2"></script>
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="Makefile1. 简述 文件命名  makefile 或者 Makefile   文件命名  一个makefile文件中可以又一个或者多个规则    目标...: 依赖...       命令 (shell 命令)       ...          目标: 最终要生成的文件(伪目标除外)   依赖: 生成目标所需要的文件或是目标   命令: 通过执行命令对依赖操作生成目标(命令必须 TAb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Makefile">
+<meta property="og:url" content="http://example.com/2025/01/13/Makefile/index.html">
+<meta property="og:site_name" content="JarryLi&#39;s Blog">
+<meta property="og:description" content="Makefile1. 简述 文件命名  makefile 或者 Makefile   文件命名  一个makefile文件中可以又一个或者多个规则    目标...: 依赖...       命令 (shell 命令)       ...          目标: 最终要生成的文件(伪目标除外)   依赖: 生成目标所需要的文件或是目标   命令: 通过执行命令对依赖操作生成目标(命令必须 TAb">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-01-13T11:39:41.861Z">
+<meta property="article:modified_time" content="2025-01-15T12:45:42.873Z">
+<meta property="article:author" content="JarryLi">
+<meta name="twitter:card" content="summary">
+
+
+<title >Makefile</title>
+
+<!-- Favicon -->
+
+    <link href='/img/favicon.svg?v=2.2.2' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/img/favicon.svg?v=2.2.2' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"JarryLi","root":"/","typed_text":null,"theme_version":"2.2.2","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"/img/favicon.svg","icon16":"/img/favicon.svg","icon32":"/img/favicon.svg","apple_touch_icon":null,"webmanifest":null,"visibilitychange":false,"hidden":"/failure.ico","show_text":"(/≧▽≦/)Hey! Good again!","hide_text":"(●—●)Oh, crash!"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","sticky":"TOP","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false},"toc":{"post_title":true},"live_time":{"start_time":"01/01/2024 00:00:00","prefix":"The blog has been lovely to run undefined day"},"danmu":{"enable":false,"el":".trm-banner"},"search":{"enable":true,"type":"local","trigger":"auto","path":"search.xml"}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2025-01-15 20:45:42"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.2.2" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+
+ 
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
+    </div>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" style="opacity: 0">
+            <!-- top bar -->
+            <header class="trm-top-bar">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<!-- <a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/img/favicon.svg">
+    
+    
+        <div class="trm-logo-text">
+            Async<span>Theme</span>
+        </div>
+    
+</a> -->
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    Home
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    Archives
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+    
+    <div id="trm-search-btn" class="trm-search-btn">
+        <i class="iconfont fas fa-search"></i>
+    </div>
+     
+
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner">
+    
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" src="/img/banner.png">
+    <!-- banner cover end -->
+    
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            Makefile
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2025
+                                    </span>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <span id="scroll-triger" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </span>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div class="trm-page-sidebar col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    <div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card"> 
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        JarryLi
+    </h5>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com/jarryLi-max" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                Residence:
+            </div>
+            <div class="trm-label trm-label-light">
+                China
+            </div>
+        </li>
+        <li>
+            <div class="trm-label">
+                email:
+            </div>
+            <div class="trm-label trm-label-light">
+                2976562002@qq.com
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div class="trm-page-content col-lg-8">
+                <div id="trm-content" class="trm-content">
+                    <div class="trm-post-info row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            01/13
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            19:39
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            JarryLi
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h1 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h1><h2 id="1-简述"><a href="#1-简述" class="headerlink" title="1. 简述"></a>1. 简述</h2><ul>
+<li><p>文件命名</p>
+<ul>
+<li><code>makefile</code> 或者 <code>Makefile</code></li>
+</ul>
+</li>
+<li><p>文件命名</p>
+<ul>
+<li><p>一个makefile文件中可以又一个或者多个规则</p>
+</li>
+<li><pre><code class="makefile">  目标...: 依赖...
+      命令 (shell 命令)
+      ...
+      
+  目标: 最终要生成的文件(伪目标除外)
+  依赖: 生成目标所需要的文件或是目标
+  命令: 通过执行命令对依赖操作生成目标(命令必须 TAb 缩进)
+  
+  Makefile的其他规则一般都是为第一条规则服务的 
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 2. 生成可执行文件 app</span><br><span class="line"></span><br><span class="line">```makefile</span><br><span class="line"># app 是目标名称</span><br><span class="line">app: sub.c add.c mult.c div.c main.c</span><br><span class="line">	gcc sub.c add.c mult.c div.c main.c -o app</span><br></pre></td></tr></table></figure>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成 app 文件</span></span><br><span class="line"><span class="section">app: sub.o add.o mult.o div.o main.o</span></span><br><span class="line">	gcc sub.o add.o mult.o div.o main.o -o app</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成 .o 文件</span></span><br><span class="line"><span class="section">sub.o: sub.c</span></span><br><span class="line">	gcc -c sub.c -o sub.o</span><br><span class="line"></span><br><span class="line"><span class="section">add.o: add.c</span></span><br><span class="line">	gcc -c add.c -o add.o</span><br><span class="line"></span><br><span class="line"><span class="section">mult.o: mult.c</span></span><br><span class="line">	gcc -c mult.c -o mult.o</span><br><span class="line"></span><br><span class="line"><span class="section">div.o: div.c</span></span><br><span class="line">	gcc -c div.c -o div.o</span><br><span class="line"></span><br><span class="line"><span class="section">main.o: main.c</span></span><br><span class="line">	gcc -c main.c -o main.o</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-Makefile-变量"><a href="#3-Makefile-变量" class="headerlink" title="3. Makefile 变量"></a>3. Makefile 变量</h2><ul>
+<li><p>自定义变量</p>
+<ul>
+<li>变量名 &#x3D; 变量值 <code>var = hello</code></li>
+</ul>
+</li>
+<li><p>预定义变量</p>
+<ul>
+<li><code>AR</code>: 归档维护程序的名称，默认值为 ar</li>
+<li><code>CC</code>: C编译器的名称，默认值为 cc</li>
+<li><code>CXX</code>: C++编译器名称，默认值为 g++</li>
+</ul>
+</li>
+<li><p>自动变量(自动变量只能在规则的命令中使用)</p>
+<ul>
+<li><code>$@</code>: 目标的完整名称，在这个规则中，目标文件是 <code>.o</code> 文件。例如，当处理 <code>main.cpp</code> 时，<code>$@</code> 就是 <code>main.o</code>；</li>
+<li><code>$&lt;</code>:第一个依赖文件的名称，对于这条规则来说，第一个依赖是 <code>.cpp</code> 文件。因此，当处理 <code>main.o</code> 时，<code>$&lt;</code> 就是 <code>main.cpp</code>；</li>
+<li><code>$^</code>:所有的依赖文件</li>
+</ul>
+</li>
+<li><p>获取变量的值</p>
+<ul>
+<li><code>$(变量名)</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="4-Makefile-模式匹配"><a href="#4-Makefile-模式匹配" class="headerlink" title="4.Makefile 模式匹配"></a>4.Makefile 模式匹配</h2><ul>
+<li><code>%.O: %.c</code><ul>
+<li><code>%:</code>通配符,匹配一个字符串，两个<code>%</code>匹配的是同一个字符串</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-函数"><a href="#5-函数" class="headerlink" title="5. 函数"></a>5. 函数</h2><h3 id="5-1-wildcard："><a href="#5-1-wildcard：" class="headerlink" title="5.1 wildcard："></a>5.1 wildcard：</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">wildcard</span> PARRETN...)</span></span><br><span class="line">	功能: 获取指定目录下指定类型的文件列表</span><br><span class="line">	参数: PARRETN指的是某个或多个目录下对应的某种类型的文件，如果有多个目录，一般使用空格间隔</span><br><span class="line">	返回: 得到的若干文件的文件列表，文件名之间使用空格间隔</span><br></pre></td></tr></table></figure>
+
+<p>比如:</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">wildcard</span> *.c ./sub/*.c)</span></span><br><span class="line">获取当前目录下的 .c 文件和 sub 文件下的 .c文件</span><br><span class="line"><span class="section">返回值格式: a.b b.c c.c d.c e.c f.c</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-2-patsubst："><a href="#5-2-patsubst：" class="headerlink" title="5.2 patsubst："></a>5.2 patsubst：</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">patsubst</span> &lt;pattern&gt;, &lt;replacement&gt;, &lt;text&gt;)</span> </span><br><span class="line">	功能: 查找&lt;text&gt;中单词(单词以<span class="string">&quot;空格&quot;</span>、<span class="string">&quot;Tab&quot;</span>、<span class="string">&quot;回车&quot;</span>或<span class="string">&quot;换行&quot;</span>分割)是否符合模式&lt;pattern&gt;，如果符合的话，使用&lt;replacement&gt;替换</span><br><span class="line">	 &lt;pattern&gt;: 可以包括通配符&#x27;%&#x27;，表示任意长度的字符串。如果&lt;replacement&gt;中的&#x27;%&#x27;将是&lt;pattern&gt;中的&#x27;%&#x27;所代表的字符串。(可以用&#x27;\&#x27;来转义，以&#x27;\%&#x27;来表示真实含义的&#x27;%&#x27;字符)</span><br><span class="line">	 返回: 返回替换完的字符</span><br></pre></td></tr></table></figure>
+
+<p>比如：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$(<span class="built_in">patsubst</span> %.c, %.o, x.c bar.c)</span></span><br><span class="line"><span class="section">text: x.c bar.c</span></span><br><span class="line"><span class="comment"># 将 .c 文件 替换为 .o 文件</span></span><br><span class="line"><span class="section">返回值格式: x.o bar.o</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-3-clean"><a href="#5-3-clean" class="headerlink" title="5.3 clean:"></a>5.3 clean:</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除 objs 对应的文件</span></span><br><span class="line"><span class="comment"># 伪目标: 不生成clean文件</span></span><br><span class="line"><span class="meta"><span class="keyword">.PHONY</span>:clean</span></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	rm <span class="variable">$(objs)</span> -rf</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-最终的文件"><a href="#6-最终的文件" class="headerlink" title="6. 最终的文件"></a>6. 最终的文件</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义变量</span></span><br><span class="line">src = <span class="variable">$(<span class="built_in">wildcard</span> ./*.c)</span></span><br><span class="line">objs = <span class="variable">$(<span class="built_in">patsubst</span> %.c, %.o, <span class="variable">$(src)</span>)</span></span><br><span class="line"></span><br><span class="line">target = app</span><br><span class="line"></span><br><span class="line"><span class="variable">$(target)</span>: <span class="variable">$(objs)</span></span><br><span class="line">	<span class="variable">$(CC)</span> <span class="variable">$(src)</span> -o <span class="variable">$(target)</span></span><br><span class="line"></span><br><span class="line"><span class="section">%.o: %.c</span></span><br><span class="line">	<span class="variable">$(CC)</span> -c <span class="variable">$&lt;</span> -o <span class="variable">$@</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除所有 .o 文件</span></span><br><span class="line"><span class="meta"><span class="keyword">.PHONY</span>:clean</span></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	rm <span class="variable">$(objs)</span> -rf</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-测试代码"><a href="#7-测试代码" class="headerlink" title="7. 测试代码"></a>7. 测试代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> _HEAD_H_</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> _HEAD_H_</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">div</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">mult</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>; </span><br><span class="line"><span class="type">int</span> <span class="title function_">sub</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">// !_HEAD_H_</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;head.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;head.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">div</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> a / b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;head.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">mult</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> a * b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;head.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">sub</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> a - b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;head.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">20</span>;</span><br><span class="line">    <span class="type">int</span> b = <span class="number">12</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a = %d, b = %d\n&quot;</span>, a, b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a + b = %d\n&quot;</span>, add(a, b));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a - b = %d\n&quot;</span>, sub(a, b));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a * b = %d\n&quot;</span>, mult(a, b));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a / b = %d\n&quot;</span>, div(a, b));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</article>
+    
+    <div class="trm-reward">
+        
+            <span class="trm-reward-btn trm-glow" onclick='var qr = document.getElementById("qr"); qr.style.display = (qr.style.display === "none") ? "block" : "none";'>
+                <i class="iconfont fas fa-hand-holding-usd"></i>
+            </span>
+        
+        <p class="trm-reward-comment">sponsor</p>
+        <div id="qr" style="display:none;">
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='/img/wechat.jpg' target='_blank' >
+                       <img src="/img/wechat.jpg" alt="微信" loading="lazy">
+                    </a>
+                    <p>微信</p>
+                </div>
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='/img/zhifubao.jpg' target='_blank' >
+                       <img src="/img/zhifubao.jpg" alt="支付宝" loading="lazy">
+                    </a>
+                    <p>支付宝</p>
+                </div>
+            
+        </div>
+    </div>
+
+    
+
+</div>
+<div class="trm-post-next-prev row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            Other Articles
+            <span data-number="02"></span>
+        </h5>
+    </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2025/02/01/FFmpeg%E7%BC%96%E8%AF%91/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/C/">
+                    C++
+                </a>
+            </div>
+            <h5>
+                <a href="/2025/02/01/FFmpeg%E7%BC%96%E8%AF%91/" class="trm-anima-link">
+                    FFmpeg编译
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>25/02/01</li>
+                <li>17:11</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation">
+        <a href="/2025/01/13/Ubuntu16.04%E9%85%8D%E7%BD%AEFFmpeg/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" /categories/C/">
+                    C++
+                </a>
+            </div>
+            <h5>
+                <a href="/2025/01/13/Ubuntu16.04%E9%85%8D%E7%BD%AEFFmpeg/" class="trm-anima-link">
+                    Ubuntu16.04 配置 Ffmpeg
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>25/01/13</li>
+                <li>11:13</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-footer-card trm-scroll-animation">
+
+    
+
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                Powered by <a href="https://github.com/jarryLi-max" target="_blank" rel="noopener">JarryLi</a> 
+                <!-- v7.3.0 -->
+            </span>
+            <!-- <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                Theme - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.2.2
+            </span> -->
+        </div>
+      
+
+    
+        <div class="trm-footer-item blog-run-long"></div>
+     
+
+     
+</footer>
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- body end -->
+
+            
+
+    <div id="post-toc" class="trm-post-toc">
+      <div class="trm-post-toc-header">
+        Article table of contents
+				<span id="post-toc-top">
+					TOP
+				</span>
+      </div>
+      <div class="trm-post-toc-content">
+        <ol class="trm-toc"><li class="trm-toc-item trm-toc-level-1" title="Makefile"><a rel="nofollow" class="trm-toc-link" href="#Makefile"><span class="trm-toc-number">1.</span> <span class="trm-toc-text">Makefile</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-2" title="1. 简述"><a rel="nofollow" class="trm-toc-link" href="#1-简述"><span class="trm-toc-number">1.1.</span> <span class="trm-toc-text">1. 简述</span></a></li><li class="trm-toc-item trm-toc-level-2" title="3. Makefile 变量"><a rel="nofollow" class="trm-toc-link" href="#3-Makefile-变量"><span class="trm-toc-number">1.2.</span> <span class="trm-toc-text">3. Makefile 变量</span></a></li><li class="trm-toc-item trm-toc-level-2" title="4.Makefile 模式匹配"><a rel="nofollow" class="trm-toc-link" href="#4-Makefile-模式匹配"><span class="trm-toc-number">1.3.</span> <span class="trm-toc-text">4.Makefile 模式匹配</span></a></li><li class="trm-toc-item trm-toc-level-2" title="5. 函数"><a rel="nofollow" class="trm-toc-link" href="#5-函数"><span class="trm-toc-number">1.4.</span> <span class="trm-toc-text">5. 函数</span></a><ol class="trm-toc-child"><li class="trm-toc-item trm-toc-level-3" title="5.1 wildcard："><a rel="nofollow" class="trm-toc-link" href="#5-1-wildcard："><span class="trm-toc-number">1.4.1.</span> <span class="trm-toc-text">5.1 wildcard：</span></a></li><li class="trm-toc-item trm-toc-level-3" title="5.2 patsubst："><a rel="nofollow" class="trm-toc-link" href="#5-2-patsubst："><span class="trm-toc-number">1.4.2.</span> <span class="trm-toc-text">5.2 patsubst：</span></a></li><li class="trm-toc-item trm-toc-level-3" title="5.3 clean:"><a rel="nofollow" class="trm-toc-link" href="#5-3-clean"><span class="trm-toc-number">1.4.3.</span> <span class="trm-toc-text">5.3 clean:</span></a></li></ol></li><li class="trm-toc-item trm-toc-level-2" title="6. 最终的文件"><a rel="nofollow" class="trm-toc-link" href="#6-最终的文件"><span class="trm-toc-number">1.5.</span> <span class="trm-toc-text">6. 最终的文件</span></a></li><li class="trm-toc-item trm-toc-level-2" title="7. 测试代码"><a rel="nofollow" class="trm-toc-link" href="#7-测试代码"><span class="trm-toc-number">1.6.</span> <span class="trm-toc-text">7. 测试代码</span></a></li></ol></li></ol>
+      </div>
+    </div>
+
+            
+<div class="trm-fixed-container">
+    
+        <div class="trm-fixed-btn post-toc-btn" data-title="Open toc">
+            <i class="iconfont fas fa-th-list"></i>
+        </div>
+    
+    
+        <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="Back To Top">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+        </div>
+      </div>
+      <!-- scroll container end -->
+  </div>
+  <!-- app wrapper end -->
+
+  
+    <div class="trm-search-popup">
+        <div class="trm-search-wrapper">
+            <div class="form trm-search-form">
+                <div class="trm-search-input-icon">
+                    <i class="iconfont fas fa-search"></i>
+                </div>
+                <input class="trm-search-input" type="text" placeholder="Searching...">
+                <div class="trm-search-btn-close">
+                    <i class="iconfont fas fa-times"></i>
+                </div>
+            </div>
+            <div class="trm-search-result-container">
+                <div class="trm-search-empty">
+                    Please enter keywords to search
+                </div>
+            </div>
+            <div class="trm-search-footer">
+                <div class="trm-search-stats"></div>
+                <ul class="trm-search-commands">
+                    <li>
+                        <kbd class="command-palette-commands-key">
+                            <svg width="15" height="15" aria-label="Escape key" role="img">
+                                <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="1.2">
+                                    <path
+                                        d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956">
+                                    </path>
+                                </g>
+                            </svg>
+                        </kbd>
+                        <span class="command-palette-Label">to close</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+
+    
+        
+<script src="https://unpkg.com/hexo-generator-searchdb@1.4.0/dist/search.js"></script>
+
+        <script src="/js/plugins/local_search.js?v=2.2.2"></script>
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+		
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.2.2"></script>
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+</body>
+
+</html>
